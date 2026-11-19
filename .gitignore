@@ -1,0 +1,7 @@
+/target/
+rust/target/
+rust/app/Cargo.lock
+**/*.rs.bk
+.env
+*.log
+.DS_Store

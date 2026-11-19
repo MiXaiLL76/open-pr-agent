@@ -1,0 +1,95 @@
+name: PR Agent commands
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: pr-agent-comment-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  command:
+    # PR comments only, from OWNER/MEMBER/COLLABORATOR, naming a command.
+    if: >-
+      github.event.issue.pull_request &&
+      contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association) &&
+      (github.event.comment.body == '/review' ||
+       github.event.comment.body == '/describe' ||
+       startsWith(github.event.comment.body, '/ask '))
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 20
+    env:
+      PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
+    steps:
+      - name: Check configuration
+        run: |
+          test -n "$PR_AGENT_MODEL" || {
+            echo '::error::Set PR_AGENT_MODEL (provider/model) as a GitHub Secret.'
+            exit 1
+          }
+          test -f /home/runner/.config/opencode/opencode.jsonc || {
+            echo '::error::The runner needs the opencode engine config at /home/runner/.config/opencode.'
+            exit 1
+          }
+
+      - name: Run command from the comment
+        env:
+          GITHUB__USER_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json, os, subprocess, sys, urllib.request
+
+          with open(os.environ["GITHUB_EVENT_PATH"], encoding="utf-8") as event_file:
+              event = json.load(event_file)
+          body = event["comment"]["body"].strip()
+          if body in ("/review", "/describe"):
+              command, extra = body[1:], []
+          else:  # /ask <question>
+              question = body[5:].strip()
+              if len(question) >= 2 and question[0] == question[-1] and question[0] in ('"', "'"):
+                  question = question[1:-1]
+              command, extra = "ask", ([question] if question else [])
+
+          repo = os.environ["GITHUB_REPOSITORY"]
+          number = event["issue"]["number"]
+          request = urllib.request.Request(
+              f"https://api.github.com/repos/{repo}/pulls/{number}",
+              headers={
+                  "Authorization": f"Bearer {os.environ['GITHUB__USER_TOKEN']}",
+                  "Accept": "application/vnd.github+json",
+              },
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              pr = json.load(response)
+          if pr["head"]["repo"]["full_name"] != repo:
+              print("Skipping a PR from a fork")
+              sys.exit(0)
+
+          result = subprocess.run([
+              "docker", "run", "--rm", "--network", "host",
+              "-v", "/home/runner/.config/opencode:/root/.config/opencode:ro",
+              "-v", "/etc/ssl/certs:/etc/ssl/certs:ro",
+              *[item for name in ("GITHUB__USER_TOKEN", "OPENCODE__MODEL",
+                                  "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY",
+                                  "http_proxy", "https_proxy", "no_proxy")
+                for item in ("-e", name)],
+              "-e", "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+              "-e", f"PR_URL={pr['html_url']}",
+              "-e", f"COMMAND={command}",
+              os.environ["PR_AGENT_IMAGE"],
+              *extra,
+          ], text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+          print(result.stdout, end="")
+          if result.returncode or any(marker in result.stdout for marker in (
+              "Failed to review", "Failed to describe", "Failed to answer",
+              "Failed to process",
+          )):
+              sys.exit(result.returncode or 1)
+          PY

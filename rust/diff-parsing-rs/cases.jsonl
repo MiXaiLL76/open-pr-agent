@@ -1,0 +1,268 @@
+{"fn": "to_hunk_only_patch", "args": ["key_name-1line1\nline2"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["  padded  "], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["straße"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["trailing."], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["İstanbul"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["{name} has {count} itemsHELLO"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["﻿bom"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["😀"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["é"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a😀b😀c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["key_name-1"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [":"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ΣΊΣΥΦΟΣline1\nline2"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [""], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["hello world"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [".leadinga.b.c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ΣΊΣΥΦΟΣ"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["helloa..b"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["HELLOa:b:c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["abchello"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["line1\nline2"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["tab\tseparated"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a:b:c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["src/a/b.ts"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ab"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["{name} has {count} items"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["abc"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ns:key.path"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [":é"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a.b.c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["abHELLO"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [".leading"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["HELLO"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a..b"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["日本語のテキストa"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ns:key.pathΣΊΣΥΦΟΣ"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["abhello world"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["Hello World"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["abİstanbul"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["key_name-1Hello World"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["Hello WorldHELLO"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ΣΊΣΥΦΟΣé"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["straßeünïcödé"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a﻿bom"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["./x/**/*.json"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": [":  padded  "], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["é﻿bom"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["日本語のテキスト"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["{name} has {count} itemsa"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ünïcödéa.b.c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a.b.cünïcödé"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["emoji 👍🏽 mix"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ünïcödé"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["line1\nline2a:b:c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["emoji 👍🏽 mixa.b.c"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["hello"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a😀b😀ca..b"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ans:key.path"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["trailing.{name} has {count} items"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["héllo wörld"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["👍🏽 thumbs"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["日本語"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ılık ırmak"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["👨‍👩‍👧 family"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a b"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a😀b"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["Iı İi"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["K K k"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ſ s S"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["x‍y 👨‍👩‍👧"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["a b c　d"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["١٢٣ ٤٥"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["𝟘𝟙 ²³"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["snake_case foo-bar o'neil"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ǅungla Ǆ"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["one\r\ntwo threefour"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["café café"], "ok": ""}
+{"fn": "to_hunk_only_patch", "args": ["ΣΑΣ σας ς"], "ok": ""}
+{"fn": "parse_unified_diff", "args": ["  padded  😀"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["﻿bom"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ab"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a..b"], "ok": []}
+{"fn": "parse_unified_diff", "args": [":"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["./x/**/*.json"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["hello world"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["éab"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["absrc/a/b.ts"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["emoji 👍🏽 mix"], "ok": []}
+{"fn": "parse_unified_diff", "args": [""], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a😀b😀c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["İstanbul"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ünïcödé"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["日本語のテキストa😀b😀c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["src/a/b.ts"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["{name} has {count} itemsHello World"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["line1\nline2"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["{name} has {count} items"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["HELLO"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["İstanbul  padded  "], "ok": []}
+{"fn": "parse_unified_diff", "args": ["abc"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["key_name-1"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["tab\tseparated"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a.b.c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ünïcödéİstanbul"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a:b:c{name} has {count} items"], "ok": []}
+{"fn": "parse_unified_diff", "args": [".leading"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["hello"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ΣΊΣΥΦΟΣ"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ΣΊΣΥΦΟΣ﻿bom"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["é"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["İstanbul﻿bom"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["Hello World  padded  "], "ok": []}
+{"fn": "parse_unified_diff", "args": ["Hello World"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["😀"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["trailing."], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ns:key.pathtab\tseparated"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["日本語のテキスト"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["straße"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["hello:"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["HELLOa..b"], "ok": []}
+{"fn": "parse_unified_diff", "args": [":.leading"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["﻿boma..b"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a..ba.b.c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a:b:c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["hellosrc/a/b.ts"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["  padded  "], "ok": []}
+{"fn": "parse_unified_diff", "args": ["helloHELLO"], "ok": []}
+{"fn": "parse_unified_diff", "args": [":﻿bom"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["éa.b.c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["﻿boma😀b😀c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["key_name-1é"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a..b😀"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["helloa😀b😀c"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["abcline1\nline2"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["日本語のテキストHello World"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["İstanbul.leading"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["é./x/**/*.json"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["héllo wörld"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["👍🏽 thumbs"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["日本語"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ılık ırmak"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["👨‍👩‍👧 family"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a b"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a😀b"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["Iı İi"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["K K k"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ſ s S"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["x‍y 👨‍👩‍👧"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["a b c　d"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["١٢٣ ٤٥"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["𝟘𝟙 ²³"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["snake_case foo-bar o'neil"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ǅungla Ǆ"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["one\r\ntwo threefour"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["café café"], "ok": []}
+{"fn": "parse_unified_diff", "args": ["ΣΑΣ σας ς"], "ok": []}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["日本語のテキストsrc/a/b.ts", "éemoji 👍🏽 mix"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a.b.c", "😀﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["O", "HELLO"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["😀trailing.", "abca..b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["Hello World", "abc"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["  padded  ", "DDE"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["tab\tseparated", "a.b.c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["é", "é"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["line1\nline2Hello World", "a..b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["😀", "./x/**/*.json"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a", ""], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["line1\nline2", "hello"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a..b", "line1\nline2"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": [".leadingΣΊΣΥΦΟΣ", "a..b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ünïcödé", "tab\tseparateda😀b😀c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["{name} has {count} itemsHELLO", "ab"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ΣΊΣΥΦΟΣa.b.c", "tab\tseparated{name} has {count} items"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["./x/**/*.json", "./x/**/*.jsona😀b😀c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": [":", ":"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a..b", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["straße", "😀"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a.b.c", "trailing."], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["O", "﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["hello", "hello"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ünïcödéline1\nline2", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a", "A"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["  padded  ", "ns:key.path"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["line1\nline2", "ne1\nli"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["日本語のテキスト", "日本語のテキストa.b.c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["trailing.", "src/a/b.ts﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["  padded  ", "﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["﻿bom", "  padded  "], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["😀:", ".leading"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["hello worldemoji 👍🏽 mix", "a..b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["日本語のテキスト", "hello worldé"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["tab\tseparated", "ed"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["  padded  ", "  padded  "], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["hel", "hello"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["HELLO", "src/a/b.ts"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["emoji 👍🏽 mix", "a..b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["{name} has {count} items", "trailing."], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["😀", "😀"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["é", "ünïcödé"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ab", "emoji 👍🏽 mixa.b.c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["é", "ns:key.path"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a", "a😀b😀c﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["tab\tseparated", "eparat"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["./x/**/*.json", "ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["  padded  ", "日本語のテキスト"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["hello world", "a"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ail", "trailing."], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["﻿bom", "Hello World"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["HELLO", "abcemoji 👍🏽 mix"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["Hello World", "src/a/b.ts"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["abc", "hello worldtrailing."], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": [".leading", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": [".leading", "lea"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["B.", "a.b.cab"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a:b:c", "./x/**/*.jsonhello world"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["héllo wörld", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["👍🏽 thumbs", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["日本語", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["é", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["İstanbul", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["straße", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ılık ırmak", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["👨‍👩‍👧 family", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a b", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ΣΊΣΥΦΟΣ", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a😀b", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["﻿bom", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["Iı İi", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["K K k", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ſ s S", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["x‍y 👨‍👩‍👧", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["a b c　d", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["١٢٣ ٤٥", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["𝟘𝟙 ²³", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["snake_case foo-bar o'neil", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ǅungla Ǆ", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["one\r\ntwo threefour", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["café café", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["ΣΑΣ σας ς", "a:b:c"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "héllo wörld"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "👍🏽 thumbs"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "日本語"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", ""], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "é"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "İstanbul"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "straße"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "ılık ırmak"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "👨‍👩‍👧 family"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "a b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "a😀b"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "﻿bom"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "Iı İi"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "K K k"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "ſ s S"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "x‍y 👨‍👩‍👧"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "a b c　d"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "١٢٣ ٤٥"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "𝟘𝟙 ²³"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "snake_case foo-bar o'neil"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "ǅungla Ǆ"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "one\r\ntwo threefour"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "café café"], "ok": null}
+{"fn": "reconstruct_base_file_checked", "args": ["src/a/b.ts", "ΣΑΣ σας ς"], "ok": null}

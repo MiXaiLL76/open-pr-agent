@@ -1,0 +1,80 @@
+{"fn": "apply_host_settings", "args": [], "ok": null}
+{"fn": "apply_repo_settings", "args": [{}], "error": "ValueError: Failed to get git provider for {}"}
+{"fn": "apply_repo_settings", "args": [[]], "error": "ValueError: Failed to get git provider for []"}
+{"fn": "apply_repo_settings", "args": [true], "error": "ValueError: Failed to get git provider for True"}
+{"fn": "apply_repo_settings", "args": ["x"], "error": "ValueError: Failed to get git provider for x"}
+{"fn": "apply_repo_settings", "args": [["a", 1]], "error": "ValueError: Failed to get git provider for ['a', 1]"}
+{"fn": "apply_repo_settings", "args": [null], "error": "ValueError: Failed to get git provider for None"}
+{"fn": "apply_repo_settings", "args": [0], "error": "ValueError: Failed to get git provider for 0"}
+{"fn": "apply_repo_settings", "args": [{"a": {"b": "c"}}], "error": "ValueError: Failed to get git provider for {'a': {'b': 'c'}}"}
+{"fn": "apply_repo_settings", "args": [{"a": "b"}], "error": "ValueError: Failed to get git provider for {'a': 'b'}"}
+{"fn": "apply_repo_settings", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "ValueError: Failed to get git provider for {'zebra': 1, 'apple': 2, '10': 3, '2': 4, 'é': 5, 'Apple': 6}"}
+{"fn": "apply_repo_settings", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "ValueError: Failed to get git provider for {'n': 9007199254740993, 'f': 1e+21, 't': 0.1, 'neg': -7}"}
+{"fn": "apply_repo_settings", "args": [[3, 1, 2]], "error": "ValueError: Failed to get git provider for [3, 1, 2]"}
+{"fn": "handle_configurations_errors", "args": [["a", 1], ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["X", "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, null], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": {"b": "c"}}, 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": {"b": "c"}}, null], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": {"b": "c"}}, []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, true], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, null], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": {"b": "c"}}, {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [0, []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], null], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, "x"], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": ["x", null], "ok": null}
+{"fn": "handle_configurations_errors", "args": [null, {"a": "b"}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, null], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, {"a": {"b": "c"}}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[], {}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"a": "b"}, []], "ok": null}
+{"fn": "handle_configurations_errors", "args": [true, 0], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [[3, 1, 2], ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [{}, ["a", 1]], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "ok": null}
+{"fn": "handle_configurations_errors", "args": [["a", 1], [3, 1, 2]], "ok": null}

@@ -1,0 +1,67 @@
+name: PR Agent
+
+on:
+  pull_request:
+    branches: [dev, main]
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: pr-agent-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    # Same-repository PRs only; forks get no write token path.
+    if: >-
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      !github.event.pull_request.draft
+    runs-on: [self-hosted, Linux, X64]
+    timeout-minutes: 20
+    env:
+      PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
+    steps:
+      - name: Check configuration
+        run: |
+          test -n "$PR_AGENT_MODEL" || {
+            echo '::error::Set PR_AGENT_MODEL (provider/model) as a GitHub Secret.'
+            exit 1
+          }
+          test -f /home/runner/.config/opencode/opencode.jsonc || {
+            echo '::error::The runner needs the opencode engine config at /home/runner/.config/opencode.'
+            exit 1
+          }
+
+      # The engine preflight: binary + model + one-shot completion ping.
+      # Replaces the old inline Python /models probe.
+      - name: Check engine
+        run: |
+          docker run --rm --network host \
+            -v /home/runner/.config/opencode:/root/.config/opencode:ro \
+            -v /etc/ssl/certs:/etc/ssl/certs:ro \
+            -e SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+            -e OPENCODE__MODEL \
+            --entrypoint pr_agent "$PR_AGENT_IMAGE" doctor
+
+      - name: Review pull request
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB__USER_TOKEN: ${{ github.token }}
+        run: |
+          docker run --rm --network host \
+            -v /home/runner/.config/opencode:/root/.config/opencode:ro \
+            -v /etc/ssl/certs:/etc/ssl/certs:ro \
+            -e PR_URL -e GITHUB__USER_TOKEN -e OPENCODE__MODEL \
+            -e SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+            -e HTTP_PROXY -e HTTPS_PROXY -e NO_PROXY -e ALL_PROXY \
+            -e http_proxy -e https_proxy -e no_proxy -e all_proxy \
+            "$PR_AGENT_IMAGE" 2>&1 | tee "$RUNNER_TEMP/pr-agent.log"
+          if grep -Eq 'Failed to (review|process)' "$RUNNER_TEMP/pr-agent.log"; then
+            echo '::error::PR-Agent could not complete the review; see the log above.'
+            exit 1
+          fi

@@ -1,0 +1,53 @@
+# GitLab CI: auto-review merge requests with pr-agent (Rust build).
+#
+# Copy into .gitlab-ci.yml (or `include:` it) and set the CI variables below.
+# Requires a self-hosted Linux runner with the docker executor, the opencode
+# engine config mounted read-only into job containers (runner config:
+#   volumes = ["/home/runner/.config/opencode:/root/.config/opencode:ro"]
+# and the corporate CA bundle if the model endpoint is behind a proxy:
+#   environment = ["SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"]
+# ).
+#
+# CI variables to set (masked):
+#   PR_AGENT_GITLAB_TOKEN  project access token with api scope
+#   PR_AGENT_MODEL         engine model as provider/model
+#   PR_AGENT_IMAGE         registry reference, digest-pinned in production
+
+pr-agent-review:
+  image: $PR_AGENT_IMAGE
+  stage: test
+  timeout: 20 minutes
+
+  # MR pipelines only: opened, pushed-to, reopened. A new push replaces the
+  # older review (detached MR pipelines are inherently one per state).
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+  variables:
+    GITLAB__USER_TOKEN: $PR_AGENT_GITLAB_TOKEN
+    OPENCODE__MODEL: $PR_AGENT_MODEL
+
+  before_script:
+    - |
+      test -n "$GITLAB__USER_TOKEN" || {
+        echo "Set PR_AGENT_GITLAB_TOKEN (project access token, api scope) as a CI variable."; exit 1;
+      }
+      test -n "$OPENCODE__MODEL" || {
+        echo "Set PR_AGENT_MODEL (provider/model) as a CI variable."; exit 1;
+      }
+      pr_agent doctor # engine preflight: binary + model + one-shot completion ping
+
+  script:
+    - |
+      PR_URL="$CI_MERGE_REQUEST_PROJECT_URL/-/merge_requests/$CI_MERGE_REQUEST_IID"
+      set -o pipefail
+      pr_agent --pr_url "$PR_URL" review 2>&1 | tee pr-agent.log
+      if grep -Eq 'Failed to (review|process)' pr-agent.log; then
+        echo "pr-agent could not complete the review; see the log above."; exit 1;
+      fi
+
+  artifacts:
+    when: always
+    paths:
+      - pr-agent.log
+    expire_in: 1 week

@@ -1,0 +1,12 @@
+[package]
+name = "utils-rs"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "Provider utilities: settings application and repr rendering"
+
+[dependencies]
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }

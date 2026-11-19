@@ -1,0 +1,33 @@
+# GitLab webhook service: pr_agent_server handling merge-request events.
+#
+# Unlike per-push CI jobs, a long-running service reacts to MR events (and
+# can later cover note commands) without scheduling pipelines. GitLab
+# delivers webhooks to it; it dispatches the same CLI pipeline.
+#
+# Deploy: docker compose up -d, then add the webhook in GitLab:
+#   Settings > Webhooks > https://pr-agent.internal:3000/gitlab/webhook
+#   triggers: merge request events, secret = the GITLAB_WEBHOOK_SECRET below.
+
+services:
+  pr-agent:
+    image: ${PR_AGENT_IMAGE} # e.g. registry.example.com/pr-agent@sha256:<digest>
+    restart: unless-stopped
+    # The image entrypoint runs the CLI; the service is the other binary.
+    entrypoint: ["pr_agent_server"]
+    ports:
+      - "3000:3000"
+    environment:
+      # GitLab API token (project or group access token, api scope).
+      GITLAB__USER_TOKEN: ${PR_AGENT_GITLAB_TOKEN}
+      # GitLab instance the API lives on (self-managed: your own URL).
+      GITLAB__URL: https://gitlab.example.com
+      # Engine model as provider/model; must exist in the opencode config.
+      OPENCODE__MODEL: ${PR_AGENT_MODEL}
+      # Fail-closed shared secret GitLab signs requests with. Requests
+      # without a valid X-Gitlab-Token are rejected before any work.
+      GITLAB_WEBHOOK_SECRET: ${GITLAB_WEBHOOK_SECRET}
+      PORT: "3000"
+    volumes:
+      # Engine config (providers, models, auth) stays on the host.
+      - /home/runner/.config/opencode:/root/.config/opencode:ro
+      - /etc/ssl/certs:/etc/ssl/certs:ro

@@ -1,0 +1,33 @@
+[package]
+name = "pr_agent"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "AI PR reviews: transport, state and publication around the opencode engine"
+
+[[bin]]
+name = "pr_agent"
+path = "src/main.rs"
+
+[[bin]]
+name = "pr_agent_server"
+path = "src/bin/server.rs"
+
+[dependencies]
+clap = { workspace = true }
+sha2 = { workspace = true }
+axum = { workspace = true }
+tokio = { workspace = true }
+hmac = { workspace = true }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls-native-roots", "charset"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { workspace = true }
+toml = { workspace = true }
+serde_yaml_ng = { workspace = true }
+# Workspace crates the live path calls; the rest stay workspace members
+# until their typed ports replace the hand-rolled code.
+agent-rs = { path = "../agent-rs" }
+diff-parsing-rs = { path = "../diff-parsing-rs" }
+request-timeout-rs = { path = "../request-timeout-rs" }
+utils-rs = { path = "../utils-rs" }
+

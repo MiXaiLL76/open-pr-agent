@@ -1,0 +1,13 @@
+{"fn": "get_http_request_timeout", "args": [], "ok": {"$float": "60.0"}}
+{"fn": "refresh_session_request_timeout", "args": [[]], "error": "AttributeError: 'list' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [{"a": {"b": "c"}}], "error": "AttributeError: 'dict' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [["a", 1]], "error": "AttributeError: 'list' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [{}], "error": "AttributeError: 'dict' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [{"a": "b"}], "error": "AttributeError: 'dict' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [null], "error": "AttributeError: 'NoneType' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [0], "error": "AttributeError: 'int' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": ["x"], "error": "AttributeError: 'str' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [true], "error": "AttributeError: 'bool' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}], "error": "AttributeError: 'dict' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}], "error": "AttributeError: 'dict' object has no attribute '_get_session_opts'"}
+{"fn": "refresh_session_request_timeout", "args": [[3, 1, 2]], "error": "AttributeError: 'list' object has no attribute '_get_session_opts'"}

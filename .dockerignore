@@ -1,0 +1,8 @@
+target/
+rust/target/
+docs/node_modules/
+docs/build/
+docs/.docusaurus/
+**/.env
+pics/
+.git/

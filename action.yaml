@@ -1,0 +1,31 @@
+name: 'The PR Agent (Rust)'
+description: 'Summarize, review and answer questions for pull requests, driven by the opencode engine'
+branding:
+  icon: 'award'
+  color: 'green'
+inputs:
+  command:
+    description: 'The pr-agent command to run (review, describe, improve, ask).'
+    required: false
+    default: 'review'
+  extra_args:
+    description: 'Extra arguments after the command (e.g. the question for ask).'
+    required: false
+    default: ''
+  github_token:
+    description: 'Token for the GitHub API. Defaults to the workflow github.token.'
+    required: false
+    default: ${{ github.token }}
+  opencode_model:
+    description: 'Model for the engine, as provider/model (e.g. litellm/gpt-oss). Empty uses the opencode config default.'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'docker/Dockerfile.rust'
+  env:
+    COMMAND: ${{ inputs.command }}
+    GITHUB__USER_TOKEN: ${{ inputs.github_token }}
+    OPENCODE__MODEL: ${{ inputs.opencode_model }}
+  args:
+    - ${{ inputs.extra_args }}

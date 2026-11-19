@@ -1,0 +1,1576 @@
+{"fn": "resolve_command", "args": ["日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödé"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": [":hello"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello World"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.tskey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["é"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["straßeline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["a..b"], "ok": null}
+{"fn": "resolve_command", "args": [":"], "ok": null}
+{"fn": "resolve_command", "args": ["./x/**/*.json﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["😀"], "ok": null}
+{"fn": "resolve_command", "args": ["ab"], "ok": null}
+{"fn": "resolve_command", "args": ["helloab"], "ok": null}
+{"fn": "resolve_command", "args": ["hello world"], "ok": null}
+{"fn": "resolve_command", "args": ["straße"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["./x/**/*.json"], "ok": null}
+{"fn": "resolve_command", "args": ["a:b:c"], "ok": null}
+{"fn": "resolve_command", "args": ["a"], "ok": null}
+{"fn": "resolve_command", "args": ["﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello Worlda"], "ok": null}
+{"fn": "resolve_command", "args": [""], "ok": null}
+{"fn": "resolve_command", "args": ["Hello Worldstraße"], "ok": null}
+{"fn": "resolve_command", "args": ["  padded  "], "ok": null}
+{"fn": "resolve_command", "args": ["日本語のテキストa.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbul"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣ.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣtrailing."], "ok": null}
+{"fn": "resolve_command", "args": [".leading"], "ok": null}
+{"fn": "resolve_command", "args": ["hello"], "ok": null}
+{"fn": "resolve_command", "args": ["trailing."], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["abc"], "ok": null}
+{"fn": "resolve_command", "args": [".leading{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbulhello"], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.path.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀c"], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["aba😀b😀c"], "ok": null}
+{"fn": "resolve_command", "args": [":İstanbul"], "ok": null}
+{"fn": "resolve_command", "args": ["  padded  日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1a.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀ca"], "ok": null}
+{"fn": "resolve_command", "args": ["a..bHello World"], "ok": null}
+{"fn": "resolve_command", "args": ["emoji 👍🏽 mix"], "ok": null}
+{"fn": "resolve_command", "args": ["ab.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.ca"], "ok": null}
+{"fn": "resolve_command", "args": ["abca😀b😀c"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀c﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello World./x/**/*.json"], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.cé"], "ok": null}
+{"fn": "resolve_command", "args": [".leadingab"], "ok": null}
+{"fn": "resolve_command", "args": [".leadingns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparated﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["﻿bom:"], "ok": null}
+{"fn": "resolve_command", "args": ["trailing.:"], "ok": null}
+{"fn": "resolve_command", "args": ["éHELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.ts日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} items  padded  "], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödéHELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["日本語のテキスト﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["a:b:cünïcödé"], "ok": null}
+{"fn": "resolve_command", "args": ["😀./x/**/*.json"], "ok": null}
+{"fn": "resolve_command", "args": ["éstraße"], "ok": null}
+{"fn": "resolve_command", "args": ["a:b:ckey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["日本語のテキストHello World"], "ok": null}
+{"fn": "resolve_command", "args": ["abtab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOa..b"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.tsstraße"], "ok": null}
+{"fn": "resolve_command", "args": ["a..b{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["a日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["  padded  a:b:c"], "ok": null}
+{"fn": "resolve_command", "args": ["😀abc"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.tsa"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödéabc"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello Worldsrc/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbulsrc/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.tshello"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["😀İstanbul"], "ok": null}
+{"fn": "resolve_command", "args": ["./x/**/*.json.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["abcline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödé{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1./x/**/*.json"], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbulhello world"], "ok": null}
+{"fn": "resolve_command", "args": ["abchello world"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparated日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello Worldhello"], "ok": null}
+{"fn": "resolve_command", "args": ["hellohello"], "ok": null}
+{"fn": "resolve_command", "args": ["./x/**/*.jsonkey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["﻿bom{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["hello worldtab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello WorldΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["hello worldns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["a..ba.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣ﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀cab"], "ok": null}
+{"fn": "resolve_command", "args": ["a..b:"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2ab"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.path  padded  "], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} itemssrc/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.pathİstanbul"], "ok": null}
+{"fn": "resolve_command", "args": [".leadingünïcödé"], "ok": null}
+{"fn": "resolve_command", "args": ["helloline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2straße"], "ok": null}
+{"fn": "resolve_command", "args": [".leading﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödéns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["abcΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["abΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["😀{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOa😀b😀c"], "ok": null}
+{"fn": "resolve_command", "args": ["😀😀"], "ok": null}
+{"fn": "resolve_command", "args": ["hellotab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["abc😀"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödéab"], "ok": null}
+{"fn": "resolve_command", "args": ["ans:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbultab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["a:b:ca"], "ok": null}
+{"fn": "resolve_command", "args": [".leading日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2a..b"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣ  padded  "], "ok": null}
+{"fn": "resolve_command", "args": ["hello😀"], "ok": null}
+{"fn": "resolve_command", "args": [".leadingé"], "ok": null}
+{"fn": "resolve_command", "args": ["😀hello"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödé﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣİstanbul"], "ok": null}
+{"fn": "resolve_command", "args": [".leadinga.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} itemstrailing."], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1line1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["abcemoji 👍🏽 mix"], "ok": null}
+{"fn": "resolve_command", "args": ["﻿bom😀"], "ok": null}
+{"fn": "resolve_command", "args": ["aa😀b😀c"], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.ca:b:c"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOé"], "ok": null}
+{"fn": "resolve_command", "args": ["hello world﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": [".leadingΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["straße😀"], "ok": null}
+{"fn": "resolve_command", "args": ["日本語のテキストHELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["aé"], "ok": null}
+{"fn": "resolve_command", "args": ["astraße"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1hello"], "ok": null}
+{"fn": "resolve_command", "args": ["src/a/b.ts﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparatedabc"], "ok": null}
+{"fn": "resolve_command", "args": ["line1\nline2ünïcödé"], "ok": null}
+{"fn": "resolve_command", "args": ["a..bstraße"], "ok": null}
+{"fn": "resolve_command", "args": ["﻿bomstraße"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} items﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparateda.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.pathé"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1İstanbul"], "ok": null}
+{"fn": "resolve_command", "args": ["helloHello World"], "ok": null}
+{"fn": "resolve_command", "args": ["Hello Worldab"], "ok": null}
+{"fn": "resolve_command", "args": ["日本語のテキストabc"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödéline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.ca.b.c"], "ok": null}
+{"fn": "resolve_command", "args": ["straße.leading"], "ok": null}
+{"fn": "resolve_command", "args": ["::"], "ok": null}
+{"fn": "resolve_command", "args": ["trailing../x/**/*.json"], "ok": null}
+{"fn": "resolve_command", "args": ["trailing.tab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["abctab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparatedhello"], "ok": null}
+{"fn": "resolve_command", "args": ["straße{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["éns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["atab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparatedkey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOa"], "ok": null}
+{"fn": "resolve_command", "args": ["😀HELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀cünïcödé"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1{name} has {count} items"], "ok": null}
+{"fn": "resolve_command", "args": ["abtrailing."], "ok": null}
+{"fn": "resolve_command", "args": ["ns:key.pathtrailing."], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀cns:key.path"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} itemskey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["./x/**/*.jsoné"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b😀csrc/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["aHELLO"], "ok": null}
+{"fn": "resolve_command", "args": ["abc  padded  "], "ok": null}
+{"fn": "resolve_command", "args": ["İstanbulline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["straßekey_name-1"], "ok": null}
+{"fn": "resolve_command", "args": ["key_name-1ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "resolve_command", "args": ["trailing.İstanbul"], "ok": null}
+{"fn": "resolve_command", "args": ["{name} has {count} itemsa..b"], "ok": null}
+{"fn": "resolve_command", "args": ["HELLOline1\nline2"], "ok": null}
+{"fn": "resolve_command", "args": ["ΣΊΣΥΦΟΣ日本語のテキスト"], "ok": null}
+{"fn": "resolve_command", "args": ["hello worldsrc/a/b.ts"], "ok": null}
+{"fn": "resolve_command", "args": ["tab\tseparatedé"], "ok": null}
+{"fn": "resolve_command", "args": [":﻿bom"], "ok": null}
+{"fn": "resolve_command", "args": ["a.b.cab"], "ok": null}
+{"fn": "resolve_command", "args": [":ab"], "ok": null}
+{"fn": "resolve_command", "args": ["a..ba:b:c"], "ok": null}
+{"fn": "resolve_command", "args": ["ünïcödétab\tseparated"], "ok": null}
+{"fn": "resolve_command", "args": ["héllo wörld"], "ok": null}
+{"fn": "resolve_command", "args": ["👍🏽 thumbs"], "ok": null}
+{"fn": "resolve_command", "args": ["日本語"], "ok": null}
+{"fn": "resolve_command", "args": ["ılık ırmak"], "ok": null}
+{"fn": "resolve_command", "args": ["👨‍👩‍👧 family"], "ok": null}
+{"fn": "resolve_command", "args": ["a b"], "ok": null}
+{"fn": "resolve_command", "args": ["a😀b"], "ok": null}
+{"fn": "command_check_run", "args": [".leading"], "ok": null}
+{"fn": "command_check_run", "args": ["hello world"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b😀c"], "ok": null}
+{"fn": "command_check_run", "args": ["İstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["Hello Worlda.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["a..ba..b"], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing."], "ok": null}
+{"fn": "command_check_run", "args": ["ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "command_check_run", "args": [""], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:c"], "ok": null}
+{"fn": "command_check_run", "args": ["./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mixns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["é"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bom"], "ok": null}
+{"fn": "command_check_run", "args": [":ns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["straße"], "ok": null}
+{"fn": "command_check_run", "args": ["{name} has {count} items"], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödé"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["{name} has {count} itemsab"], "ok": null}
+{"fn": "command_check_run", "args": ["İstanbulİstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:cline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["key_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": [":Hello World"], "ok": null}
+{"fn": "command_check_run", "args": ["HELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2a:b:c"], "ok": null}
+{"fn": "command_check_run", "args": ["a"], "ok": null}
+{"fn": "command_check_run", "args": ["{name} has {count} itemsİstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing.İstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["abc"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  İstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["étab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": [":"], "ok": null}
+{"fn": "command_check_run", "args": ["ab"], "ok": null}
+{"fn": "command_check_run", "args": ["Hello World"], "ok": null}
+{"fn": "command_check_run", "args": ["a..b"], "ok": null}
+{"fn": "command_check_run", "args": ["HELLO.leading"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2a..b"], "ok": null}
+{"fn": "command_check_run", "args": ["src/a/b.ts"], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.pathns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["İstanbul:"], "ok": null}
+{"fn": "command_check_run", "args": [".leadingHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mixa"], "ok": null}
+{"fn": "command_check_run", "args": ["HELLOHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.csrc/a/b.ts"], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.cΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "command_check_run", "args": ["😀😀"], "ok": null}
+{"fn": "command_check_run", "args": [":a.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["key_name-1src/a/b.ts"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödéHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:c./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:cabc"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  ./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["::"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  ns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["src/a/b.tsHELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["hellotab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": ["a..bkey_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["abcHELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödé﻿bom"], "ok": null}
+{"fn": "command_check_run", "args": ["😀"], "ok": null}
+{"fn": "command_check_run", "args": [":﻿bom"], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.chello world"], "ok": null}
+{"fn": "command_check_run", "args": ["a  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["ab:"], "ok": null}
+{"fn": "command_check_run", "args": ["hello"], "ok": null}
+{"fn": "command_check_run", "args": ["ab日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparatedHELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["src/a/b.tstab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparateda😀b😀c"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mixline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  :"], "ok": null}
+{"fn": "command_check_run", "args": ["straßetrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["aemoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキスト:"], "ok": null}
+{"fn": "command_check_run", "args": ["ΣΊΣΥΦΟΣ  padded  "], "ok": null}
+{"fn": "command_check_run", "args": [":abc"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mixabc"], "ok": null}
+{"fn": "command_check_run", "args": ["src/a/b.tsemoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:cİstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing.a.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキストİstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.pathline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparatedsrc/a/b.ts"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing.trailing."], "ok": null}
+{"fn": "command_check_run", "args": ["straßehello world"], "ok": null}
+{"fn": "command_check_run", "args": ["abtrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["HELLOa.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["😀İstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["İstanbulhello"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomabc"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mix日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  hello world"], "ok": null}
+{"fn": "command_check_run", "args": ["HELLOkey_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing.a..b"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b😀ckey_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomé"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparatedtrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["hello worldhello world"], "ok": null}
+{"fn": "command_check_run", "args": ["abline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["straße﻿bom"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomhello world"], "ok": null}
+{"fn": "command_check_run", "args": ["Hello Worldemoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomünïcödé"], "ok": null}
+{"fn": "command_check_run", "args": ["a..babc"], "ok": null}
+{"fn": "command_check_run", "args": ["{name} has {count} items﻿bom"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキスト日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキストHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["😀HELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.ctrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["hello worldab"], "ok": null}
+{"fn": "command_check_run", "args": ["straßeünïcödé"], "ok": null}
+{"fn": "command_check_run", "args": ["key_name-1.leading"], "ok": null}
+{"fn": "command_check_run", "args": ["abns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomab"], "ok": null}
+{"fn": "command_check_run", "args": ["ΣΊΣΥΦΟΣab"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing../x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": [".leadingtrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparatedhello world"], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.pathİstanbul"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparatedHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b😀c./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": [".leadinghello"], "ok": null}
+{"fn": "command_check_run", "args": ["straßeline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bom  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["a..ba:b:c"], "ok": null}
+{"fn": "command_check_run", "args": [":日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2é"], "ok": null}
+{"fn": "command_check_run", "args": ["./x/**/*.json  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.pathtrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["a.b.cemoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["./x/**/*.jsonline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": [":emoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["é.leading"], "ok": null}
+{"fn": "command_check_run", "args": ["ns:key.pathtab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:ca.b.c"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:chello world"], "ok": null}
+{"fn": "command_check_run", "args": ["straße😀"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mix  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  ab"], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödé  padded  "], "ok": null}
+{"fn": "command_check_run", "args": ["key_name-1日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["ΣΊΣΥΦΟΣa..b"], "ok": null}
+{"fn": "command_check_run", "args": ["hello😀"], "ok": null}
+{"fn": "command_check_run", "args": ["aab"], "ok": null}
+{"fn": "command_check_run", "args": ["helloé"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2HELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["line1\nline2./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["abc😀"], "ok": null}
+{"fn": "command_check_run", "args": [":hello world"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキストa:b:c"], "ok": null}
+{"fn": "command_check_run", "args": [".leadingns:key.path"], "ok": null}
+{"fn": "command_check_run", "args": ["a..bhello"], "ok": null}
+{"fn": "command_check_run", "args": ["😀ΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "command_check_run", "args": ["astraße"], "ok": null}
+{"fn": "command_check_run", "args": ["hello worldemoji 👍🏽 mix"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  key_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["a..b:"], "ok": null}
+{"fn": "command_check_run", "args": ["éabc"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b😀ctrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["日本語のテキストé"], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödétrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["Hello Worlda:b:c"], "ok": null}
+{"fn": "command_check_run", "args": ["straßeabc"], "ok": null}
+{"fn": "command_check_run", "args": ["abcHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["./x/**/*.jsontrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:cΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "command_check_run", "args": ["hello./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["Hello Worldünïcödé"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:c:"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomkey_name-1"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  .leading"], "ok": null}
+{"fn": "command_check_run", "args": ["hellotrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["ünïcödéstraße"], "ok": null}
+{"fn": "command_check_run", "args": ["a..bHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["İstanbulHELLO"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  straße"], "ok": null}
+{"fn": "command_check_run", "args": ["hello worldΣΊΣΥΦΟΣ"], "ok": null}
+{"fn": "command_check_run", "args": [":{name} has {count} items"], "ok": null}
+{"fn": "command_check_run", "args": ["atrailing."], "ok": null}
+{"fn": "command_check_run", "args": ["a日本語のテキスト"], "ok": null}
+{"fn": "command_check_run", "args": ["a:b:c.leading"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿boma:b:c"], "ok": null}
+{"fn": "command_check_run", "args": ["tab\tseparated./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["emoji 👍🏽 mixhello"], "ok": null}
+{"fn": "command_check_run", "args": ["straße./x/**/*.json"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bom😀"], "ok": null}
+{"fn": "command_check_run", "args": ["  padded  line1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["abHello World"], "ok": null}
+{"fn": "command_check_run", "args": ["trailing.tab\tseparated"], "ok": null}
+{"fn": "command_check_run", "args": ["straßea:b:c"], "ok": null}
+{"fn": "command_check_run", "args": ["﻿bomline1\nline2"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b😀c.leading"], "ok": null}
+{"fn": "command_check_run", "args": ["hello world😀"], "ok": null}
+{"fn": "command_check_run", "args": ["héllo wörld"], "ok": null}
+{"fn": "command_check_run", "args": ["👍🏽 thumbs"], "ok": null}
+{"fn": "command_check_run", "args": ["日本語"], "ok": null}
+{"fn": "command_check_run", "args": ["ılık ırmak"], "ok": null}
+{"fn": "command_check_run", "args": ["👨‍👩‍👧 family"], "ok": null}
+{"fn": "command_check_run", "args": ["a b"], "ok": null}
+{"fn": "command_check_run", "args": ["a😀b"], "ok": null}
+{"fn": "command_takes_comment_id", "args": ["hello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣ"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [":a.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.tsa😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:cHello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["key_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["é"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["emoji 👍🏽 mix"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ab"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["Hello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbula.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [":"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [".leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello world"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.cab"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparatedns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathtrailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["HELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßens:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["trailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣkey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ésrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["{name} has {count} itemsabc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.ts  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["helloünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストHELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.ca"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:cemoji 👍🏽 mix"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..ba"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbul.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  a"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hellostraße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathkey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b😀cline1\nline2"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["éns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bomkey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello worldİstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbulİstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..bHello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [""], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..bsrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["atrailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abcİstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["emoji 👍🏽 mix./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödéa.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2a..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  ΣΊΣΥΦΟΣ"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["HELLOa.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbul﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bom./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..b﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bomé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b😀ckey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödétrailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["Hello Worlda.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparatedtab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2src/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..btrailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hellokey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathhello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀hello world"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["{name} has {count} itemsünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [":./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:ca..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßeHello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abstraße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:cHELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.path﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["aa😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  tab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abc:"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["HELLOΣΊΣΥΦΟΣ"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparated日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..btab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abcns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣ{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["trailing.é"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["trailing.abc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßekey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [".leading日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [":日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストkey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abca"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..b  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:c./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödéHELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.patha😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["helloa.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["{name} has {count} items.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀a😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["éhello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..b:"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:c﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["emoji 👍🏽 mix.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["Hello World﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["İstanbul日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["HELLOİstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [".leadinga😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abHello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello worldsrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["./x/**/*.jsonΣΊΣΥΦΟΣ"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストa.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  é"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abc.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßeab"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣab"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b😀c./x/**/*.json"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bom{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣa😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀trailing."], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["aΣΊΣΥΦΟΣ"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["Hello Worldsrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["helloa😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparatedHELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["./x/**/*.jsona.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2abc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["aba:b:c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.tsHELLO"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.patha..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2key_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:cstraße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..bemoji 👍🏽 mix"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßea😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["./x/**/*.jsonhello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparatedsrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["trailing.İstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.tsİstanbul"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["HELLOns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["aline1\nline2"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.path{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abc  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["trailing.a😀b😀c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ΣΊΣΥΦΟΣstraße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["helloa:b:c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  ns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..b{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキスト:"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a..bkey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathemoji 👍🏽 mix"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abhello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello world.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["Hello World:"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßetab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [":key_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödéhello world"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straßeline1\nline2"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["éünïcödé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["line1\nline2line1\nline2"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストHello World"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["﻿bom﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ünïcödéstraße"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["😀é"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["{name} has {count} items日本語のテキスト"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a:b:ckey_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.c.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["helloé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparated.leading"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["src/a/b.tsa.b.c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.chello"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hellosrc/a/b.ts"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["tab\tseparated﻿bom"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ns:key.pathabc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b😀cns:key.path"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["hello world{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["emoji 👍🏽 mix{name} has {count} items"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストa:b:c"], "ok": false}
+{"fn": "command_takes_comment_id", "args": [".leadingé"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["./x/**/*.jsona..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["key_name-1  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": [".leadingemoji 👍🏽 mix"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a.b.ctab\tseparated"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  key_name-1"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["abcab"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語のテキストa..b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["  padded  abc"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["straße  padded  "], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["héllo wörld"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["👍🏽 thumbs"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["日本語"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["ılık ırmak"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["👨‍👩‍👧 family"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a b"], "ok": false}
+{"fn": "command_takes_comment_id", "args": ["a😀b"], "ok": false}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b😀c", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbul", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ab", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["  padded  ", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leading./x/**/*.json", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["./x/**/*.json", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leading", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", "rl"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣkey_name-1", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.c", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straßehello world", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts😀", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLOünïcödé", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["😀", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a:b:c", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello日本語のテキスト", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["./x/**/*.json", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["emoji 👍🏽 mix", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé  padded  ", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ab", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1é", "-1é"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abcab", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbul", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":a:b:c", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello worldHello World", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["emoji 👍🏽 mix", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.c", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["emoji 👍🏽 mix", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leading", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ab", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße:", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abcstraße", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b😀c", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leading", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ./x/**/*.json", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["trailing.", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ab", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abkey_name-1", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..bé", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLO", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello.leading", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣline1\nline2", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.ctrailing.", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbul  padded  ", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["./x/**/*.json", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["{name} has {count} items", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é﻿bom", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbul", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["{name} has {count} items", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["line1\nline2", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abc", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLO", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ns:key.path", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hellostraße", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbul﻿bom", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣkey_name-1", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leadingé", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["emoji 👍🏽 mixhello world", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["İstanbulİstanbul", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [":", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödéns:key.path", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["trailing.", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["aba", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["😀ab", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ns:key.patha.b.c", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b😀c", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello Worlda😀b😀c", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ab", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1İstanbul", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["😀", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト  padded  ", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a:b:c", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["line1\nline2", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparatedHello World", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["line1\nline2", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..b", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["trailing.", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["line1\nline2hello", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ns:key.path", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello worldHello World", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["./x/**/*.json", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a:b:c", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLO", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": [".leading", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["line1\nline2", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1hello world", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.c", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLO", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["😀", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.c", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["Hello World", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparatedünïcödé", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["﻿bom", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a:b:c", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["  padded  ", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["  padded  ", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ns:key.path", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödésrc/a/b.ts", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..bİstanbul", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["HELLOΣΊΣΥΦΟΣ", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["x", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abtab\tseparated", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödéhello world", "world"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキストemoji 👍🏽 mix", "x"], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣa.b.c", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a..bns:key.path", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["./x/**/*.json", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["tab\tseparated", 0], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["😀", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello world﻿bom", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語のテキスト", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b😀c", {"a": "b"}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["éa", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b😀c", []], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["abcns:key.path", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["emoji 👍🏽 mix", true], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["src/a/b.ts", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["key_name-1", ["a", 1]], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ünïcödé", {"a": {"b": "c"}}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a.b.c", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["{name} has {count} itemsΣΊΣΥΦΟΣ", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["{name} has {count} itemsünïcödé", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["hello﻿bom", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["trailing.", null], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["héllo wörld", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["👍🏽 thumbs", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["日本語", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["é", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["straße", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ılık ırmak", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["👨‍👩‍👧 family", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a b", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["ΣΊΣΥΦΟΣ", {}], "ok": null}
+{"fn": "publish_incomplete_files_comment", "args": ["a😀b", {}], "ok": null}
+{"fn": "parse_command", "args": ["İstanbul"], "ok": ["İstanbul"]}
+{"fn": "parse_command", "args": ["line1\nline2a"], "ok": ["line1", "line2a"]}
+{"fn": "parse_command", "args": ["straße"], "ok": ["straße"]}
+{"fn": "parse_command", "args": ["straße./x/**/*.json"], "ok": ["straße./x/**/*.json"]}
+{"fn": "parse_command", "args": ["  padded  "], "ok": ["padded"]}
+{"fn": "parse_command", "args": [":😀"], "ok": [":😀"]}
+{"fn": "parse_command", "args": ["line1\nline2"], "ok": ["line1", "line2"]}
+{"fn": "parse_command", "args": ["hello world"], "ok": ["hello", "world"]}
+{"fn": "parse_command", "args": ["é"], "ok": ["é"]}
+{"fn": "parse_command", "args": ["ns:key.path"], "ok": ["ns:key.path"]}
+{"fn": "parse_command", "args": ["tab\tseparated"], "ok": ["tab", "separated"]}
+{"fn": "parse_command", "args": [".leading"], "ok": [".leading"]}
+{"fn": "parse_command", "args": ["﻿bom"], "ok": ["﻿bom"]}
+{"fn": "parse_command", "args": ["日本語のテキスト"], "ok": ["日本語のテキスト"]}
+{"fn": "parse_command", "args": ["a.b.c"], "ok": ["a.b.c"]}
+{"fn": "parse_command", "args": ["😀a.b.c"], "ok": ["😀a.b.c"]}
+{"fn": "parse_command", "args": ["HELLO"], "ok": ["HELLO"]}
+{"fn": "parse_command", "args": ["abc"], "ok": ["abc"]}
+{"fn": "parse_command", "args": ["Hello World"], "ok": ["Hello", "World"]}
+{"fn": "parse_command", "args": ["hello"], "ok": ["hello"]}
+{"fn": "parse_command", "args": ["key_name-1"], "ok": ["key_name-1"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣ"], "ok": ["ΣΊΣΥΦΟΣ"]}
+{"fn": "parse_command", "args": ["emoji 👍🏽 mix"], "ok": ["emoji", "👍🏽", "mix"]}
+{"fn": "parse_command", "args": ["./x/**/*.json"], "ok": ["./x/**/*.json"]}
+{"fn": "parse_command", "args": ["ünïcödé"], "ok": ["ünïcödé"]}
+{"fn": "parse_command", "args": ["a😀b😀csrc/a/b.ts"], "ok": ["a😀b😀csrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["line1\nline2abc"], "ok": ["line1", "line2abc"]}
+{"fn": "parse_command", "args": [":"], "ok": [":"]}
+{"fn": "parse_command", "args": ["a😀b😀c"], "ok": ["a😀b😀c"]}
+{"fn": "parse_command", "args": ["a..b"], "ok": ["a..b"]}
+{"fn": "parse_command", "args": [".leading./x/**/*.json"], "ok": [".leading./x/**/*.json"]}
+{"fn": "parse_command", "args": ["{name} has {count} items"], "ok": ["{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["a"], "ok": ["a"]}
+{"fn": "parse_command", "args": ["straßehello"], "ok": ["straßehello"]}
+{"fn": "parse_command", "args": ["a..bİstanbul"], "ok": ["a..bİstanbul"]}
+{"fn": "parse_command", "args": ["HELLOHELLO"], "ok": ["HELLOHELLO"]}
+{"fn": "parse_command", "args": ["aba😀b😀c"], "ok": ["aba😀b😀c"]}
+{"fn": "parse_command", "args": [""], "ok": []}
+{"fn": "parse_command", "args": ["  padded  a:b:c"], "ok": ["padded", "a:b:c"]}
+{"fn": "parse_command", "args": ["ab"], "ok": ["ab"]}
+{"fn": "parse_command", "args": ["a..b:"], "ok": ["a..b:"]}
+{"fn": "parse_command", "args": ["😀"], "ok": ["😀"]}
+{"fn": "parse_command", "args": ["HELLOHello World"], "ok": ["HELLOHello", "World"]}
+{"fn": "parse_command", "args": ["a.b.ckey_name-1"], "ok": ["a.b.ckey_name-1"]}
+{"fn": "parse_command", "args": ["trailing."], "ok": ["trailing."]}
+{"fn": "parse_command", "args": ["src/a/b.ts"], "ok": ["src/a/b.ts"]}
+{"fn": "parse_command", "args": ["a..bline1\nline2"], "ok": ["a..bline1", "line2"]}
+{"fn": "parse_command", "args": ["line1\nline2a..b"], "ok": ["line1", "line2a..b"]}
+{"fn": "parse_command", "args": ["key_name-1a.b.c"], "ok": ["key_name-1a.b.c"]}
+{"fn": "parse_command", "args": [":./x/**/*.json"], "ok": [":./x/**/*.json"]}
+{"fn": "parse_command", "args": ["Hello Worldemoji 👍🏽 mix"], "ok": ["Hello", "Worldemoji", "👍🏽", "mix"]}
+{"fn": "parse_command", "args": ["line1\nline2tab\tseparated"], "ok": ["line1", "line2tab", "separated"]}
+{"fn": "parse_command", "args": ["./x/**/*.json{name} has {count} items"], "ok": ["./x/**/*.json{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["日本語のテキストtrailing."], "ok": ["日本語のテキストtrailing."]}
+{"fn": "parse_command", "args": ["a:b:c"], "ok": ["a:b:c"]}
+{"fn": "parse_command", "args": ["straßetrailing."], "ok": ["straßetrailing."]}
+{"fn": "parse_command", "args": ["İstanbul日本語のテキスト"], "ok": ["İstanbul日本語のテキスト"]}
+{"fn": "parse_command", "args": ["key_name-1src/a/b.ts"], "ok": ["key_name-1src/a/b.ts"]}
+{"fn": "parse_command", "args": ["ab:"], "ok": ["ab:"]}
+{"fn": "parse_command", "args": ["a:b:c  padded  "], "ok": ["a:b:c", "padded"]}
+{"fn": "parse_command", "args": ["{name} has {count} items.leading"], "ok": ["{name}", "has", "{count}", "items.leading"]}
+{"fn": "parse_command", "args": ["日本語のテキストa:b:c"], "ok": ["日本語のテキストa:b:c"]}
+{"fn": "parse_command", "args": ["helloa..b"], "ok": ["helloa..b"]}
+{"fn": "parse_command", "args": ["hellosrc/a/b.ts"], "ok": ["hellosrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["straße😀"], "ok": ["straße😀"]}
+{"fn": "parse_command", "args": ["key_name-1ünïcödé"], "ok": ["key_name-1ünïcödé"]}
+{"fn": "parse_command", "args": ["abline1\nline2"], "ok": ["abline1", "line2"]}
+{"fn": "parse_command", "args": ["ünïcödéé"], "ok": ["ünïcödéé"]}
+{"fn": "parse_command", "args": ["é日本語のテキスト"], "ok": ["é日本語のテキスト"]}
+{"fn": "parse_command", "args": ["abca:b:c"], "ok": ["abca:b:c"]}
+{"fn": "parse_command", "args": [".leading﻿bom"], "ok": [".leading﻿bom"]}
+{"fn": "parse_command", "args": ["aa"], "ok": ["aa"]}
+{"fn": "parse_command", "args": ["trailing.key_name-1"], "ok": ["trailing.key_name-1"]}
+{"fn": "parse_command", "args": ["ns:key.pathİstanbul"], "ok": ["ns:key.pathİstanbul"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonHELLO"], "ok": ["./x/**/*.jsonHELLO"]}
+{"fn": "parse_command", "args": ["trailing.straße"], "ok": ["trailing.straße"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonstraße"], "ok": ["./x/**/*.jsonstraße"]}
+{"fn": "parse_command", "args": ["straßeHello World"], "ok": ["straßeHello", "World"]}
+{"fn": "parse_command", "args": ["emoji 👍🏽 mix./x/**/*.json"], "ok": ["emoji", "👍🏽", "mix./x/**/*.json"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣa.b.c"], "ok": ["ΣΊΣΥΦΟΣa.b.c"]}
+{"fn": "parse_command", "args": ["tab\tseparated:"], "ok": ["tab", "separated:"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonsrc/a/b.ts"], "ok": ["./x/**/*.jsonsrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["abcünïcödé"], "ok": ["abcünïcödé"]}
+{"fn": "parse_command", "args": [".leadinga:b:c"], "ok": [".leadinga:b:c"]}
+{"fn": "parse_command", "args": ["ab😀"], "ok": ["ab😀"]}
+{"fn": "parse_command", "args": ["😀{name} has {count} items"], "ok": ["😀{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonkey_name-1"], "ok": ["./x/**/*.jsonkey_name-1"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsontrailing."], "ok": ["./x/**/*.jsontrailing."]}
+{"fn": "parse_command", "args": ["ns:key.pathstraße"], "ok": ["ns:key.pathstraße"]}
+{"fn": "parse_command", "args": ["日本語のテキストhello world"], "ok": ["日本語のテキストhello", "world"]}
+{"fn": "parse_command", "args": ["ns:key.path😀"], "ok": ["ns:key.path😀"]}
+{"fn": "parse_command", "args": ["﻿bomabc"], "ok": ["﻿bomabc"]}
+{"fn": "parse_command", "args": ["abcab"], "ok": ["abcab"]}
+{"fn": "parse_command", "args": ["key_name-1line1\nline2"], "ok": ["key_name-1line1", "line2"]}
+{"fn": "parse_command", "args": ["tab\tseparateda.b.c"], "ok": ["tab", "separateda.b.c"]}
+{"fn": "parse_command", "args": ["😀key_name-1"], "ok": ["😀key_name-1"]}
+{"fn": "parse_command", "args": ["straße﻿bom"], "ok": ["straße﻿bom"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonabc"], "ok": ["./x/**/*.jsonabc"]}
+{"fn": "parse_command", "args": ["aHELLO"], "ok": ["aHELLO"]}
+{"fn": "parse_command", "args": ["a😀b😀ca:b:c"], "ok": ["a😀b😀ca:b:c"]}
+{"fn": "parse_command", "args": ["ns:key.pathab"], "ok": ["ns:key.pathab"]}
+{"fn": "parse_command", "args": ["{name} has {count} itemsİstanbul"], "ok": ["{name}", "has", "{count}", "itemsİstanbul"]}
+{"fn": "parse_command", "args": ["straßesrc/a/b.ts"], "ok": ["straßesrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["trailing.a.b.c"], "ok": ["trailing.a.b.c"]}
+{"fn": "parse_command", "args": ["İstanbula:b:c"], "ok": ["İstanbula:b:c"]}
+{"fn": "parse_command", "args": ["straßetab\tseparated"], "ok": ["straßetab", "separated"]}
+{"fn": "parse_command", "args": ["{name} has {count} itemssrc/a/b.ts"], "ok": ["{name}", "has", "{count}", "itemssrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["src/a/b.tsa:b:c"], "ok": ["src/a/b.tsa:b:c"]}
+{"fn": "parse_command", "args": ["trailing.{name} has {count} items"], "ok": ["trailing.{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["{name} has {count} items  padded  "], "ok": ["{name}", "has", "{count}", "items", "padded"]}
+{"fn": "parse_command", "args": ["line1\nline2hello"], "ok": ["line1", "line2hello"]}
+{"fn": "parse_command", "args": ["HELLOhello"], "ok": ["HELLOhello"]}
+{"fn": "parse_command", "args": ["hellohello"], "ok": ["hellohello"]}
+{"fn": "parse_command", "args": [".leading  padded  "], "ok": [".leading", "padded"]}
+{"fn": "parse_command", "args": ["hello.leading"], "ok": ["hello.leading"]}
+{"fn": "parse_command", "args": ["a😀b😀ctab\tseparated"], "ok": ["a😀b😀ctab", "separated"]}
+{"fn": "parse_command", "args": ["Hello Worldline1\nline2"], "ok": ["Hello", "Worldline1", "line2"]}
+{"fn": "parse_command", "args": ["ns:key.pathHello World"], "ok": ["ns:key.pathHello", "World"]}
+{"fn": "parse_command", "args": ["HELLOstraße"], "ok": ["HELLOstraße"]}
+{"fn": "parse_command", "args": ["emoji 👍🏽 mix.leading"], "ok": ["emoji", "👍🏽", "mix.leading"]}
+{"fn": "parse_command", "args": ["Hello World.leading"], "ok": ["Hello", "World.leading"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣhello world"], "ok": ["ΣΊΣΥΦΟΣhello", "world"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsonhello world"], "ok": ["./x/**/*.jsonhello", "world"]}
+{"fn": "parse_command", "args": ["{name} has {count} items:"], "ok": ["{name}", "has", "{count}", "items:"]}
+{"fn": "parse_command", "args": ["ünïcödéhello"], "ok": ["ünïcödéhello"]}
+{"fn": "parse_command", "args": ["éabc"], "ok": ["éabc"]}
+{"fn": "parse_command", "args": ["HELLOİstanbul"], "ok": ["HELLOİstanbul"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣé"], "ok": ["ΣΊΣΥΦΟΣé"]}
+{"fn": "parse_command", "args": ["a.b.ca.b.c"], "ok": ["a.b.ca.b.c"]}
+{"fn": "parse_command", "args": ["İstanbulHello World"], "ok": ["İstanbulHello", "World"]}
+{"fn": "parse_command", "args": ["trailing..leading"], "ok": ["trailing..leading"]}
+{"fn": "parse_command", "args": ["HELLOa..b"], "ok": ["HELLOa..b"]}
+{"fn": "parse_command", "args": ["emoji 👍🏽 mixsrc/a/b.ts"], "ok": ["emoji", "👍🏽", "mixsrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["abctab\tseparated"], "ok": ["abctab", "separated"]}
+{"fn": "parse_command", "args": ["{name} has {count} itemsns:key.path"], "ok": ["{name}", "has", "{count}", "itemsns:key.path"]}
+{"fn": "parse_command", "args": [":HELLO"], "ok": [":HELLO"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣ  padded  "], "ok": ["ΣΊΣΥΦΟΣ", "padded"]}
+{"fn": "parse_command", "args": ["a:b:ckey_name-1"], "ok": ["a:b:ckey_name-1"]}
+{"fn": "parse_command", "args": [":a😀b😀c"], "ok": [":a😀b😀c"]}
+{"fn": "parse_command", "args": ["😀😀"], "ok": ["😀😀"]}
+{"fn": "parse_command", "args": ["a..bhello world"], "ok": ["a..bhello", "world"]}
+{"fn": "parse_command", "args": ["  padded  Hello World"], "ok": ["padded", "Hello", "World"]}
+{"fn": "parse_command", "args": ["abc日本語のテキスト"], "ok": ["abc日本語のテキスト"]}
+{"fn": "parse_command", "args": ["{name} has {count} itemsline1\nline2"], "ok": ["{name}", "has", "{count}", "itemsline1", "line2"]}
+{"fn": "parse_command", "args": ["a😀b😀ca😀b😀c"], "ok": ["a😀b😀ca😀b😀c"]}
+{"fn": "parse_command", "args": ["helloa.b.c"], "ok": ["helloa.b.c"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣ:"], "ok": ["ΣΊΣΥΦΟΣ:"]}
+{"fn": "parse_command", "args": ["hello😀"], "ok": ["hello😀"]}
+{"fn": "parse_command", "args": ["İstanbulé"], "ok": ["İstanbulé"]}
+{"fn": "parse_command", "args": ["tab\tseparatedemoji 👍🏽 mix"], "ok": ["tab", "separatedemoji", "👍🏽", "mix"]}
+{"fn": "parse_command", "args": ["日本語のテキスト  padded  "], "ok": ["日本語のテキスト", "padded"]}
+{"fn": "parse_command", "args": [":{name} has {count} items"], "ok": [":{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["./x/**/*.jsona.b.c"], "ok": ["./x/**/*.jsona.b.c"]}
+{"fn": "parse_command", "args": ["İstanbula.b.c"], "ok": ["İstanbula.b.c"]}
+{"fn": "parse_command", "args": ["éa..b"], "ok": ["éa..b"]}
+{"fn": "parse_command", "args": ["abcabc"], "ok": ["abcabc"]}
+{"fn": "parse_command", "args": ["日本語のテキストHELLO"], "ok": ["日本語のテキストHELLO"]}
+{"fn": "parse_command", "args": ["abab"], "ok": ["abab"]}
+{"fn": "parse_command", "args": ["ünïcödéHello World"], "ok": ["ünïcödéHello", "World"]}
+{"fn": "parse_command", "args": ["hellokey_name-1"], "ok": ["hellokey_name-1"]}
+{"fn": "parse_command", "args": ["a.b.ca:b:c"], "ok": ["a.b.ca:b:c"]}
+{"fn": "parse_command", "args": ["a..bemoji 👍🏽 mix"], "ok": ["a..bemoji", "👍🏽", "mix"]}
+{"fn": "parse_command", "args": ["﻿bomΣΊΣΥΦΟΣ"], "ok": ["﻿bomΣΊΣΥΦΟΣ"]}
+{"fn": "parse_command", "args": [".leading{name} has {count} items"], "ok": [".leading{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["HELLOtab\tseparated"], "ok": ["HELLOtab", "separated"]}
+{"fn": "parse_command", "args": ["ünïcödé.leading"], "ok": ["ünïcödé.leading"]}
+{"fn": "parse_command", "args": ["a:b:c😀"], "ok": ["a:b:c😀"]}
+{"fn": "parse_command", "args": ["key_name-1key_name-1"], "ok": ["key_name-1key_name-1"]}
+{"fn": "parse_command", "args": ["line1\nline2ΣΊΣΥΦΟΣ"], "ok": ["line1", "line2ΣΊΣΥΦΟΣ"]}
+{"fn": "parse_command", "args": ["  padded  {name} has {count} items"], "ok": ["padded", "{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["src/a/b.ts.leading"], "ok": ["src/a/b.ts.leading"]}
+{"fn": "parse_command", "args": ["Hello World日本語のテキスト"], "ok": ["Hello", "World日本語のテキスト"]}
+{"fn": "parse_command", "args": ["a😀b😀chello world"], "ok": ["a😀b😀chello", "world"]}
+{"fn": "parse_command", "args": ["ünïcödéİstanbul"], "ok": ["ünïcödéİstanbul"]}
+{"fn": "parse_command", "args": ["😀İstanbul"], "ok": ["😀İstanbul"]}
+{"fn": "parse_command", "args": ["straße{name} has {count} items"], "ok": ["straße{name}", "has", "{count}", "items"]}
+{"fn": "parse_command", "args": ["﻿boma"], "ok": ["﻿boma"]}
+{"fn": "parse_command", "args": ["src/a/b.tsHELLO"], "ok": ["src/a/b.tsHELLO"]}
+{"fn": "parse_command", "args": ["é./x/**/*.json"], "ok": ["é./x/**/*.json"]}
+{"fn": "parse_command", "args": ["hello worldhello world"], "ok": ["hello", "worldhello", "world"]}
+{"fn": "parse_command", "args": ["éhello world"], "ok": ["éhello", "world"]}
+{"fn": "parse_command", "args": ["abİstanbul"], "ok": ["abİstanbul"]}
+{"fn": "parse_command", "args": ["a:b:ca"], "ok": ["a:b:ca"]}
+{"fn": "parse_command", "args": ["atrailing."], "ok": ["atrailing."]}
+{"fn": "parse_command", "args": ["aa.b.c"], "ok": ["aa.b.c"]}
+{"fn": "parse_command", "args": ["abckey_name-1"], "ok": ["abckey_name-1"]}
+{"fn": "parse_command", "args": ["a:b:chello"], "ok": ["a:b:chello"]}
+{"fn": "parse_command", "args": ["key_name-1a:b:c"], "ok": ["key_name-1a:b:c"]}
+{"fn": "parse_command", "args": ["tab\tseparatedé"], "ok": ["tab", "separatedé"]}
+{"fn": "parse_command", "args": ["ΣΊΣΥΦΟΣkey_name-1"], "ok": ["ΣΊΣΥΦΟΣkey_name-1"]}
+{"fn": "parse_command", "args": ["abHELLO"], "ok": ["abHELLO"]}
+{"fn": "parse_command", "args": ["tab\tseparatedsrc/a/b.ts"], "ok": ["tab", "separatedsrc/a/b.ts"]}
+{"fn": "parse_command", "args": ["ns:key.pathé"], "ok": ["ns:key.pathé"]}
+{"fn": "parse_command", "args": ["abcns:key.path"], "ok": ["abcns:key.path"]}
+{"fn": "parse_command", "args": ["é﻿bom"], "ok": ["é﻿bom"]}
+{"fn": "parse_command", "args": ["src/a/b.tsa..b"], "ok": ["src/a/b.tsa..b"]}
+{"fn": "parse_command", "args": ["key_name-1😀"], "ok": ["key_name-1😀"]}
+{"fn": "parse_command", "args": [":trailing."], "ok": [":trailing."]}
+{"fn": "parse_command", "args": ["日本語のテキスト😀"], "ok": ["日本語のテキスト😀"]}
+{"fn": "parse_command", "args": ["Hello Worlda😀b😀c"], "ok": ["Hello", "Worlda😀b😀c"]}
+{"fn": "parse_command", "args": ["héllo wörld"], "ok": ["héllo", "wörld"]}
+{"fn": "parse_command", "args": ["👍🏽 thumbs"], "ok": ["👍🏽", "thumbs"]}
+{"fn": "parse_command", "args": ["日本語"], "ok": ["日本語"]}
+{"fn": "parse_command", "args": ["ılık ırmak"], "ok": ["ılık", "ırmak"]}
+{"fn": "parse_command", "args": ["👨‍👩‍👧 family"], "ok": ["👨‍👩‍👧", "family"]}
+{"fn": "parse_command", "args": ["a b"], "ok": ["a", "b"]}
+{"fn": "parse_command", "args": ["a😀b"], "ok": ["a😀b"]}
+{"fn": "prepare_command", "args": ["a.b.c"], "ok": ["a.b.c"]}
+{"fn": "prepare_command", "args": ["a..b"], "ok": ["a..b"]}
+{"fn": "prepare_command", "args": ["hello world"], "ok": ["hello", "world"]}
+{"fn": "prepare_command", "args": ["Hello Worldstraße"], "ok": ["Hello", "Worldstraße"]}
+{"fn": "prepare_command", "args": ["İstanbul"], "ok": ["İstanbul"]}
+{"fn": "prepare_command", "args": ["  padded  "], "ok": ["padded"]}
+{"fn": "prepare_command", "args": ["a😀b😀c"], "ok": ["a😀b😀c"]}
+{"fn": "prepare_command", "args": ["😀"], "ok": ["😀"]}
+{"fn": "prepare_command", "args": ["HELLO"], "ok": ["HELLO"]}
+{"fn": "prepare_command", "args": ["abc"], "ok": ["abc"]}
+{"fn": "prepare_command", "args": ["  padded  hello world"], "ok": ["padded", "hello", "world"]}
+{"fn": "prepare_command", "args": ["ab"], "ok": ["ab"]}
+{"fn": "prepare_command", "args": ["﻿bom"], "ok": ["﻿bom"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mixİstanbul"], "ok": ["emoji", "👍🏽", "mixİstanbul"]}
+{"fn": "prepare_command", "args": [".leading"], "ok": [".leading"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mixline1\nline2"], "ok": ["emoji", "👍🏽", "mixline1", "line2"]}
+{"fn": "prepare_command", "args": ["./x/**/*.json"], "ok": ["./x/**/*.json"]}
+{"fn": "prepare_command", "args": ["src/a/b.tskey_name-1"], "ok": ["src/a/b.tskey_name-1"]}
+{"fn": "prepare_command", "args": ["ns:key.path"], "ok": ["ns:key.path"]}
+{"fn": "prepare_command", "args": ["İstanbul  padded  "], "ok": ["İstanbul", "padded"]}
+{"fn": "prepare_command", "args": ["key_name-1"], "ok": ["key_name-1"]}
+{"fn": "prepare_command", "args": ["a:b:c"], "ok": ["a:b:c"]}
+{"fn": "prepare_command", "args": ["straße"], "ok": ["straße"]}
+{"fn": "prepare_command", "args": ["key_name-1ΣΊΣΥΦΟΣ"], "ok": ["key_name-1ΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["line1\nline2"], "ok": ["line1", "line2"]}
+{"fn": "prepare_command", "args": ["İstanbulline1\nline2"], "ok": ["İstanbulline1", "line2"]}
+{"fn": "prepare_command", "args": ["trailing.a:b:c"], "ok": ["trailing.a:b:c"]}
+{"fn": "prepare_command", "args": ["tab\tseparated"], "ok": ["tab", "separated"]}
+{"fn": "prepare_command", "args": ["ünïcödé"], "ok": ["ünïcödé"]}
+{"fn": "prepare_command", "args": ["İstanbulabc"], "ok": ["İstanbulabc"]}
+{"fn": "prepare_command", "args": [":"], "ok": [":"]}
+{"fn": "prepare_command", "args": ["{name} has {count} items"], "ok": ["{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["trailing."], "ok": ["trailing."]}
+{"fn": "prepare_command", "args": [""], "ok": []}
+{"fn": "prepare_command", "args": ["Hello World﻿bom"], "ok": ["Hello", "World﻿bom"]}
+{"fn": "prepare_command", "args": ["hello"], "ok": ["hello"]}
+{"fn": "prepare_command", "args": ["😀line1\nline2"], "ok": ["😀line1", "line2"]}
+{"fn": "prepare_command", "args": ["Hello Worldé"], "ok": ["Hello", "Worldé"]}
+{"fn": "prepare_command", "args": ["﻿bomhello world"], "ok": ["﻿bomhello", "world"]}
+{"fn": "prepare_command", "args": ["a"], "ok": ["a"]}
+{"fn": "prepare_command", "args": ["straßeİstanbul"], "ok": ["straßeİstanbul"]}
+{"fn": "prepare_command", "args": ["日本語のテキストkey_name-1"], "ok": ["日本語のテキストkey_name-1"]}
+{"fn": "prepare_command", "args": ["日本語のテキスト"], "ok": ["日本語のテキスト"]}
+{"fn": "prepare_command", "args": ["{name} has {count} items{name} has {count} items"], "ok": ["{name}", "has", "{count}", "items{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["ünïcödésrc/a/b.ts"], "ok": ["ünïcödésrc/a/b.ts"]}
+{"fn": "prepare_command", "args": ["trailing.hello world"], "ok": ["trailing.hello", "world"]}
+{"fn": "prepare_command", "args": ["src/a/b.ts"], "ok": ["src/a/b.ts"]}
+{"fn": "prepare_command", "args": ["a😀b😀ca.b.c"], "ok": ["a😀b😀ca.b.c"]}
+{"fn": "prepare_command", "args": ["é"], "ok": ["é"]}
+{"fn": "prepare_command", "args": ["a..ba"], "ok": ["a..ba"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mix"], "ok": ["emoji", "👍🏽", "mix"]}
+{"fn": "prepare_command", "args": ["tab\tseparatedemoji 👍🏽 mix"], "ok": ["tab", "separatedemoji", "👍🏽", "mix"]}
+{"fn": "prepare_command", "args": ["ésrc/a/b.ts"], "ok": ["ésrc/a/b.ts"]}
+{"fn": "prepare_command", "args": ["trailing.a.b.c"], "ok": ["trailing.a.b.c"]}
+{"fn": "prepare_command", "args": [":ab"], "ok": [":ab"]}
+{"fn": "prepare_command", "args": ["İstanbulhello"], "ok": ["İstanbulhello"]}
+{"fn": "prepare_command", "args": ["İstanbula:b:c"], "ok": ["İstanbula:b:c"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mixkey_name-1"], "ok": ["emoji", "👍🏽", "mixkey_name-1"]}
+{"fn": "prepare_command", "args": ["Hello World"], "ok": ["Hello", "World"]}
+{"fn": "prepare_command", "args": ["a:"], "ok": ["a:"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsonstraße"], "ok": ["./x/**/*.jsonstraße"]}
+{"fn": "prepare_command", "args": ["éa.b.c"], "ok": ["éa.b.c"]}
+{"fn": "prepare_command", "args": ["ünïcödéab"], "ok": ["ünïcödéab"]}
+{"fn": "prepare_command", "args": ["::"], "ok": ["::"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣkey_name-1"], "ok": ["ΣΊΣΥΦΟΣkey_name-1"]}
+{"fn": "prepare_command", "args": ["Hello Worldhello"], "ok": ["Hello", "Worldhello"]}
+{"fn": "prepare_command", "args": ["😀ΣΊΣΥΦΟΣ"], "ok": ["😀ΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["{name} has {count} itemsİstanbul"], "ok": ["{name}", "has", "{count}", "itemsİstanbul"]}
+{"fn": "prepare_command", "args": ["😀a"], "ok": ["😀a"]}
+{"fn": "prepare_command", "args": ["﻿boma:b:c"], "ok": ["﻿boma:b:c"]}
+{"fn": "prepare_command", "args": ["line1\nline2a"], "ok": ["line1", "line2a"]}
+{"fn": "prepare_command", "args": [".leading.leading"], "ok": [".leading.leading"]}
+{"fn": "prepare_command", "args": ["日本語のテキストns:key.path"], "ok": ["日本語のテキストns:key.path"]}
+{"fn": "prepare_command", "args": ["éhello"], "ok": ["éhello"]}
+{"fn": "prepare_command", "args": ["éİstanbul"], "ok": ["éİstanbul"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣ"], "ok": ["ΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["éab"], "ok": ["éab"]}
+{"fn": "prepare_command", "args": ["straßeünïcödé"], "ok": ["straßeünïcödé"]}
+{"fn": "prepare_command", "args": ["ünïcödéstraße"], "ok": ["ünïcödéstraße"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsona"], "ok": ["./x/**/*.jsona"]}
+{"fn": "prepare_command", "args": ["{name} has {count} itemsline1\nline2"], "ok": ["{name}", "has", "{count}", "itemsline1", "line2"]}
+{"fn": "prepare_command", "args": ["éemoji 👍🏽 mix"], "ok": ["éemoji", "👍🏽", "mix"]}
+{"fn": "prepare_command", "args": [".leadinga..b"], "ok": [".leadinga..b"]}
+{"fn": "prepare_command", "args": ["ünïcödétab\tseparated"], "ok": ["ünïcödétab", "separated"]}
+{"fn": "prepare_command", "args": ["key_name-1./x/**/*.json"], "ok": ["key_name-1./x/**/*.json"]}
+{"fn": "prepare_command", "args": ["line1\nline2src/a/b.ts"], "ok": ["line1", "line2src/a/b.ts"]}
+{"fn": "prepare_command", "args": ["{name} has {count} items  padded  "], "ok": ["{name}", "has", "{count}", "items", "padded"]}
+{"fn": "prepare_command", "args": ["İstanbul{name} has {count} items"], "ok": ["İstanbul{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["ab  padded  "], "ok": ["ab", "padded"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsontrailing."], "ok": ["./x/**/*.jsontrailing."]}
+{"fn": "prepare_command", "args": ["line1\nline2./x/**/*.json"], "ok": ["line1", "line2./x/**/*.json"]}
+{"fn": "prepare_command", "args": ["key_name-1ab"], "ok": ["key_name-1ab"]}
+{"fn": "prepare_command", "args": ["ünïcödéΣΊΣΥΦΟΣ"], "ok": ["ünïcödéΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["a.b.cns:key.path"], "ok": ["a.b.cns:key.path"]}
+{"fn": "prepare_command", "args": ["key_name-1trailing."], "ok": ["key_name-1trailing."]}
+{"fn": "prepare_command", "args": ["aünïcödé"], "ok": ["aünïcödé"]}
+{"fn": "prepare_command", "args": ["hello worldé"], "ok": ["hello", "worldé"]}
+{"fn": "prepare_command", "args": ["tab\tseparatedtrailing."], "ok": ["tab", "separatedtrailing."]}
+{"fn": "prepare_command", "args": ["key_name-1abc"], "ok": ["key_name-1abc"]}
+{"fn": "prepare_command", "args": ["key_name-1hello world"], "ok": ["key_name-1hello", "world"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mixünïcödé"], "ok": ["emoji", "👍🏽", "mixünïcödé"]}
+{"fn": "prepare_command", "args": ["﻿bom:"], "ok": ["﻿bom:"]}
+{"fn": "prepare_command", "args": ["line1\nline2a..b"], "ok": ["line1", "line2a..b"]}
+{"fn": "prepare_command", "args": ["İstanbula.b.c"], "ok": ["İstanbula.b.c"]}
+{"fn": "prepare_command", "args": ["ns:key.patha..b"], "ok": ["ns:key.patha..b"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsonhello"], "ok": ["./x/**/*.jsonhello"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣstraße"], "ok": ["ΣΊΣΥΦΟΣstraße"]}
+{"fn": "prepare_command", "args": ["a:b:ca:b:c"], "ok": ["a:b:ca:b:c"]}
+{"fn": "prepare_command", "args": ["abcab"], "ok": ["abcab"]}
+{"fn": "prepare_command", "args": ["日本語のテキスト日本語のテキスト"], "ok": ["日本語のテキスト日本語のテキスト"]}
+{"fn": "prepare_command", "args": ["a..b﻿bom"], "ok": ["a..b﻿bom"]}
+{"fn": "prepare_command", "args": ["  padded  ΣΊΣΥΦΟΣ"], "ok": ["padded", "ΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["trailing..leading"], "ok": ["trailing..leading"]}
+{"fn": "prepare_command", "args": ["﻿bomHello World"], "ok": ["﻿bomHello", "World"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣ  padded  "], "ok": ["ΣΊΣΥΦΟΣ", "padded"]}
+{"fn": "prepare_command", "args": ["a.b.cline1\nline2"], "ok": ["a.b.cline1", "line2"]}
+{"fn": "prepare_command", "args": ["a.b.cstraße"], "ok": ["a.b.cstraße"]}
+{"fn": "prepare_command", "args": ["helloHELLO"], "ok": ["helloHELLO"]}
+{"fn": "prepare_command", "args": ["abcİstanbul"], "ok": ["abcİstanbul"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mix😀"], "ok": ["emoji", "👍🏽", "mix😀"]}
+{"fn": "prepare_command", "args": ["key_name-1é"], "ok": ["key_name-1é"]}
+{"fn": "prepare_command", "args": ["a😀b😀cé"], "ok": ["a😀b😀cé"]}
+{"fn": "prepare_command", "args": ["İstanbultrailing."], "ok": ["İstanbultrailing."]}
+{"fn": "prepare_command", "args": ["a.b.c﻿bom"], "ok": ["a.b.c﻿bom"]}
+{"fn": "prepare_command", "args": ["abc.leading"], "ok": ["abc.leading"]}
+{"fn": "prepare_command", "args": ["HELLO﻿bom"], "ok": ["HELLO﻿bom"]}
+{"fn": "prepare_command", "args": ["a😀b😀cns:key.path"], "ok": ["a😀b😀cns:key.path"]}
+{"fn": "prepare_command", "args": ["a..bünïcödé"], "ok": ["a..bünïcödé"]}
+{"fn": "prepare_command", "args": ["helloab"], "ok": ["helloab"]}
+{"fn": "prepare_command", "args": ["日本語のテキスト😀"], "ok": ["日本語のテキスト😀"]}
+{"fn": "prepare_command", "args": ["a😀b😀csrc/a/b.ts"], "ok": ["a😀b😀csrc/a/b.ts"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣ./x/**/*.json"], "ok": ["ΣΊΣΥΦΟΣ./x/**/*.json"]}
+{"fn": "prepare_command", "args": ["hellosrc/a/b.ts"], "ok": ["hellosrc/a/b.ts"]}
+{"fn": "prepare_command", "args": ["key_name-1ns:key.path"], "ok": ["key_name-1ns:key.path"]}
+{"fn": "prepare_command", "args": [":tab\tseparated"], "ok": [":tab", "separated"]}
+{"fn": "prepare_command", "args": [":straße"], "ok": [":straße"]}
+{"fn": "prepare_command", "args": ["HELLOline1\nline2"], "ok": ["HELLOline1", "line2"]}
+{"fn": "prepare_command", "args": ["tab\tseparated日本語のテキスト"], "ok": ["tab", "separated日本語のテキスト"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsonHELLO"], "ok": ["./x/**/*.jsonHELLO"]}
+{"fn": "prepare_command", "args": ["ünïcödéa..b"], "ok": ["ünïcödéa..b"]}
+{"fn": "prepare_command", "args": ["Hello WorldΣΊΣΥΦΟΣ"], "ok": ["Hello", "WorldΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["😀ünïcödé"], "ok": ["😀ünïcödé"]}
+{"fn": "prepare_command", "args": ["tab\tseparatedline1\nline2"], "ok": ["tab", "separatedline1", "line2"]}
+{"fn": "prepare_command", "args": ["{name} has {count} itemsemoji 👍🏽 mix"], "ok": ["{name}", "has", "{count}", "itemsemoji", "👍🏽", "mix"]}
+{"fn": "prepare_command", "args": ["﻿bomé"], "ok": ["﻿bomé"]}
+{"fn": "prepare_command", "args": ["{name} has {count} itemsa😀b😀c"], "ok": ["{name}", "has", "{count}", "itemsa😀b😀c"]}
+{"fn": "prepare_command", "args": ["aİstanbul"], "ok": ["aİstanbul"]}
+{"fn": "prepare_command", "args": ["ünïcödéHello World"], "ok": ["ünïcödéHello", "World"]}
+{"fn": "prepare_command", "args": ["abns:key.path"], "ok": ["abns:key.path"]}
+{"fn": "prepare_command", "args": ["Hello Worldtrailing."], "ok": ["Hello", "Worldtrailing."]}
+{"fn": "prepare_command", "args": ["aa"], "ok": ["aa"]}
+{"fn": "prepare_command", "args": ["Hello World{name} has {count} items"], "ok": ["Hello", "World{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["  padded  a:b:c"], "ok": ["padded", "a:b:c"]}
+{"fn": "prepare_command", "args": ["İstanbulstraße"], "ok": ["İstanbulstraße"]}
+{"fn": "prepare_command", "args": ["Hello Worldline1\nline2"], "ok": ["Hello", "Worldline1", "line2"]}
+{"fn": "prepare_command", "args": ["日本語のテキストstraße"], "ok": ["日本語のテキストstraße"]}
+{"fn": "prepare_command", "args": ["ns:key.patha😀b😀c"], "ok": ["ns:key.patha😀b😀c"]}
+{"fn": "prepare_command", "args": ["日本語のテキストa..b"], "ok": ["日本語のテキストa..b"]}
+{"fn": "prepare_command", "args": ["trailing.trailing."], "ok": ["trailing.trailing."]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsona😀b😀c"], "ok": ["./x/**/*.jsona😀b😀c"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsonabc"], "ok": ["./x/**/*.jsonabc"]}
+{"fn": "prepare_command", "args": ["akey_name-1"], "ok": ["akey_name-1"]}
+{"fn": "prepare_command", "args": ["src/a/b.tsemoji 👍🏽 mix"], "ok": ["src/a/b.tsemoji", "👍🏽", "mix"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsontab\tseparated"], "ok": ["./x/**/*.jsontab", "separated"]}
+{"fn": "prepare_command", "args": ["src/a/b.tssrc/a/b.ts"], "ok": ["src/a/b.tssrc/a/b.ts"]}
+{"fn": "prepare_command", "args": ["a..bhello"], "ok": ["a..bhello"]}
+{"fn": "prepare_command", "args": ["ΣΊΣΥΦΟΣa:b:c"], "ok": ["ΣΊΣΥΦΟΣa:b:c"]}
+{"fn": "prepare_command", "args": ["./x/**/*.jsonab"], "ok": ["./x/**/*.jsonab"]}
+{"fn": "prepare_command", "args": ["hello worldabc"], "ok": ["hello", "worldabc"]}
+{"fn": "prepare_command", "args": ["hello worldtrailing."], "ok": ["hello", "worldtrailing."]}
+{"fn": "prepare_command", "args": ["İstanbul:"], "ok": ["İstanbul:"]}
+{"fn": "prepare_command", "args": ["straßehello world"], "ok": ["straßehello", "world"]}
+{"fn": "prepare_command", "args": ["日本語のテキストa.b.c"], "ok": ["日本語のテキストa.b.c"]}
+{"fn": "prepare_command", "args": ["a:b:ca😀b😀c"], "ok": ["a:b:ca😀b😀c"]}
+{"fn": "prepare_command", "args": ["abca:b:c"], "ok": ["abca:b:c"]}
+{"fn": "prepare_command", "args": ["src/a/b.ts{name} has {count} items"], "ok": ["src/a/b.ts{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["日本語のテキストa:b:c"], "ok": ["日本語のテキストa:b:c"]}
+{"fn": "prepare_command", "args": ["hello﻿bom"], "ok": ["hello﻿bom"]}
+{"fn": "prepare_command", "args": ["ns:key.pathé"], "ok": ["ns:key.pathé"]}
+{"fn": "prepare_command", "args": ["tab\tseparatedİstanbul"], "ok": ["tab", "separatedİstanbul"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mixns:key.path"], "ok": ["emoji", "👍🏽", "mixns:key.path"]}
+{"fn": "prepare_command", "args": ["﻿bomns:key.path"], "ok": ["﻿bomns:key.path"]}
+{"fn": "prepare_command", "args": ["ünïcödéhello"], "ok": ["ünïcödéhello"]}
+{"fn": "prepare_command", "args": [":hello"], "ok": [":hello"]}
+{"fn": "prepare_command", "args": ["src/a/b.tsünïcödé"], "ok": ["src/a/b.tsünïcödé"]}
+{"fn": "prepare_command", "args": ["./x/**/*.json:"], "ok": ["./x/**/*.json:"]}
+{"fn": "prepare_command", "args": ["emoji 👍🏽 mix{name} has {count} items"], "ok": ["emoji", "👍🏽", "mix{name}", "has", "{count}", "items"]}
+{"fn": "prepare_command", "args": ["abcé"], "ok": ["abcé"]}
+{"fn": "prepare_command", "args": ["abcHELLO"], "ok": ["abcHELLO"]}
+{"fn": "prepare_command", "args": ["abstraße"], "ok": ["abstraße"]}
+{"fn": "prepare_command", "args": ["hello worlda..b"], "ok": ["hello", "worlda..b"]}
+{"fn": "prepare_command", "args": ["a😀b😀c.leading"], "ok": ["a😀b😀c.leading"]}
+{"fn": "prepare_command", "args": ["İstanbulab"], "ok": ["İstanbulab"]}
+{"fn": "prepare_command", "args": ["line1\nline2straße"], "ok": ["line1", "line2straße"]}
+{"fn": "prepare_command", "args": ["tab\tseparatedΣΊΣΥΦΟΣ"], "ok": ["tab", "separatedΣΊΣΥΦΟΣ"]}
+{"fn": "prepare_command", "args": ["  padded  ab"], "ok": ["padded", "ab"]}
+{"fn": "prepare_command", "args": ["tab\tseparated:"], "ok": ["tab", "separated:"]}
+{"fn": "prepare_command", "args": ["{name} has {count} itemsünïcödé"], "ok": ["{name}", "has", "{count}", "itemsünïcödé"]}
+{"fn": "prepare_command", "args": ["line1\nline2tab\tseparated"], "ok": ["line1", "line2tab", "separated"]}
+{"fn": "prepare_command", "args": ["hello worldHELLO"], "ok": ["hello", "worldHELLO"]}
+{"fn": "prepare_command", "args": ["héllo wörld"], "ok": ["héllo", "wörld"]}
+{"fn": "prepare_command", "args": ["👍🏽 thumbs"], "ok": ["👍🏽", "thumbs"]}
+{"fn": "prepare_command", "args": ["日本語"], "ok": ["日本語"]}
+{"fn": "prepare_command", "args": ["ılık ırmak"], "ok": ["ılık", "ırmak"]}
+{"fn": "prepare_command", "args": ["👨‍👩‍👧 family"], "ok": ["👨‍👩‍👧", "family"]}
+{"fn": "prepare_command", "args": ["a b"], "ok": ["a", "b"]}
+{"fn": "prepare_command", "args": ["a😀b"], "ok": ["a😀b"]}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], null], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], []], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, null], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [null], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", null], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, null], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, null], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, null], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, null], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", {}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", []], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], true], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], true], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [0], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [null, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", true], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], null], "ok": true}
+{"fn": "enforce_request_policy", "args": [true], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, null], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [0, {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [[]], "ok": true}
+{"fn": "enforce_request_policy", "args": ["x", {"a": {"b": "c"}}], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], {"$undefined": true}], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, true], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], []], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1], ["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [true, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [[], 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [["a", 1]], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, []], "ok": true}
+{"fn": "enforce_request_policy", "args": [{}, "x"], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": "b"}, {"a": "b"}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"a": {"b": "c"}}, {}], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [{"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, 0], "ok": true}
+{"fn": "enforce_request_policy", "args": [[3, 1, 2], 0], "ok": true}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": {"a": {"b": "c"}}}, "ok": {"title": "x", "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": [], "labels": true}, "ok": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": [], "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": true, "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": true, "labels": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": true, "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": true, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": {"a": "b"}}, "ok": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true}, "ok": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": null, "target_branch": ["a", 1]}, "ok": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": null, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": {}, "target_branch": {}}, "ok": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": {}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": 0, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": {"a": {"b": "c"}}}, "ok": {"title": "x", "sender": 0, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": 0, "repo_full_name": 0, "source_branch": [], "target_branch": true, "labels": {"a": "b"}}, "ok": {"title": null, "sender": 0, "repo_full_name": 0, "source_branch": [], "target_branch": true, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": 0}, "ok": {"title": {}, "sender": {}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": 0, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {"a": "b"}, "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": "x"}, "ok": {"title": "x", "sender": {"a": "b"}, "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": {}, "source_branch": {}, "target_branch": "x", "labels": {"a": {"b": "c"}}}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": {}, "source_branch": {}, "target_branch": "x", "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": "x", "repo_full_name": 0, "source_branch": true, "target_branch": null, "labels": ["a", 1]}, "ok": {"title": [], "sender": "x", "repo_full_name": 0, "source_branch": true, "target_branch": null, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": "x", "labels": "x"}, "ok": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": "x", "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": [], "repo_full_name": {"a": "b"}, "source_branch": true, "target_branch": {"a": "b"}}, "ok": {"title": [], "sender": [], "repo_full_name": {"a": "b"}, "source_branch": true, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": true, "repo_full_name": null, "source_branch": "x", "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": "x", "sender": true, "repo_full_name": null, "source_branch": "x", "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {}, "target_branch": true, "labels": true}, "ok": {"title": {}, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {}, "target_branch": true, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": "x", "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": ["a", 1], "sender": "x", "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": "x", "source_branch": true, "target_branch": {"a": "b"}, "labels": []}, "ok": {"title": {}, "sender": true, "repo_full_name": "x", "source_branch": true, "target_branch": {"a": "b"}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": 0, "source_branch": [], "target_branch": null}, "ok": {"title": null, "sender": {}, "repo_full_name": 0, "source_branch": [], "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": [], "repo_full_name": null, "source_branch": {"a": "b"}, "target_branch": ["a", 1], "labels": 0}, "ok": {"title": {}, "sender": [], "repo_full_name": null, "source_branch": {"a": "b"}, "target_branch": ["a", 1], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": 0, "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": {"a": "b"}}, "ok": {"title": null, "sender": 0, "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": "x", "source_branch": [], "target_branch": ["a", 1], "labels": ["a", 1]}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": "x", "source_branch": [], "target_branch": ["a", 1], "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": ["a", 1], "labels": null}, "ok": {"title": true, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": {"a": "b"}, "repo_full_name": 0, "source_branch": [], "target_branch": true, "labels": true}, "ok": {"title": ["a", 1], "sender": {"a": "b"}, "repo_full_name": 0, "source_branch": [], "target_branch": true, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": 0, "target_branch": "x"}, "ok": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": 0, "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": true, "repo_full_name": true, "source_branch": {"a": "b"}, "target_branch": 0, "labels": true}, "ok": {"title": ["a", 1], "sender": true, "repo_full_name": true, "source_branch": {"a": "b"}, "target_branch": 0, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": ["a", 1], "source_branch": true, "target_branch": "x"}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": ["a", 1], "source_branch": true, "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": "x", "repo_full_name": "x", "source_branch": {}, "target_branch": []}, "ok": {"title": {"a": "b"}, "sender": "x", "repo_full_name": "x", "source_branch": {}, "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": ["a", 1], "repo_full_name": true, "source_branch": 0, "target_branch": 0, "labels": true}, "ok": {"title": "x", "sender": ["a", 1], "repo_full_name": true, "source_branch": 0, "target_branch": 0, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null}, "ok": {"title": null, "sender": {}, "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": ["a", 1], "sender": "x", "repo_full_name": 0, "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": [], "repo_full_name": 0, "source_branch": null, "target_branch": {}, "labels": {"a": "b"}}, "ok": {"title": [], "sender": [], "repo_full_name": 0, "source_branch": null, "target_branch": {}, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": null, "source_branch": {}, "target_branch": 0, "labels": ["a", 1]}, "ok": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": null, "source_branch": {}, "target_branch": 0, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {}, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": null, "labels": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": {}, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": null, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": 0, "repo_full_name": null, "source_branch": true, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": 0, "sender": 0, "repo_full_name": null, "source_branch": true, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": "x", "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": null, "labels": ["a", 1]}, "ok": {"title": "x", "sender": "x", "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": null, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": "x", "repo_full_name": null, "source_branch": true, "target_branch": 0, "labels": null}, "ok": {"title": 0, "sender": "x", "repo_full_name": null, "source_branch": true, "target_branch": 0, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}}, "ok": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": null, "repo_full_name": 0, "source_branch": true, "target_branch": {"a": "b"}, "labels": null}, "ok": {"title": 0, "sender": null, "repo_full_name": 0, "source_branch": true, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": null, "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": "b"}}, "ok": {"title": 0, "sender": null, "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": [], "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": true, "labels": null}, "ok": {"title": "x", "sender": [], "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": 0, "repo_full_name": {"a": {"b": "c"}}, "source_branch": true, "target_branch": {}, "labels": {"a": {"b": "c"}}}, "ok": {"title": {}, "sender": 0, "repo_full_name": {"a": {"b": "c"}}, "source_branch": true, "target_branch": {}, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": "X"}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": "X", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": {"a": {"b": "c"}}}, "ok": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": ["a", 1], "target_branch": "x", "labels": {"a": {"b": "c"}}}, "ok": {"title": ["a", 1], "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": ["a", 1], "target_branch": "x", "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": ["a", 1], "labels": true}, "ok": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": ["a", 1], "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": null, "repo_full_name": [], "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": {"a": "b"}}, "ok": {"title": ["a", 1], "sender": null, "repo_full_name": [], "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": true, "repo_full_name": {}, "source_branch": 0, "target_branch": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": true, "repo_full_name": {}, "source_branch": 0, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": {}}, "ok": {"title": {}, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": {"b": "c"}}, "repo_full_name": "x", "source_branch": true, "target_branch": {}, "labels": 0}, "ok": {"title": {}, "sender": {"a": {"b": "c"}}, "repo_full_name": "x", "source_branch": true, "target_branch": {}, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": 0, "repo_full_name": true, "source_branch": {}, "target_branch": [], "labels": 0}, "ok": {"title": ["a", 1], "sender": 0, "repo_full_name": true, "source_branch": {}, "target_branch": [], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": true, "repo_full_name": {}, "source_branch": {}, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": 0, "sender": true, "repo_full_name": {}, "source_branch": {}, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}, "labels": true}, "ok": {"title": 0, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": "x", "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": null}, "ok": {"title": 0, "sender": "x", "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": ["a", 1], "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {"a": {"b": "c"}}, "labels": {"a": "b"}}, "ok": {"title": "x", "sender": ["a", 1], "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {"a": {"b": "c"}}, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": 0, "repo_full_name": "x", "source_branch": "x", "target_branch": 0, "labels": []}, "ok": {"title": ["a", 1], "sender": 0, "repo_full_name": "x", "source_branch": "x", "target_branch": 0, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": true, "repo_full_name": {"a": "b"}, "source_branch": ["a", 1], "target_branch": {}}, "ok": {"title": ["a", 1], "sender": true, "repo_full_name": {"a": "b"}, "source_branch": ["a", 1], "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {}, "repo_full_name": 0, "source_branch": {}, "target_branch": null, "labels": "x"}, "ok": {"title": "x", "sender": {}, "repo_full_name": 0, "source_branch": {}, "target_branch": null, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": [], "source_branch": null, "target_branch": {}, "labels": true}, "ok": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": [], "source_branch": null, "target_branch": {}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": true, "target_branch": "x", "labels": {"a": {"b": "c"}}}, "ok": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": true, "target_branch": "x", "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": true, "source_branch": {}, "target_branch": {}, "labels": null}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": true, "source_branch": {}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": 0, "repo_full_name": {}, "source_branch": [], "target_branch": {}, "labels": []}, "ok": {"title": {"a": "b"}, "sender": 0, "repo_full_name": {}, "source_branch": [], "target_branch": {}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": "x", "repo_full_name": 0, "source_branch": "x", "target_branch": ["a", 1]}, "ok": {"title": "x", "sender": "x", "repo_full_name": 0, "source_branch": "x", "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": 0, "source_branch": null, "target_branch": [], "labels": 0}, "ok": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": 0, "source_branch": null, "target_branch": [], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {"a": {"b": "c"}}, "repo_full_name": ["a", 1], "source_branch": true, "target_branch": true, "labels": {"a": {"b": "c"}}}, "ok": {"title": "x", "sender": {"a": {"b": "c"}}, "repo_full_name": ["a", 1], "source_branch": true, "target_branch": true, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": {"a": {"b": "c"}}, "labels": []}, "ok": {"title": 0, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": {"a": {"b": "c"}}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": null, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": []}, "ok": {"title": "x", "sender": null, "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": "x", "repo_full_name": ["a", 1], "source_branch": {"a": "b"}, "target_branch": 0, "labels": {}}, "ok": {"title": true, "sender": "x", "repo_full_name": ["a", 1], "source_branch": {"a": "b"}, "target_branch": 0, "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": null, "repo_full_name": true, "source_branch": "x", "target_branch": {"a": "b"}, "labels": null}, "ok": {"title": true, "sender": null, "repo_full_name": true, "source_branch": "x", "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": [], "repo_full_name": {}, "source_branch": {}, "target_branch": [], "labels": "x"}, "ok": {"title": ["a", 1], "sender": [], "repo_full_name": {}, "source_branch": {}, "target_branch": [], "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": [], "labels": {}}, "ok": {"title": true, "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": [], "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {"a": "b"}, "repo_full_name": [], "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": "b"}}, "ok": {"title": "x", "sender": {"a": "b"}, "repo_full_name": [], "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": [], "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": "x", "labels": ["a", 1]}, "ok": {"title": [], "sender": [], "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": "x", "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": null, "repo_full_name": {"a": "b"}, "source_branch": "x", "target_branch": {"a": {"b": "c"}}, "labels": true}, "ok": {"title": 0, "sender": null, "repo_full_name": {"a": "b"}, "source_branch": "x", "target_branch": {"a": {"b": "c"}}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": 0, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": []}, "ok": {"title": ["a", 1], "sender": 0, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": null}, "ok": {"title": null, "sender": {}, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": true, "target_branch": ["a", 1], "labels": 0}, "ok": {"title": {"a": "b"}, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": true, "target_branch": ["a", 1], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": true, "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": ["a", 1]}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": true, "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": {"a": "b"}, "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"a": {"b": "c"}}}, "ok": {"title": {"a": {"b": "c"}}, "sender": {"a": "b"}, "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": {}, "source_branch": true, "target_branch": {"a": "b"}, "labels": []}, "ok": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": {}, "source_branch": true, "target_branch": {"a": "b"}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": true, "repo_full_name": {"a": "b"}, "source_branch": "x", "target_branch": "x", "labels": {"a": "b"}}, "ok": {"title": true, "sender": true, "repo_full_name": {"a": "b"}, "source_branch": "x", "target_branch": "x", "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": [], "repo_full_name": [], "source_branch": "x", "target_branch": {}}, "ok": {"title": ["a", 1], "sender": [], "repo_full_name": [], "source_branch": "x", "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": "x", "repo_full_name": "x", "source_branch": 0, "target_branch": [], "labels": []}, "ok": {"title": null, "sender": "x", "repo_full_name": "x", "source_branch": 0, "target_branch": [], "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": {"a": {"b": "c"}}, "repo_full_name": ["a", 1], "source_branch": 0, "target_branch": {"a": "b"}, "labels": "x"}, "ok": {"title": ["a", 1], "sender": {"a": {"b": "c"}}, "repo_full_name": ["a", 1], "source_branch": 0, "target_branch": {"a": "b"}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "X", "sender": ["a", 1], "repo_full_name": {}, "source_branch": ["a", 1], "target_branch": {"a": "b"}, "labels": "x"}, "ok": {"title": "X", "sender": ["a", 1], "repo_full_name": {}, "source_branch": ["a", 1], "target_branch": {"a": "b"}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": [], "repo_full_name": null, "source_branch": "x", "target_branch": {"a": {"b": "c"}}}, "ok": {"title": "x", "sender": [], "repo_full_name": null, "source_branch": "x", "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {}, "repo_full_name": 0, "source_branch": [], "target_branch": {}, "labels": "x"}, "ok": {"title": [], "sender": {}, "repo_full_name": 0, "source_branch": [], "target_branch": {}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": ["a", 1], "source_branch": 0, "target_branch": {"a": "b"}, "labels": ["a", 1]}, "ok": {"title": null, "sender": {}, "repo_full_name": ["a", 1], "source_branch": 0, "target_branch": {"a": "b"}, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": 0, "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": 0}, "ok": {"title": [], "sender": 0, "repo_full_name": [], "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": {"a": {"b": "c"}}}, "ok": {"title": 0, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": true, "repo_full_name": {"a": "b"}, "source_branch": {}, "target_branch": ["a", 1], "labels": {}}, "ok": {"title": 0, "sender": true, "repo_full_name": {"a": "b"}, "source_branch": {}, "target_branch": ["a", 1], "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": []}, "ok": {"title": null, "sender": null, "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"a": "b"}, "labels": true}, "ok": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"a": "b"}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": 0, "source_branch": ["a", 1], "target_branch": "x", "labels": "x"}, "ok": {"title": {}, "sender": true, "repo_full_name": 0, "source_branch": ["a", 1], "target_branch": "x", "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": null, "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": []}, "ok": {"title": {"a": {"b": "c"}}, "sender": "x", "repo_full_name": null, "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": [], "source_branch": [], "target_branch": 0}, "ok": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": [], "source_branch": [], "target_branch": 0, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": [], "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": ["a", 1], "labels": null}, "ok": {"title": null, "sender": [], "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": {"a": "b"}, "labels": {}}, "ok": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": {"a": "b"}, "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {"a": "b"}, "repo_full_name": ["a", 1], "source_branch": ["a", 1], "target_branch": {"a": "b"}, "labels": []}, "ok": {"title": "x", "sender": {"a": "b"}, "repo_full_name": ["a", 1], "source_branch": ["a", 1], "target_branch": {"a": "b"}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": null, "source_branch": null, "target_branch": {"a": "b"}, "labels": 0}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": null, "source_branch": null, "target_branch": {"a": "b"}, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": 0, "source_branch": "x", "target_branch": {"a": "b"}}, "ok": {"title": null, "sender": null, "repo_full_name": 0, "source_branch": "x", "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": true, "repo_full_name": 0, "source_branch": 0, "target_branch": []}, "ok": {"title": [], "sender": true, "repo_full_name": 0, "source_branch": 0, "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": {"a": {"b": "c"}}}, "ok": {"title": {}, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": {}, "source_branch": {}, "target_branch": "x"}, "ok": {"title": null, "sender": null, "repo_full_name": {}, "source_branch": {}, "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": null, "target_branch": []}, "ok": {"title": true, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": null, "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": "x", "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": true}, "ok": {"title": "x", "sender": "x", "repo_full_name": {"a": "b"}, "source_branch": [], "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": true}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": [], "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": ["a", 1], "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": null}, "ok": {"title": [], "sender": ["a", 1], "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {}, "repo_full_name": "x", "source_branch": 0, "target_branch": true, "labels": {"a": {"b": "c"}}}, "ok": {"title": {"a": "b"}, "sender": {}, "repo_full_name": "x", "source_branch": 0, "target_branch": true, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": 0, "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": 0, "labels": {}}, "ok": {"title": true, "sender": 0, "repo_full_name": {"a": "b"}, "source_branch": {"a": {"b": "c"}}, "target_branch": 0, "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": null, "labels": null}, "ok": {"title": null, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": [], "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null, "labels": "x"}, "ok": {"title": true, "sender": [], "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": [], "source_branch": ["a", 1], "target_branch": "x", "labels": null}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": [], "source_branch": ["a", 1], "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": [], "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": ["a", 1]}, "ok": {"title": {"a": {"b": "c"}}, "sender": [], "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": [], "repo_full_name": {"a": {"b": "c"}}, "source_branch": 0, "target_branch": "x", "labels": {"a": "b"}}, "ok": {"title": 0, "sender": [], "repo_full_name": {"a": {"b": "c"}}, "source_branch": 0, "target_branch": "x", "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": {}, "labels": []}, "ok": {"title": null, "sender": {}, "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": {}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": [], "repo_full_name": true, "source_branch": null, "target_branch": null, "labels": 0}, "ok": {"title": true, "sender": [], "repo_full_name": true, "source_branch": null, "target_branch": null, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": ["a", 1]}, "ok": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": null, "source_branch": {"a": "b"}, "target_branch": {}}, "ok": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": null, "source_branch": {"a": "b"}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": true, "source_branch": null, "target_branch": {}, "labels": []}, "ok": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": true, "source_branch": null, "target_branch": {}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": true}, "ok": {"title": "x", "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": 0, "source_branch": null, "target_branch": ["a", 1], "labels": true}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": 0, "source_branch": null, "target_branch": ["a", 1], "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": [], "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": {}, "labels": null}, "ok": {"title": {"a": "b"}, "sender": [], "repo_full_name": {}, "source_branch": {"a": "b"}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": [], "repo_full_name": null, "source_branch": ["a", 1], "target_branch": null, "labels": true}, "ok": {"title": true, "sender": [], "repo_full_name": null, "source_branch": ["a", 1], "target_branch": null, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {"a": "b"}, "repo_full_name": 0, "source_branch": "x", "target_branch": true, "labels": true}, "ok": {"title": 0, "sender": {"a": "b"}, "repo_full_name": 0, "source_branch": "x", "target_branch": true, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": {"a": "b"}, "target_branch": "x"}, "ok": {"title": true, "sender": [], "repo_full_name": {"a": "b"}, "source_branch": {"a": "b"}, "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": [], "repo_full_name": {}, "source_branch": {}, "target_branch": 0, "labels": {"a": "b"}}, "ok": {"title": null, "sender": [], "repo_full_name": {}, "source_branch": {}, "target_branch": 0, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": {}, "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {"a": {"b": "c"}}, "labels": ["a", 1]}, "ok": {"title": ["a", 1], "sender": {}, "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {"a": {"b": "c"}}, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {}, "repo_full_name": true, "source_branch": {}, "target_branch": 0, "labels": null}, "ok": {"title": {}, "sender": {}, "repo_full_name": true, "source_branch": {}, "target_branch": 0, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {}, "repo_full_name": {"a": "b"}, "source_branch": 0, "target_branch": null}, "ok": {"title": "x", "sender": {}, "repo_full_name": {"a": "b"}, "source_branch": 0, "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": true, "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": {"a": {"b": "c"}}}, "ok": {"title": null, "sender": true, "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": "x", "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": [], "repo_full_name": 0, "source_branch": {}, "target_branch": null, "labels": ["a", 1]}, "ok": {"title": {}, "sender": [], "repo_full_name": 0, "source_branch": {}, "target_branch": null, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": [], "repo_full_name": ["a", 1], "source_branch": true, "target_branch": null, "labels": 0}, "ok": {"title": [], "sender": [], "repo_full_name": ["a", 1], "source_branch": true, "target_branch": null, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {"a": "b"}, "repo_full_name": {"a": "b"}, "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}, "ok": {"title": 0, "sender": {"a": "b"}, "repo_full_name": {"a": "b"}, "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": null, "source_branch": null, "target_branch": true, "labels": {"a": "b"}}, "ok": {"title": {}, "sender": true, "repo_full_name": null, "source_branch": null, "target_branch": true, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": true, "repo_full_name": ["a", 1], "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": {"a": {"b": "c"}}}, "ok": {"title": 0, "sender": true, "repo_full_name": ["a", 1], "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": "x", "repo_full_name": 0, "source_branch": {}, "target_branch": 0, "labels": ["a", 1]}, "ok": {"title": null, "sender": "x", "repo_full_name": 0, "source_branch": {}, "target_branch": 0, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": [], "repo_full_name": [], "source_branch": 0, "target_branch": "x"}, "ok": {"title": {"a": "b"}, "sender": [], "repo_full_name": [], "source_branch": 0, "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": {}, "repo_full_name": [], "source_branch": true, "target_branch": [], "labels": ["a", 1]}, "ok": {"title": "x", "sender": {}, "repo_full_name": [], "source_branch": true, "target_branch": [], "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {}, "repo_full_name": true, "source_branch": ["a", 1], "target_branch": "x", "labels": true}, "ok": {"title": {"a": "b"}, "sender": {}, "repo_full_name": true, "source_branch": ["a", 1], "target_branch": "x", "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": 0, "source_branch": null, "target_branch": true, "labels": ["a", 1]}, "ok": {"title": {"a": {"b": "c"}}, "sender": 0, "repo_full_name": 0, "source_branch": null, "target_branch": true, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": {}, "repo_full_name": 0, "source_branch": null, "target_branch": true, "labels": 0}, "ok": {"title": {"a": {"b": "c"}}, "sender": {}, "repo_full_name": 0, "source_branch": null, "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": null, "repo_full_name": "x", "source_branch": 0, "target_branch": {"a": "b"}, "labels": 0}, "ok": {"title": ["a", 1], "sender": null, "repo_full_name": "x", "source_branch": 0, "target_branch": {"a": "b"}, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": {"a": "b"}, "source_branch": {"a": "b"}, "target_branch": null, "labels": ["a", 1]}, "ok": {"title": {"a": "b"}, "sender": ["a", 1], "repo_full_name": {"a": "b"}, "source_branch": {"a": "b"}, "target_branch": null, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": "x", "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": [], "labels": ["a", 1]}, "ok": {"title": {}, "sender": "x", "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": [], "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": ["a", 1], "repo_full_name": ["a", 1], "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": null}, "ok": {"title": {"a": {"b": "c"}}, "sender": ["a", 1], "repo_full_name": ["a", 1], "source_branch": [], "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": ["a", 1], "repo_full_name": true, "source_branch": [], "target_branch": true}, "ok": {"title": "x", "sender": ["a", 1], "repo_full_name": true, "source_branch": [], "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {}, "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": {}, "labels": null}, "ok": {"title": 0, "sender": {}, "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": [], "labels": []}, "ok": {"title": {}, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": [], "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": "x", "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": 0, "labels": ["a", 1]}, "ok": {"title": true, "sender": "x", "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": 0, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {}, "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": {"a": {"b": "c"}}}, "ok": {"title": null, "sender": {}, "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"a": "b"}, "target_branch": null, "labels": 0}, "ok": {"title": "x", "sender": "x", "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"a": "b"}, "target_branch": null, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": {"a": {"b": "c"}}, "repo_full_name": 0, "source_branch": {}, "target_branch": {"a": "b"}, "labels": {"a": "b"}}, "ok": {"title": ["a", 1], "sender": {"a": {"b": "c"}}, "repo_full_name": 0, "source_branch": {}, "target_branch": {"a": "b"}, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": true, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": {"a": {"b": "c"}}, "labels": "x"}, "ok": {"title": {"a": "b"}, "sender": true, "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": {"a": {"b": "c"}}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": {"a": "b"}, "target_branch": "x", "labels": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": {"a": {"b": "c"}}, "repo_full_name": true, "source_branch": {"a": "b"}, "target_branch": "x", "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": "x", "labels": {"a": "b"}}, "ok": {"title": {}, "sender": true, "repo_full_name": ["a", 1], "source_branch": {}, "target_branch": "x", "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null, "labels": true}, "ok": {"title": {}, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": ["a", 1], "target_branch": null, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": "x", "repo_full_name": [], "source_branch": {}, "target_branch": {}, "labels": ["a", 1]}, "ok": {"title": 0, "sender": "x", "repo_full_name": [], "source_branch": {}, "target_branch": {}, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": ["a", 1], "repo_full_name": "x", "source_branch": null, "target_branch": {"a": {"b": "c"}}}, "ok": {"title": {}, "sender": ["a", 1], "repo_full_name": "x", "source_branch": null, "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": ["a", 1], "repo_full_name": "x", "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": "b"}}, "ok": {"title": true, "sender": ["a", 1], "repo_full_name": "x", "source_branch": 0, "target_branch": ["a", 1], "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": ["a", 1]}, "ok": {"title": {"a": {"b": "c"}}, "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": 0, "labels": {"a": {"b": "c"}}}, "ok": {"title": {}, "sender": true, "repo_full_name": [], "source_branch": {"a": "b"}, "target_branch": 0, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": "x", "source_branch": true, "target_branch": {"a": "b"}, "labels": []}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": "x", "source_branch": true, "target_branch": {"a": "b"}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": [], "repo_full_name": [], "source_branch": {}, "target_branch": 0}, "ok": {"title": ["a", 1], "sender": [], "repo_full_name": [], "source_branch": {}, "target_branch": 0, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": true, "repo_full_name": "x", "source_branch": null, "target_branch": {"a": "b"}}, "ok": {"title": {}, "sender": true, "repo_full_name": "x", "source_branch": null, "target_branch": {"a": "b"}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": [], "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}, "labels": []}, "ok": {"title": "x", "sender": [], "repo_full_name": ["a", 1], "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": {"b": "c"}}, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": "x", "target_branch": "x"}, "ok": {"title": 0, "sender": {"a": "b"}, "repo_full_name": "x", "source_branch": "x", "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": ["a", 1], "labels": []}, "ok": {"title": ["a", 1], "sender": ["a", 1], "repo_full_name": {"a": {"b": "c"}}, "source_branch": null, "target_branch": ["a", 1], "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": null, "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": true}, "ok": {"title": 0, "sender": null, "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": "x", "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": true, "labels": null}, "ok": {"title": "x", "sender": "x", "repo_full_name": ["a", 1], "source_branch": "x", "target_branch": true, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": "x", "repo_full_name": 0, "source_branch": "x", "target_branch": [], "labels": "x"}, "ok": {"title": [], "sender": "x", "repo_full_name": 0, "source_branch": "x", "target_branch": [], "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": []}, "ok": {"title": null, "sender": {"a": {"b": "c"}}, "repo_full_name": {"a": "b"}, "source_branch": null, "target_branch": [], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": null, "labels": null}, "ok": {"title": [], "sender": {"a": {"b": "c"}}, "repo_full_name": "x", "source_branch": {"a": "b"}, "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"a": "b"}}, "ok": {"title": true, "sender": {"a": "b"}, "repo_full_name": {}, "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": {"a": "b"}, "repo_full_name": true, "source_branch": ["a", 1], "target_branch": 0, "labels": {"a": "b"}}, "ok": {"title": {"a": {"b": "c"}}, "sender": {"a": "b"}, "repo_full_name": true, "source_branch": ["a", 1], "target_branch": 0, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": "x", "repo_full_name": {}, "source_branch": {}, "target_branch": ["a", 1]}, "ok": {"title": {"a": "b"}, "sender": "x", "repo_full_name": {}, "source_branch": {}, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": true, "source_branch": [], "target_branch": ["a", 1]}, "ok": {"title": null, "sender": null, "repo_full_name": true, "source_branch": [], "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": ["a", 1], "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": []}, "ok": {"title": {"a": {"b": "c"}}, "sender": ["a", 1], "repo_full_name": true, "source_branch": [], "target_branch": null, "labels": []}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": true, "repo_full_name": null, "source_branch": ["a", 1], "target_branch": {"a": {"b": "c"}}}, "ok": {"title": ["a", 1], "sender": true, "repo_full_name": null, "source_branch": ["a", 1], "target_branch": {"a": {"b": "c"}}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": 0, "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": "b"}, "labels": true}, "ok": {"title": ["a", 1], "sender": 0, "repo_full_name": null, "source_branch": {"a": {"b": "c"}}, "target_branch": {"a": "b"}, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": 0, "repo_full_name": [], "source_branch": ["a", 1], "target_branch": null}, "ok": {"title": {}, "sender": 0, "repo_full_name": [], "source_branch": ["a", 1], "target_branch": null, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": {}, "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {}, "labels": "x"}, "ok": {"title": true, "sender": {}, "repo_full_name": 0, "source_branch": {"a": "b"}, "target_branch": {}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": 0, "repo_full_name": {}, "source_branch": [], "target_branch": [], "labels": 0}, "ok": {"title": null, "sender": 0, "repo_full_name": {}, "source_branch": [], "target_branch": [], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {}, "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": {"a": "b"}}, "ok": {"title": {"a": "b"}, "sender": {}, "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": ["a", 1], "labels": {}}, "ok": {"title": true, "sender": null, "repo_full_name": "x", "source_branch": null, "target_branch": ["a", 1], "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": true, "repo_full_name": [], "source_branch": [], "target_branch": {}}, "ok": {"title": [], "sender": true, "repo_full_name": [], "source_branch": [], "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": [], "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": ["a", 1]}, "ok": {"title": {}, "sender": [], "repo_full_name": "x", "source_branch": {"a": {"b": "c"}}, "target_branch": true, "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": ["a", 1], "labels": null}, "ok": {"title": {"a": "b"}, "sender": {"a": "b"}, "repo_full_name": null, "source_branch": true, "target_branch": ["a", 1], "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": null, "labels": true}, "ok": {"title": {"a": {"b": "c"}}, "sender": true, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": null, "labels": true}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": true, "sender": ["a", 1], "repo_full_name": {}, "source_branch": [], "target_branch": "x"}, "ok": {"title": true, "sender": ["a", 1], "repo_full_name": {}, "source_branch": [], "target_branch": "x", "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": ["a", 1], "sender": true, "repo_full_name": 0, "source_branch": 0, "target_branch": [], "labels": ["a", 1]}, "ok": {"title": ["a", 1], "sender": true, "repo_full_name": 0, "source_branch": 0, "target_branch": [], "labels": ["a", 1]}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": ["a", 1], "repo_full_name": {}, "source_branch": "x", "target_branch": true, "labels": {}}, "ok": {"title": {}, "sender": ["a", 1], "repo_full_name": {}, "source_branch": "x", "target_branch": true, "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": ["a", 1], "source_branch": ["a", 1], "target_branch": true, "labels": {"a": "b"}}, "ok": {"title": null, "sender": null, "repo_full_name": ["a", 1], "source_branch": ["a", 1], "target_branch": true, "labels": {"a": "b"}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [], "sender": 0, "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": {}}, "ok": {"title": [], "sender": 0, "repo_full_name": 0, "source_branch": {"a": {"b": "c"}}, "target_branch": {}, "labels": {"$tuple": []}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": 0, "sender": 0, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"a": "b"}, "target_branch": "x", "labels": {}}, "ok": {"title": 0, "sender": 0, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"a": "b"}, "target_branch": "x", "labels": {}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "x", "sender": [], "repo_full_name": [], "source_branch": true, "target_branch": {}, "labels": "x"}, "ok": {"title": "x", "sender": [], "repo_full_name": [], "source_branch": true, "target_branch": {}, "labels": "x"}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": null, "sender": null, "repo_full_name": true, "source_branch": null, "target_branch": {}, "labels": {"a": {"b": "c"}}}, "ok": {"title": null, "sender": null, "repo_full_name": true, "source_branch": null, "target_branch": {}, "labels": {"a": {"b": "c"}}}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"n": {"$int": "9007199254740993"}, "f": {"$float": "1e+21"}, "t": 0.1, "neg": -7}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": [3, 1, 2], "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": [3, 1, 2], "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": {"n": {"$int": "9007199254740993"}, "f": {"$float": "1e+21"}, "t": 0.1, "neg": -7}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": [3, 1, 2], "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": [3, 1, 2], "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": {}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": {}, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"n": {"$int": "9007199254740993"}, "f": {"$float": "1e+21"}, "t": 0.1, "neg": -7}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": [3, 1, 2], "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": [3, 1, 2], "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {}, "source_branch": "x", "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {}, "source_branch": "x", "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {"n": {"$int": "9007199254740993"}, "f": {"$float": "1e+21"}, "t": 0.1, "neg": -7}, "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": [3, 1, 2], "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": [3, 1, 2], "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": true, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": {}, "target_branch": true, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"zebra": 1, "apple": 2, "10": 3, "2": 4, "é": 5, "Apple": 6}, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"n": 9007199254740993, "f": 1e+21, "t": 0.1, "neg": -7}, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {"n": {"$int": "9007199254740993"}, "f": {"$float": "1e+21"}, "t": 0.1, "neg": -7}, "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": [3, 1, 2], "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": [3, 1, 2], "labels": 0}}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {}, "labels": 0}, "ok": {"title": {"a": "b"}, "sender": null, "repo_full_name": {"a": {"b": "c"}}, "source_branch": "x", "target_branch": {}, "labels": 0}}
+{"fn": "resolve_command", "args": ["review"], "ok": {"$object": "CommandSpec", "attrs": {"command": {"$object": "type", "attrs": {"$repr": "mappingproxy"}}, "check_run": "review", "takes_comment_id": true, "plain_diff_markdown": true, "json_output": "review"}}}
+{"fn": "resolve_command", "args": ["/DESCRIBE_PR"], "ok": {"$object": "CommandSpec", "attrs": {"command": {"$object": "type", "attrs": {"$repr": "mappingproxy"}}, "check_run": "describe", "takes_comment_id": false, "plain_diff_markdown": true, "json_output": "describe"}}}
+{"fn": "resolve_command", "args": ["nope"], "ok": null}
+{"fn": "command_check_run", "args": ["improve_code"], "ok": "review"}
+{"fn": "command_takes_comment_id", "args": ["ask"], "ok": true}
+{"fn": "parse_command", "args": ["/review --pr_reviewer.something=1 extra"], "ok": ["/review", "--pr_reviewer.something=1", "extra"]}
+{"fn": "prepare_command", "args": ["/review"], "ok": ["/review"]}
+{"fn": "enforce_request_policy", "args": ["https://github.com/o/r/pull/1"], "ok": true}
+{"fn": "policy_metadata", "args": [], "kwargs": {"title": "t", "sender": "s", "repo_full_name": "o/r", "source_branch": "a", "target_branch": "b"}, "ok": {"title": "t", "sender": "s", "repo_full_name": "o/r", "source_branch": "a", "target_branch": "b", "labels": {"$tuple": []}}}

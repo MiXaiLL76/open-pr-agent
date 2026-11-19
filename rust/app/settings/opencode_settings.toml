@@ -1,0 +1,16 @@
+# opencode agent-engine settings. Overrides come from the repository's
+# .pr_agent.toml or environment variables (OPENCODE__KEY=value).
+
+[opencode]
+# Path or name of the opencode binary to run.
+binary = "opencode"
+# The opencode agent definition the review runs with.
+agent = "pr-reviewer"
+# Empty = the model configured in opencode itself (provider/model#variant).
+model = ""
+# Wall-clock budget for one opencode run, in seconds.
+timeout_seconds = 900
+# Prefix of the stable /ask session ids (pr-<repo>-<n> keeps dialogue history).
+ask_session_prefix = "pr"
+# Include the changed-file map in the prompt; the agent reads the tree itself.
+file_map_in_prompt = true

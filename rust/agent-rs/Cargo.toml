@@ -1,0 +1,14 @@
+[package]
+name = "agent-rs"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "Command registry: accepted spellings, aliases, check-run names"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { version = "1", features = ["preserve_order", "float_roundtrip"] }
+serde_yaml_ng = { workspace = true }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }
