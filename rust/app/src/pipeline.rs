@@ -1130,16 +1130,13 @@ fn review_hosted(
     };
     let session = handler.session_for_head(&ctx.head_sha);
     info(&prepare, "Starting OpenCode review");
-    let completion = match handler.chat_completion(
+    let (mut data, usage) = match complete_review(
+        &handler,
         &review_task_prompt(&ctx, &diff_path, &history, delta.as_ref()),
         &session,
         &file_map,
     ) {
         Ok(reply) => reply,
-        Err(e) => return fail(&format!("Failed to review PR: {e}")),
-    };
-    let mut data = match recover_review_prediction(&handler, &session, &completion.text) {
-        Ok(data) => data,
         Err(error) => return fail(&error),
     };
     let mut review_value = data["review"].clone();
@@ -1255,10 +1252,7 @@ fn review_hosted(
         .append_to(&mut body);
     }
 
-    write_json_output(
-        cli,
-        &review_json_payload(&complete_review, &completion.usage),
-    );
+    write_json_output(cli, &review_json_payload(&complete_review, &usage));
     let summary_id = history.summary.as_ref().map(|(id, _)| *id);
     if let Err(error) = client.publish_review_summary(repo_full, ctx.number, summary_id, &body) {
         return fail(&format!("Failed to publish the review summary: {error}"));
@@ -1468,13 +1462,11 @@ fn run_plain_diff(diff_file: &str, cli: &NativeCli, settings: &Settings) -> Opti
     // Session idempotency keys on the diff digest: the same patch replays the
     // same session.
     let session = format!("ses_pr_head-{}", diff_tag(&diff_text));
-    let completion = handler
-        .chat_completion(&review_task_prompt_plain(), &session, &file_map)
-        .ok()?;
-    let mut data = match recover_review_prediction(&handler, &session, &completion.text) {
-        Ok(data) => data,
-        Err(error) => return Some(fail(&error)),
-    };
+    let (mut data, usage) =
+        match complete_review(&handler, &review_task_prompt_plain(), &session, &file_map) {
+            Ok(result) => result,
+            Err(error) => return Some(fail(&error)),
+        };
     let mut review_value = data["review"].clone();
     normalize_review_fields(&mut review_value);
     let complete_review = review_value.clone();
@@ -1494,10 +1486,7 @@ fn run_plain_diff(diff_file: &str, cli: &NativeCli, settings: &Settings) -> Opti
         .bool("pr_reviewer", "enable_intro_text")
         .unwrap_or(false);
     let markdown = render_review_markdown(&review_value, true, intro);
-    write_json_output(
-        cli,
-        &review_json_payload(&complete_review, &completion.usage),
-    );
+    write_json_output(cli, &review_json_payload(&complete_review, &usage));
     println!("{markdown}");
     Some(ExitCode::SUCCESS)
 }
@@ -2143,7 +2132,7 @@ any commands suggested by the skill. Follow the review output contract below.\n\
 }
 
 /// The `/review` task: mission plus context; the YAML contract follows from
-/// `commands::REVIEW_CONTRACT`, the changed-file map from the engine.
+/// The engine adds the output instructions and changed-file map.
 fn review_task_prompt(
     pr: &PrContext,
     diff_path: &str,
@@ -2188,7 +2177,6 @@ Recheck its findings in the current review scope, drop resolved items, and retai
         task.push_str("\n\n");
     }
     task.push_str(review_skill_instruction());
-    task.push_str(crate::commands::REVIEW_CONTRACT);
     task
 }
 
@@ -2196,9 +2184,8 @@ Recheck its findings in the current review scope, drop resolved items, and retai
 fn review_task_prompt_plain() -> String {
     format!(
         "Review this pull request. Read the changed files in the working tree with your tools; \
-the full diff is available via `git diff`.\n\n{}{}",
-        review_skill_instruction(),
-        crate::commands::REVIEW_CONTRACT
+the full diff is available via `git diff`.\n\n{}",
+        review_skill_instruction()
     )
 }
 
@@ -2214,6 +2201,40 @@ the full diff is available via `git diff`.\n\n",
     }
     task.push_str(crate::commands::DESCRIBE_CONTRACT);
     task
+}
+
+fn complete_review(
+    handler: &OpenCodeHandler,
+    task: &str,
+    session: &str,
+    file_map: &[crate::opencode::FileMapEntry],
+) -> Result<(Yaml, crate::opencode::RunUsage), String> {
+    let legacy = std::env::var("PR_AGENT_REVIEW_MCP")
+        .is_ok_and(|value| value.trim().eq_ignore_ascii_case("false"));
+    let completion = if legacy {
+        let prompt = format!("{task}{}", crate::commands::REVIEW_CONTRACT);
+        handler.chat_completion(&prompt, session, file_map)
+    } else {
+        let prompt = format!(
+            "{task}When your investigation is complete, submit the complete review by calling \
+pr_result_save_result once with the review object. Include an empty key_issues_to_review list if \
+there are no findings. Include the review effort (1–5), risk level (low, medium, high), \
+merge recommendation (no_concerns_found, needs_review, changes_required), relevant_tests (Yes or No), \
+and security_concerns (No when there are none). Submit code snippets as string fields. \
+After the tool confirms success, stop."
+        );
+        handler.submit_review(&prompt, session, file_map)
+    }
+    .map_err(|error| format!("Failed to review PR: {error}"))?;
+    let review = if legacy {
+        recover_review_prediction(handler, session, &completion.text)?
+    } else {
+        let result: Json = serde_json::from_str(&completion.text)
+            .map_err(|error| format!("Invalid saved review JSON: {error}"))?;
+        serde_yaml_ng::to_value(result)
+            .map_err(|error| format!("Could not load the saved review: {error}"))?
+    };
+    Ok((review, completion.usage))
 }
 
 fn recover_review_prediction(

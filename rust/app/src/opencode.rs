@@ -16,10 +16,12 @@
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::time::Duration;
+use std::time::{Duration, Instant};
 
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+
+const LATE_STREAM_CONTENT: &str = "OpenAI Chat received content after the finish reason";
 
 /// Default settings file baked into the binary at build time.
 const DEFAULT_SETTINGS: &str = include_str!(concat!(
@@ -39,7 +41,7 @@ pub struct OpenCodeSettings {
     /// Empty = the model configured in opencode itself.
     #[serde(default)]
     pub model: String,
-    /// Wall-clock budget for one `opencode run` invocation.
+    /// Wall-clock budget for a completion, including stream recovery.
     #[serde(default = "default_timeout")]
     pub timeout_seconds: u64,
     /// Prefix for stable `/ask` session ids (`pr-<repo>-<n>`).
@@ -329,9 +331,102 @@ impl OpenCodeHandler {
         })?;
 
         let full_prompt = compose_prompt(prompt, file_map, self.settings.file_map_in_prompt);
+        let timeout = Duration::from_secs(self.settings.timeout_seconds);
+        let started = Instant::now();
+        let result = self.run_session(worktree, session_id, &full_prompt, timeout, None);
+        if let Err(error) = &result
+            && error.0.contains(LATE_STREAM_CONTENT)
+            && let Some(remaining) = timeout.checked_sub(started.elapsed())
+            && !remaining.is_zero()
+        {
+            crate::logging::info(
+                &crate::logging::Loc {
+                    module: "opencode",
+                    func: "run",
+                },
+                "OpenCode received content after the stream finish reason. Continuing the same session once.",
+            );
+            return self.run_session(
+                worktree,
+                session_id,
+                "Continue the original task using the context and results already collected in this session. Follow the original output format and return the complete final answer.",
+                remaining,
+                None,
+            );
+        }
+        result
+    }
 
+    pub(crate) fn submit_review(
+        &self,
+        prompt: &str,
+        session_id: &str,
+        file_map: &[FileMapEntry],
+    ) -> Result<AgentReply, OpenCodeError> {
+        let worktree = self.worktree_path.as_deref().ok_or_else(|| {
+            OpenCodeError::runtime("worktree not prepared; call prepare_worktree first")
+        })?;
+        let directory = tempfile::tempdir().map_err(|error| {
+            OpenCodeError::runtime(format!("cannot create review result directory: {error}"))
+        })?;
+        let destination = directory.path().join("review.json");
+        let prompt = compose_prompt(prompt, file_map, self.settings.file_map_in_prompt);
+        let timeout = Duration::from_secs(self.settings.timeout_seconds);
+        let started = Instant::now();
+        let mut result =
+            self.run_session(worktree, session_id, &prompt, timeout, Some(&destination));
+        let needs_submission = match &result {
+            Ok(_) => !destination.exists(),
+            Err(error) => error.0.contains(LATE_STREAM_CONTENT),
+        };
+        if needs_submission
+            && let Some(remaining) = timeout.checked_sub(started.elapsed())
+            && !remaining.is_zero()
+        {
+            crate::logging::info(
+                &crate::logging::Loc {
+                    module: "opencode",
+                    func: "submit_review",
+                },
+                "Continuing the same session once to complete submission via pr_result_save_result.",
+            );
+            result = self.run_session(
+                worktree,
+                session_id,
+                "Submit the complete review now by calling pr_result_save_result with the findings already collected.",
+                remaining,
+                Some(&destination),
+            );
+        }
+        let mut reply = result?;
+        reply.text = std::fs::read_to_string(&destination).map_err(|error| {
+            if error.kind() == std::io::ErrorKind::NotFound {
+                OpenCodeError::runtime(
+                    "OpenCode finished without an accepted pr_result_save_result call. Check that the configured model supports tool calls.",
+                )
+            } else {
+                OpenCodeError::runtime(format!("could not read the saved review: {error}"))
+            }
+        })?;
+        Ok(reply)
+    }
+
+    fn run_session(
+        &self,
+        worktree: &Path,
+        session_id: &str,
+        prompt: &str,
+        timeout: Duration,
+        review_destination: Option<&Path>,
+    ) -> Result<AgentReply, OpenCodeError> {
         let (mut command, _engine_config, _config_home) =
             configured_opencode_command(&self.settings.binary)?;
+        if let Some(destination) = review_destination {
+            let config = crate::review_mcp::engine_config(destination).map_err(|error| {
+                OpenCodeError::runtime(format!("cannot configure the review MCP server: {error}"))
+            })?;
+            command.env("OPENCODE_CONFIG_CONTENT", config.to_string());
+        }
         command
             .current_dir(worktree)
             .arg("run")
@@ -345,20 +440,22 @@ impl OpenCodeHandler {
             .arg("--session")
             .arg(session_id)
             .arg("--archived")
-            .arg(&full_prompt);
+            .arg(prompt);
         if !self.settings.model.is_empty() {
             command.arg("--model").arg(&self.settings.model);
         }
 
-        let output = run_with_timeout(command, Duration::from_secs(self.settings.timeout_seconds))
-            .map_err(|e| OpenCodeError::runtime(format!("failed to run opencode: {e}")))?;
-        match output {
+        let output = run_with_timeout(command, timeout);
+        if let Some(destination) = review_destination {
+            crate::review_mcp::relay_diagnostics(destination, session_id);
+        }
+        match output.map_err(|e| OpenCodeError::runtime(format!("failed to run opencode: {e}")))? {
             None => Err(OpenCodeError::runtime(format!(
                 "opencode run exceeded the {}s timeout and was killed",
                 self.settings.timeout_seconds
             ))),
             Some(output) if !output.status.success() => Err(engine_failure(&output)),
-            Some(output) => parse_agent_reply(&output.stdout),
+            Some(output) => parse_agent_events(&output.stdout, review_destination.is_none()),
         }
     }
 }
@@ -1088,6 +1185,10 @@ fn event_type(event: &Value) -> Option<&str> {
 /// line, the payload under `part`. Keep text from the final assistant
 /// message and collect usage from step-finish events.
 pub fn parse_agent_reply(stdout: &[u8]) -> Result<AgentReply, OpenCodeError> {
+    parse_agent_events(stdout, true)
+}
+
+fn parse_agent_events(stdout: &[u8], require_text: bool) -> Result<AgentReply, OpenCodeError> {
     let text = String::from_utf8_lossy(stdout);
     let mut reply = AgentReply::default();
     let mut message_id = None;
@@ -1130,7 +1231,7 @@ pub fn parse_agent_reply(stdout: &[u8]) -> Result<AgentReply, OpenCodeError> {
             _ => {}
         }
     }
-    if reply.text.trim().is_empty() {
+    if require_text && reply.text.trim().is_empty() {
         return Err(OpenCodeError::runtime(
             "opencode returned an empty response",
         ));
@@ -1265,6 +1366,50 @@ mod tests {
         assert!(result.status.success());
         assert_eq!(result.stdout.len(), 262144);
         assert_eq!(result.stderr.len(), 262144);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn resumes_same_session_once_after_late_stream_content() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let _guard = ENV_LOCK.lock().unwrap_or_else(|error| error.into_inner());
+        let worktree = tempfile::tempdir().unwrap();
+        let binary = worktree.path().join("opencode");
+        std::fs::write(
+            &binary,
+            r#"#!/bin/sh
+set -eu
+printf '%s\n' "$*" >> invocations
+case "$*" in
+  *'--session ses_pr_head-abc --archived Original task'*)
+    printf '%s\n' '{"type":"text","part":{"text":"Partial answer"}}'
+    printf '%s\n' '{"type":"error","error":{"message":"OpenAI Chat received content after the finish reason"}}'
+    exit 1
+    ;;
+  *'--session ses_pr_head-abc --archived Continue the original task'*)
+    test -f invocations
+    printf '%s\n' '{"type":"text","part":{"text":"Complete answer"}}'
+    ;;
+  *) exit 2 ;;
+esac
+"#,
+        )
+        .unwrap();
+        std::fs::set_permissions(&binary, std::fs::Permissions::from_mode(0o700)).unwrap();
+
+        let mut handler = OpenCodeHandler::new(OpenCodeSettings {
+            binary: binary.to_str().unwrap().into(),
+            timeout_seconds: 5,
+            ..OpenCodeSettings::default()
+        });
+        handler.worktree_path = Some(worktree.path().into());
+        let reply = handler
+            .chat_completion("Original task", "ses_pr_head-abc", &[])
+            .unwrap();
+        assert_eq!(reply.text, "Complete answer");
+        let invocations = std::fs::read_to_string(worktree.path().join("invocations")).unwrap();
+        assert_eq!(invocations.lines().count(), 2);
     }
 
     #[test]

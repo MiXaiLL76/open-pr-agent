@@ -59,9 +59,11 @@ report only what is new, changed, or resolved):\n",
     prompt
 }
 
-/// The review output contract. JSON makes multiline snippets unambiguous.
+/// The review output contract. JSON strings preserve multiline snippets.
 pub const REVIEW_CONTRACT: &str = "\
-Answer with a single YAML document matching this schema (no prose, no code fences):
+Answer with a single valid JSON object (no prose, no code fences).
+Use the field names and types in the outline below. Escape line breaks,
+double quotes, and backslashes inside string values according to JSON syntax.
 
 review:
   estimated_effort_to_review_[1-5]: 1-5          # integer

@@ -33,4 +33,5 @@ octocrab = { version = "0.54", features = ["reqwest"] }
 reqwest = { version = "0.13", default-features = false, features = ["rustls", "system-proxy"] }
 gitlab = "0.1905"
 tempfile = "3"
+rmcp = { version = "3.11.0", default-features = false, features = ["server", "macros", "schemars", "transport-io"] }
 

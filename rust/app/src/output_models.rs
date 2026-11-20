@@ -7,18 +7,19 @@
 // that wire in with the git-providers port.
 #![allow(dead_code)]
 
+use rmcp::schemars;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
 /// A file the model marked as relevant to one sub-PR (`SubPR`).
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct SubPr {
     pub relevant_files: Vec<String>,
     pub title: String,
 }
 
 /// One key issue, possibly carrying an inline improvement.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct KeyIssuesComponentLink {
     pub relevant_file: String,
     pub issue_header: String,
@@ -36,7 +37,7 @@ pub struct KeyIssuesComponentLink {
 }
 
 /// A `/review` todo-sections row.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct TodoSection {
     pub relevant_file: String,
     pub line_number: i64,
@@ -44,7 +45,7 @@ pub struct TodoSection {
 }
 
 /// Ticket-compliance row.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct TicketCompliance {
     pub ticket_url: String,
     pub ticket_requirements: String,
@@ -54,7 +55,7 @@ pub struct TicketCompliance {
 }
 
 /// Contribution-time cost estimate.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct ContributionTimeCostEstimate {
     pub best_case: String,
     pub average_case: String,
@@ -62,7 +63,7 @@ pub struct ContributionTimeCostEstimate {
 }
 
 /// One failure mode of the change.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct FailureMode {
     pub what: String,
     pub r#where: String,
@@ -73,7 +74,7 @@ pub struct FailureMode {
 }
 
 /// The review payload inside `PRReview`.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct Review {
     #[serde(default)]
     pub ticket_compliance_check: Option<Vec<TicketCompliance>>,
@@ -113,7 +114,7 @@ pub struct Review {
 }
 
 /// `todo_sections` accepts a list or a plain string.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 #[serde(untagged)]
 pub enum TodoSectionsValue {
     List(Vec<TodoSection>),
@@ -121,7 +122,7 @@ pub enum TodoSectionsValue {
 }
 
 /// The top-level `/review` answer.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, schemars::JsonSchema)]
 pub struct PrReview {
     pub review: Review,
 }

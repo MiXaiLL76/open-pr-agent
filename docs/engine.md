@@ -128,3 +128,17 @@ configured. A template lives at `.open-pr-agent-example.jsonc`.
 `pr_agent doctor` checks the deployment without a PR: the binary resolves
 (`OPENCODE__BINARY` or PATH) and a one-shot completion answers. Exit code 0
 only when both pass.
+
+### Review result submission
+
+By default, `/review` uses a local stdio MCP server embedded in both application
+binaries. OpenCode starts the server for the run and the agent submits a typed
+review through `pr_result_save_result`. If the tool has accepted no result,
+the wrapper continues the same session once within the original timeout.
+Publication requires a saved result. Each review uses a private temporary
+directory for its result, which the wrapper removes at the end.
+The wrapper relays MCP startup, tool calls and their outcome to the application
+log after each OpenCode attempt. Review content is omitted from these messages.
+
+Set `PR_AGENT_REVIEW_MCP=false` to use the text-based review transport with a
+model that cannot call tools. `/ask` and `/describe` continue to use text output.

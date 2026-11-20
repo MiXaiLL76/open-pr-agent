@@ -330,6 +330,8 @@ fn strip_ansi(text: &str) -> String {
 fn run(args: &[&str], envs: &[(&str, &str)], cwd: Option<&std::path::Path>) -> Run {
     let mut cmd = Command::new(BIN);
     cmd.args(args);
+    // Most fixtures exercise the legacy text transport.
+    cmd.env("PR_AGENT_REVIEW_MCP", "false");
     for var in [
         "GITHUB__USER_TOKEN",
         "PR_REVIEWER__INLINE_KEY_ISSUES",
@@ -454,9 +456,11 @@ fn malformed_review_is_reformatted_once_before_publication() {
             "case \"$*\" in",
             r#"case "$*" in
   *"Reformat your previous review response"*)
+    case "$*" in *"single YAML document"*) exit 2 ;; esac
     printf '%s\n' '{"type":"text","part":{"type":"text","text":"{\"review\":{\"estimated_effort_to_review_[1-5]\":2,\"security_concerns\":\"No\",\"relevant_tests\":\"No\",\"key_issues_to_review\":[]}}"}}'
     exit 0 ;;
   *"Review this pull request"*)
+    case "$*" in *"Answer with a single valid JSON object"*) ;; *) exit 2 ;; esac
     printf '%s\n' '{"type":"text","part":{"type":"text","text":"review: [broken-secret"}}'
     exit 0 ;;
 esac
@@ -1004,8 +1008,8 @@ fn unknown_command_is_an_argparse_error() {
 
 #[test]
 fn plain_diff_review_runs_patch_only() {
-    let dir = std::env::temp_dir().join("pr-agent-tests/plain-diff");
-    std::fs::create_dir_all(&dir).unwrap();
+    let temp = tempfile::tempdir().unwrap();
+    let dir = temp.path();
     std::fs::write(
         dir.join("fixture.diff"),
         "diff --git a/src/app.py b/src/app.py\nnew file mode 100644\nindex 0000000..1111111\n--- /dev/null\n+++ b/src/app.py\n@@ -0,0 +1,2 @@\n+def run():\n+    return 42\n",
@@ -1014,7 +1018,7 @@ fn plain_diff_review_runs_patch_only() {
     let out = run(
         &["--diff-file", "fixture.diff", "review"],
         &[("OPENCODE__BINARY", engine_stub("plain").to_str().unwrap())],
-        Some(&dir),
+        Some(dir),
     );
     assert_eq!(out.code, 0, "stdout:\n{}", out.stdout);
     assert!(out.stdout.contains("patch-only mode"));
@@ -1155,4 +1159,110 @@ printf '%s\n' "$XDG_CONFIG_HOME" > engine-config-home
             assert!(!std::path::Path::new(path.trim()).exists());
         }
     }
+}
+
+#[test]
+fn review_mcp_validates_and_saves_multiline_code() {
+    use std::io::{BufRead, BufReader};
+    use std::process::Stdio;
+
+    let dir = tempfile::tempdir().unwrap();
+    let result = dir.path().join("review.json");
+    let mut child = Command::new(BIN)
+        .arg("--internal-review-mcp")
+        .arg(&result)
+        .stdin(Stdio::piped())
+        .stdout(Stdio::piped())
+        .spawn()
+        .unwrap();
+    let mut input = child.stdin.take().unwrap();
+    let mut output = BufReader::new(child.stdout.take().unwrap());
+    let mut request = |message: serde_json::Value| {
+        writeln!(input, "{message}").unwrap();
+        if message.get("id").is_none() {
+            return serde_json::Value::Null;
+        }
+        let mut line = String::new();
+        output.read_line(&mut line).unwrap();
+        serde_json::from_str::<serde_json::Value>(&line).unwrap()
+    };
+    request(serde_json::json!({
+        "jsonrpc": "2.0", "id": 1, "method": "initialize",
+        "params": {"protocolVersion":"2025-03-26", "capabilities":{},
+            "clientInfo":{"name":"test","version":"1.0.0"}}
+    }));
+    request(serde_json::json!({"jsonrpc": "2.0", "method": "notifications/initialized"}));
+    let tools = request(serde_json::json!({"jsonrpc":"2.0","id":2,"method":"tools/list"}));
+    assert_eq!(tools["result"]["tools"].as_array().unwrap().len(), 1);
+    assert_eq!(tools["result"]["tools"][0]["name"], "save_result");
+
+    let tool_call = |id, review: serde_json::Value| {
+        serde_json::json!({
+            "jsonrpc":"2.0","id":id,"method":"tools/call",
+            "params":{"name":"save_result","arguments":{"review":review}}
+        })
+    };
+    let invalid = request(tool_call(
+        3,
+        serde_json::json!({"key_issues_to_review": false}),
+    ));
+    assert!(invalid.get("error").is_some() || invalid["result"]["isError"] == true);
+    assert!(!result.exists());
+
+    let code = "if ready {\n    println!(\"left: right\\n\");\n}\n";
+    let saved = request(tool_call(
+        4,
+        serde_json::json!({
+            "key_issues_to_review": [{
+                "relevant_file":"main.rs", "issue_header":"Header: issue",
+                "issue_content":"Details", "start_line":1, "end_line":2,
+                "improved_code":code
+            }]
+        }),
+    ));
+    assert_ne!(saved["result"]["isError"], true, "{saved}");
+    let repeated = request(tool_call(5, serde_json::json!({"key_issues_to_review":[]})));
+    assert_eq!(repeated["result"]["isError"], true, "{repeated}");
+
+    drop(input);
+    assert!(child.wait().unwrap().success());
+    let log = std::fs::read_to_string(result.with_extension("mcp.log")).unwrap();
+    assert!(log.contains("MCP tool pr_result_save_result called."));
+    assert!(log.contains("arguments failed review schema validation."));
+    assert!(log.contains("accepted and saved the review."));
+    let saved: serde_json::Value = serde_json::from_slice(&std::fs::read(result).unwrap()).unwrap();
+    assert_eq!(
+        saved["review"]["key_issues_to_review"][0]["improved_code"],
+        code
+    );
+}
+
+#[test]
+fn review_does_not_publish_text_without_mcp_submission() {
+    let (port, log) = spawn_server(Arc::new(github_respond));
+    let out = run(
+        &["--pr_url", "https://github.com/org/repo/pull/123", "review"],
+        &[
+            ("GITHUB__BASE_URL", &format!("http://127.0.0.1:{port}")),
+            ("GITHUB__USER_TOKEN", "stub-token"),
+            ("OPENCODE__BINARY", engine_stub("review").to_str().unwrap()),
+            ("PR_AGENT_REVIEW_MCP", "true"),
+        ],
+        None,
+    );
+    assert_ne!(out.code, 0, "{}", out.stdout);
+    assert!(
+        out.stderr.contains("pr_result_save_result"),
+        "{}",
+        out.stderr
+    );
+    assert_eq!(
+        out.stdout
+            .matches("Continuing the same session once")
+            .count(),
+        1
+    );
+    assert!(out.stdout.contains("did not start the review MCP server"));
+    assert!(!requested(&log, "POST", "pulls/123/reviews"));
+    assert!(!requested(&log, "POST", "issues/123/comments"));
 }

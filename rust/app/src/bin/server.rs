@@ -46,7 +46,10 @@ impl Hooks {
 }
 
 #[tokio::main]
-async fn main() {
+async fn main() -> std::process::ExitCode {
+    if let Some(code) = pr_agent::review_mcp::serve_if_requested().await {
+        return code;
+    }
     let port: u16 = std::env::var("PORT")
         .ok()
         .and_then(|p| p.parse().ok())
@@ -65,6 +68,7 @@ async fn main() {
         .unwrap_or_else(|e| panic!("cannot bind {addr}: {e}"));
     eprintln!("pr_agent_server listening on http://{addr}");
     axum::serve(listener, app).await.expect("server error");
+    std::process::ExitCode::SUCCESS
 }
 
 /// GitHub pull-request events: `pull_request` with an actionable action runs

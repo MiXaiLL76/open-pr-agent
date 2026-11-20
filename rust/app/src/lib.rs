@@ -11,6 +11,7 @@ pub mod opencode;
 pub mod output_models;
 pub mod pipeline;
 pub mod render;
+pub mod review_mcp;
 pub mod settings;
 pub mod units;
 
