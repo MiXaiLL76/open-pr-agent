@@ -44,16 +44,30 @@ pub fn error(loc: &Loc, message: &str) {
 
 /// `YYYY-MM-DD HH:MM:SS.mmm +00:00` in UTC, like the original's sink.
 fn timestamp() -> String {
-    let now = SystemTime::now()
+    let now = since_epoch();
+    format!(
+        "{}.{:03} +00:00",
+        date_time(now.as_secs() as i64),
+        now.subsec_millis()
+    )
+}
+
+pub(crate) fn utc_datetime() -> String {
+    format!("{} UTC", date_time(since_epoch().as_secs() as i64))
+}
+
+fn since_epoch() -> std::time::Duration {
+    SystemTime::now()
         .duration_since(UNIX_EPOCH)
-        .unwrap_or_default();
-    let secs = now.as_secs() as i64;
-    let millis = now.subsec_millis();
+        .unwrap_or_default()
+}
+
+fn date_time(secs: i64) -> String {
     let days = secs.div_euclid(86_400);
     let rem = secs.rem_euclid(86_400);
     let (year, month, day) = civil_from_days(days);
     format!(
-        "{year:04}-{month:02}-{day:02} {:02}:{:02}:{:02}.{millis:03} +00:00",
+        "{year:04}-{month:02}-{day:02} {:02}:{:02}:{:02}",
         rem / 3600,
         (rem % 3600) / 60,
         rem % 60

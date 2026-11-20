@@ -688,8 +688,18 @@ printf '{"type":"text","part":{"type":"text","text":"%s"}}\n' "$escaped"
         assert!(report.contains("Unchanged issue"));
         assert!(report.contains("New issue"));
         assert!(!report.contains("Old touched issue"));
-        assert!(changes.contains("**New** · `src/calculator.py` · New issue"));
-        assert!(changes.contains("**Resolved** · `src/calculator.py` · Old touched issue"));
+        let reviewed = report
+            .lines()
+            .find(|line| line.starts_with("**Last reviewed:** "))
+            .unwrap();
+        assert!(reviewed.ends_with(" UTC"));
+        let (visible, folded) = changes
+            .split_once("<details><summary>Resolved findings (1)</summary>")
+            .unwrap();
+        assert!(visible.contains("**New** · `src/calculator.py` · New issue"));
+        assert!(!visible.contains("Old touched issue"));
+        let (folded, _) = folded.split_once("</details>").unwrap();
+        assert!(folded.contains("**Resolved** · `src/calculator.py` · Old touched issue"));
     }
 
     let same = review();
@@ -711,12 +721,24 @@ printf '{"type":"text","part":{"type":"text","text":"%s"}}\n' "$escaped"
     ));
 
     run_number.store(3, Ordering::SeqCst);
+    let before_empty = summary.lock().unwrap().clone();
     let empty = review();
     assert_eq!(empty.code, 0, "{}{}", empty.stdout, empty.stderr);
     assert!(
         empty
             .stdout
             .contains("No file changes since the last reviewed head")
+    );
+    let after_empty = summary.lock().unwrap().clone();
+    assert_eq!(
+        before_empty
+            .split("<!-- pr-agent:review:state:")
+            .next()
+            .map(str::trim_end),
+        after_empty
+            .split("<!-- pr-agent:review:state:")
+            .next()
+            .map(str::trim_end)
     );
     let repeated = review();
     assert!(repeated.stdout.contains("already has a published review"));

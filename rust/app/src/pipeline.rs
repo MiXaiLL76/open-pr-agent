@@ -534,17 +534,28 @@ fn describe_finding_changes(previous: &ReviewState, current: &[Yaml]) -> String 
     let old_keys: HashSet<_> = previous.findings.iter().map(finding_key).collect();
     let new_keys: HashSet<_> = current.iter().map(finding_key).collect();
     let mut changes = String::from("### Changes since last review\n");
-    for (label, items, keys) in [
-        ("New", current, &old_keys),
-        ("Resolved", previous.findings.as_slice(), &new_keys),
-    ] {
-        for finding in items {
-            let key = finding_key(finding);
-            if !keys.contains(&key) {
-                let title = finding["issue_header"].as_str().unwrap_or_default();
-                let _ = writeln!(changes, "- **{label}** · `{}` · {title}", key.0);
-            }
+    let mut resolved = String::new();
+    let mut resolved_count = 0;
+    for finding in current {
+        let key = finding_key(finding);
+        if !old_keys.contains(&key) {
+            let title = finding["issue_header"].as_str().unwrap_or_default();
+            let _ = writeln!(changes, "- **New** · `{}` · {title}", key.0);
         }
+    }
+    for finding in &previous.findings {
+        let key = finding_key(finding);
+        if !new_keys.contains(&key) {
+            let title = finding["issue_header"].as_str().unwrap_or_default();
+            let _ = writeln!(resolved, "- **Resolved** · `{}` · {title}", key.0);
+            resolved_count += 1;
+        }
+    }
+    if resolved_count > 0 {
+        let _ = writeln!(
+            changes,
+            "\n<details><summary>Resolved findings ({resolved_count})</summary>\n\n{resolved}\n</details>"
+        );
     }
     if old_keys == new_keys {
         changes.push_str("- No new or resolved findings.\n");
@@ -1228,7 +1239,8 @@ fn review_hosted(
         .unwrap_or(false);
     let markdown = render_review_markdown(&review_value, true, intro);
     let mut body = format!(
-        "{REVIEW_HEADING}\n\n{REVIEW_MARKER}\n\n{}",
+        "{REVIEW_HEADING}\n\n{REVIEW_MARKER}\n\n**Last reviewed:** {}\n\n{}",
+        crate::logging::utc_datetime(),
         strip_header(&markdown)
     );
     if used_file_patches {
