@@ -71,6 +71,14 @@ fn engine_stub(test: &str) -> PathBuf {
 /// Serve HTTP on an ephemeral port, answering every request with `respond`
 /// and recording it. Returns the port and the request log.
 fn spawn_server(respond: Responder) -> (u16, Requests) {
+    spawn_server_with_diff(respond, 200, GH_DIFF)
+}
+
+fn spawn_server_with_diff(
+    respond: Responder,
+    diff_status: u16,
+    diff_body: &'static str,
+) -> (u16, Requests) {
     let listener = TcpListener::bind("127.0.0.1:0").expect("bind stub server");
     let port = listener.local_addr().expect("local addr").port();
     let requests: Requests = Arc::new(Mutex::new(Vec::new()));
@@ -80,13 +88,21 @@ fn spawn_server(respond: Responder) -> (u16, Requests) {
             let Ok(stream) = stream else { break };
             let respond = respond.clone();
             let log = log.clone();
-            std::thread::spawn(move || handle_connection(stream, respond, log));
+            std::thread::spawn(move || {
+                handle_connection(stream, respond, log, diff_status, diff_body)
+            });
         }
     });
     (port, requests)
 }
 
-fn handle_connection(mut stream: TcpStream, respond: Responder, log: Requests) {
+fn handle_connection(
+    mut stream: TcpStream,
+    respond: Responder,
+    log: Requests,
+    diff_status: u16,
+    diff_body: &str,
+) {
     let _ = stream.set_read_timeout(Some(std::time::Duration::from_secs(10)));
     let mut buf = Vec::new();
     let mut chunk = [0u8; 8192];
@@ -145,7 +161,7 @@ fn handle_connection(mut stream: TcpStream, respond: Responder, log: Requests) {
     let (status, out) = if path.starts_with("/repos/") && !has_user_agent {
         (403, "User-Agent required".to_string())
     } else if path == "/repos/org/repo/pulls/123" && wants_diff {
-        (200, GH_DIFF.to_string())
+        (diff_status, diff_body.to_string())
     } else {
         respond(&method, &path, &body)
     };
@@ -154,6 +170,7 @@ fn handle_connection(mut stream: TcpStream, respond: Responder, log: Requests) {
         201 => "Created",
         204 => "No Content",
         403 => "Forbidden",
+        406 => "Not Acceptable",
         _ => "",
     };
     let extra_headers = if path == "/repos/org/repo/pulls/124/files" {
@@ -699,6 +716,35 @@ printf '{"type":"text","part":{"type":"text","text":"%s"}}\n' "$escaped"
     );
     let repeated = review();
     assert!(repeated.stdout.contains("already has a published review"));
+}
+
+#[test]
+fn review_uses_file_patches_when_github_rejects_the_full_diff() {
+    let (port, log) = spawn_server_with_diff(
+        Arc::new(github_respond),
+        406,
+        r#"{"message":"Sorry, the diff exceeded the maximum number of lines (20000)"}"#,
+    );
+    let out = run(
+        &["--pr_url", "https://github.com/org/repo/pull/123", "review"],
+        &[
+            ("GITHUB__USER_TOKEN", "stub-token"),
+            ("GITHUB__BASE_URL", &format!("http://127.0.0.1:{port}")),
+            (
+                "OPENCODE__BINARY",
+                engine_stub("large-github-diff").to_str().unwrap(),
+            ),
+        ],
+        None,
+    );
+    assert_eq!(out.code, 0, "{}{}", out.stdout, out.stderr);
+    assert!(out.stdout.contains("Reviewing available per-file patches"));
+    assert!(log.lock().unwrap().iter().any(|(method, path, body)| {
+        method == "POST"
+            && path == "/repos/org/repo/issues/123/comments"
+            && body.contains("Division without zero check")
+            && body.contains("Coverage may be incomplete")
+    }));
 }
 
 #[test]

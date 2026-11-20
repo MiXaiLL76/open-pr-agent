@@ -1045,7 +1045,7 @@ fn review_hosted(
     let review_files = delta
         .as_ref()
         .map_or(ctx.files.as_slice(), |delta| delta.files.as_slice());
-    let diff = if let Some(delta) = &delta {
+    let (diff, used_file_patches) = if let Some(delta) = &delta {
         info(
             &prepare,
             &format!(
@@ -1053,19 +1053,37 @@ fn review_hosted(
                 delta.previous, ctx.head_sha
             ),
         );
-        format_file_patches(review_files)
+        (format_file_patches(review_files), false)
     } else {
         match client {
             HostClient::GitHub(github) => {
                 info(&prepare, "Fetching the pull request diff");
                 match github.get_pull_diff(repo_full, ctx.number) {
-                    Ok(diff) => diff,
+                    Ok(Some(diff)) => (diff, false),
+                    Ok(None) if !review_files.is_empty() => {
+                        info(
+                            &prepare,
+                            "GitHub returned 406 for the full diff. Reviewing available per-file patches and file contents.",
+                        );
+                        (
+                            format!(
+                                "# GitHub rejected the full diff. Per-file patches below may be incomplete.\n\n{}",
+                                format_file_patches(review_files)
+                            ),
+                            true,
+                        )
+                    }
+                    Ok(None) => {
+                        return fail(
+                            "GitHub rejected the full pull request diff (406) and no changed files were available. Check access to the pull request files or split the change into smaller pull requests.",
+                        );
+                    }
                     Err(error) => {
                         return fail(&format!("Failed to fetch the pull request diff: {error}"));
                     }
                 }
             }
-            HostClient::GitLab(_) => format_file_patches(review_files),
+            HostClient::GitLab(_) => (format_file_patches(review_files), false),
         }
     };
 
@@ -1216,6 +1234,11 @@ fn review_hosted(
         "{REVIEW_HEADING}\n\n{REVIEW_MARKER}\n\n{}",
         strip_header(&markdown)
     );
+    if used_file_patches {
+        body.push_str(
+            "\n\nGitHub rejected the full diff. This review used available per-file patches and file contents. Coverage may be incomplete.",
+        );
+    }
 
     let current_findings = findings(&complete_review);
     if let Some(previous) = previous

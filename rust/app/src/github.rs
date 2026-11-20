@@ -115,9 +115,19 @@ impl GithubClient {
         })
     }
 
-    pub fn get_pull_diff(&self, repo: &str, number: u64) -> Result<String, String> {
+    /// Return no raw diff when GitHub rejects the diff representation.
+    pub fn get_pull_diff(&self, repo: &str, number: u64) -> Result<Option<String>, String> {
         let (owner, name) = split_repo(repo)?;
-        self.query(self.api.pulls(owner, name).get_diff(number))
+        match self
+            .runtime
+            .block_on(self.api.pulls(owner, name).get_diff(number))
+        {
+            Ok(diff) => Ok(Some(diff)),
+            Err(octocrab::Error::GitHub { source, .. }) if source.status_code.as_u16() == 406 => {
+                Ok(None)
+            }
+            Err(error) => Err(github_error(error)),
+        }
     }
 
     pub(crate) fn compare_review_heads(
