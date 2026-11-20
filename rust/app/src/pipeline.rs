@@ -1914,9 +1914,13 @@ fn publish_review_labels(
     let filtered: Vec<String> = current
         .iter()
         .filter(|label| {
-            !(label.to_lowercase().starts_with("review effort")
-                && review_labels.iter().any(|l| l.starts_with("Review effort")))
-                && !(label.as_str() == "Possible security concern" && has_security_verdict)
+            let replaces_effort = label.to_lowercase().starts_with("review effort")
+                && review_labels
+                    .iter()
+                    .any(|label| label.starts_with("Review effort"));
+            let replaces_security =
+                label.as_str() == "Possible security concern" && has_security_verdict;
+            !(replaces_effort || replaces_security)
         })
         .cloned()
         .collect();

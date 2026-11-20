@@ -26,31 +26,11 @@ RUN --mount=type=cache,id=open-pr-agent-cargo-registry,target=/usr/local/cargo/r
     && install -Dm755 rust/target/release/pr_agent /out/pr_agent \
     && install -Dm755 rust/target/release/pr_agent_server /out/pr_agent_server
 
-# ---- runtime: git + node + opencode + the binaries -----------------------------
-FROM node:22-bookworm-slim
-# Pin the engine release: the official files URL and its sha256.
-ARG OPENCODE_VERSION=2.3.0
-ARG OPENCODE_TARBALL_URL=
-ARG OPENCODE_SHA256=fc0f81522aceeabac47693d88389efa2bc517ce74c2c38fd6967819fcc6e4d3b
+# ---- build: the optional review skill -----------------------------------------
+FROM node:22-bookworm-slim AS skill
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends git ca-certificates curl \
+    && apt-get install -y --no-install-recommends ca-certificates curl \
     && rm -rf /var/lib/apt/lists/*
-# The download may sit behind a TLS-intercepting proxy: pass the proxy CA as
-# a build secret (docker build --secret id=corpca,src=<ca-bundle>). Without
-# the secret the image's own CA store must already trust the endpoint.
-RUN --mount=type=secret,id=corpca \
-    set -eux; \
-    url="${OPENCODE_TARBALL_URL:-https://opencode.ai/files/bin/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz}"; \
-    if [ -f /run/secrets/corpca ]; then \
-        export SSL_CERT_FILE=/run/secrets/corpca; \
-        NODE_EXTRA_CA_CERTS=/run/secrets/corpca; \
-    fi; \
-    curl -fsSL "$url" -o /tmp/opencode.tar.gz; \
-    echo "${OPENCODE_SHA256}  /tmp/opencode.tar.gz" | sha256sum -c -; \
-    tar -xzf /tmp/opencode.tar.gz -C /usr/local/bin opencode; \
-    chmod +x /usr/local/bin/opencode; \
-    opencode --version; \
-    rm -f /tmp/opencode.tar.gz
 
 # Pin both the installer and the upstream skill snapshot. Install Markdown
 # and its license, leaving upstream scripts outside the runtime image.
@@ -73,6 +53,34 @@ RUN --mount=type=secret,id=corpca \
     cd /; \
     rm -rf "$temp"
 
+# ---- runtime: git + opencode + the binaries -------------------------------------
+FROM debian:bookworm-slim
+# Pin the engine release: the official files URL and its sha256.
+ARG OPENCODE_VERSION=2.3.0
+ARG OPENCODE_TARBALL_URL=
+ARG OPENCODE_SHA256=fc0f81522aceeabac47693d88389efa2bc517ce74c2c38fd6967819fcc6e4d3b
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends git ca-certificates curl \
+    && rm -rf /var/lib/apt/lists/*
+# The download may sit behind a TLS-intercepting proxy: pass the proxy CA as
+# a build secret (docker build --secret id=corpca,src=<ca-bundle>). Without
+# the secret the image's own CA store must already trust the endpoint.
+RUN --mount=type=secret,id=corpca \
+    set -eux; \
+    url="${OPENCODE_TARBALL_URL:-https://opencode.ai/files/bin/${OPENCODE_VERSION}/opencode-linux-x64.tar.gz}"; \
+    if [ -f /run/secrets/corpca ]; then \
+        export SSL_CERT_FILE=/run/secrets/corpca; \
+        NODE_EXTRA_CA_CERTS=/run/secrets/corpca; \
+    fi; \
+    curl -fsSL "$url" -o /tmp/opencode.tar.gz; \
+    echo "${OPENCODE_SHA256}  /tmp/opencode.tar.gz" | sha256sum -c -; \
+    tar -xzf /tmp/opencode.tar.gz -C /usr/local/bin opencode; \
+    chmod +x /usr/local/bin/opencode; \
+    opencode --version; \
+    rm -f /tmp/opencode.tar.gz
+
+COPY --from=skill /opt/pr-agent/skills /opt/pr-agent/skills
 COPY --from=build /out/pr_agent /usr/local/bin/pr_agent
 COPY --from=build /out/pr_agent_server /usr/local/bin/pr_agent_server
 COPY rust/app/settings/opencode_defaults.json /root/.config/opencode/opencode.json
