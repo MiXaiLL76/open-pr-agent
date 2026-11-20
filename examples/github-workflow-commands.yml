@@ -25,7 +25,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 20
     env:
-      PR_AGENT_IMAGE: ghcr.io/org/open-pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_IMAGE: ghcr.io/mixaill76/open-pr-agent:latest
       PR_AGENT_LLM_BASE_URL: ${{ secrets.PR_AGENT_LLM_BASE_URL }}
       PR_AGENT_LLM_API_KEY: ${{ secrets.PR_AGENT_LLM_API_KEY }}
       PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
@@ -74,7 +74,6 @@ jobs:
 
           result = subprocess.run([
               "docker", "run", "--rm", "--network", "host",
-              "-v", "/home/runner/.config/opencode:/root/.config/opencode:ro",
               "-v", "/etc/ssl/certs:/etc/ssl/certs:ro",
               *[item for name in ("GITHUB__USER_TOKEN", "GITHUB_ACTIONS",
                                   "PR_AGENT_LLM_BASE_URL", "PR_AGENT_LLM_API_KEY",

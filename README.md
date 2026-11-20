@@ -31,24 +31,14 @@ reviews — the session is idempotent per head SHA.
 
 You need a self-hosted Linux runner with Docker.
 
-**1.** Build the image and push it to your registry:
+**1.** Use the [published container image](https://github.com/MiXaiLL76/open-pr-agent/pkgs/container/open-pr-agent) from GHCR:
 
 ```sh
-make docker-build IMAGE=registry.example.com/open-pr-agent TAG=latest
-make docker-push IMAGE=registry.example.com/open-pr-agent TAG=latest
+docker pull ghcr.io/mixaill76/open-pr-agent:latest
 ```
-
-The opencode engine is installed from the official release at
-`https://opencode.ai/files/bin/`; the version and sha256 are pinned in the
-Dockerfile.
 
 **2.** Copy [`examples/github-workflow-review.yml`](examples/github-workflow-review.yml)
-to `.github/workflows/pr-agent.yml` and set your image:
-
-```yaml
-env:
-  PR_AGENT_IMAGE: registry.example.com/open-pr-agent@sha256:<digest>
-```
+to `.github/workflows/pr-agent.yml`. It already uses the published image.
 
 **3.** Add the model secrets:
 
@@ -58,14 +48,9 @@ env:
 - `PR_AGENT_MODEL` — model as `provider/model`, e.g.
   `litellm/deepseek-v41-flash`
 
-open-pr-agent builds the engine config from these env vars, so nothing needs to be
-mounted on the runner. If the runner is already configured (global opencode
-config or `OPENCODE_CONFIG` in the job), the engine uses it as-is and the LLM
-secrets are not needed.
-
-That's it — every opened PR gets a review. To give the reviewer extra MCP
-servers, add `.open-pr-agent/opencode.jsonc` at the project root (see the
-[template](.open-pr-agent-example.jsonc)).
+open-pr-agent builds the engine config from these variables. To use an
+operator-owned config or enable project MCP servers, see the
+[engine configuration guide](https://mixaill76.github.io/open-pr-agent/engine/#model-selection-and-engine-config).
 
 Comment commands (`/review`, `/describe`, `/ask ...`) are in
 [`examples/github-workflow-commands.yml`](examples/github-workflow-commands.yml).
@@ -73,41 +58,24 @@ GitLab variants (CI job and webhook service) are in [`examples/`](examples/).
 
 ## Try it locally
 
+Export your GitHub token and the three model variables, then run:
+
 ```sh
 docker run --rm \
-  -v ~/.config/opencode:/root/.config/opencode:ro \
   -e PR_URL=https://github.com/org/repo/pull/123 \
-  -e GITHUB__USER_TOKEN=ghp_... \
-  registry.example.com/open-pr-agent
+  -e GITHUB__USER_TOKEN \
+  -e PR_AGENT_LLM_BASE_URL -e PR_AGENT_LLM_API_KEY -e PR_AGENT_MODEL \
+  ghcr.io/mixaill76/open-pr-agent:latest
 ```
-
-Or without a container:
-
-```sh
-make build
-make run PR_URL=https://github.com/org/repo/pull/123
-make doctor   # engine check: binary + model ping
-```
-
-All targets: `make help`.
 
 ## More
 
 - [Documentation site](https://mixaill76.github.io/open-pr-agent/) — rendered docs
-- [Configuration](docs/configuration.md) — all environment variables and keys
-- [Engine](docs/engine.md) — how opencode, the agent and sessions work
-- [Examples](examples/README.md) — ready-to-use CI definitions
+- [Configuration](https://mixaill76.github.io/open-pr-agent/configuration/) — all environment variables and keys
+- [Engine](https://mixaill76.github.io/open-pr-agent/engine/) — how opencode, the agent and sessions work
+- [Examples](https://mixaill76.github.io/open-pr-agent/examples/) — ready-to-use CI definitions
+- [Container package](https://github.com/MiXaiLL76/open-pr-agent/pkgs/container/open-pr-agent) — published images and tags
+- [Build from source](https://mixaill76.github.io/open-pr-agent/building/) — local development and custom images
 
 The docs site is built with Zensical (`make docs-build`) and deployed from
 `main`; set **Settings → Pages → Source** to **GitHub Actions** once.
-
-## Development
-
-```sh
-make format   # format the workspace
-make lint     # fmt check + clippy
-make test     # unit + CLI integration tests (self-contained)
-make build    # release binaries
-```
-
-CI runs the same targets, so a green local run means a green pipeline.

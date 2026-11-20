@@ -10,6 +10,7 @@ nav = [
   { "Configuration" = "configuration.md" },
   { "Engine" = "engine.md" },
   { "Examples" = "examples.md" },
+  { "Build from source" = "building.md" },
 ]
 
 [project.theme]

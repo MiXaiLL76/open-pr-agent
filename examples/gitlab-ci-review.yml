@@ -1,20 +1,14 @@
 # GitLab CI: auto-review merge requests with open-pr-agent.
 #
 # Copy into .gitlab-ci.yml (or `include:` it) and set the CI variables below.
-# Requires a self-hosted Linux runner with the docker executor, the opencode
-# engine config mounted read-only into job containers (runner config:
-#   volumes = ["/home/runner/.config/opencode:/root/.config/opencode:ro"]
-# and the corporate CA bundle if the model endpoint is behind a proxy:
-#   environment = ["SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"]
-# ).
-#
-# CI variables to set (masked):
-#   PR_AGENT_GITLAB_TOKEN  project access token with api scope
-#   PR_AGENT_MODEL         engine model name, e.g. gpt-oss
-#   PR_AGENT_IMAGE         registry reference, digest-pinned in production
+# Requires a self-hosted Linux runner with the Docker executor.
+# Set PR_AGENT_GITLAB_TOKEN, PR_AGENT_LLM_BASE_URL, PR_AGENT_LLM_API_KEY
+# and PR_AGENT_MODEL as CI variables. PR_AGENT_IMAGE can override the published image.
 
 pr-agent-review:
-  image: $PR_AGENT_IMAGE
+  image:
+    name: $PR_AGENT_IMAGE
+    entrypoint: [""]
   stage: test
   timeout: 20 minutes
 
@@ -24,6 +18,7 @@ pr-agent-review:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
   variables:
+    PR_AGENT_IMAGE: ghcr.io/mixaill76/open-pr-agent:latest
     GITLAB__USER_TOKEN: $PR_AGENT_GITLAB_TOKEN
     # LLM endpoint for the engine config open-pr-agent builds; all three or none.
     PR_AGENT_LLM_BASE_URL: $PR_AGENT_LLM_BASE_URL

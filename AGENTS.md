@@ -30,7 +30,7 @@ rust/                  cargo workspace (3 crates)
 docker/                Dockerfile.rust (2 stages), entrypoint.sh
 action.yaml            GitHub Action (docker)
 examples/              ready-made CI workflows (GH, GL CI, GL webhook)
-docs/                  docs site sources: index.md, configuration.md, engine.md, examples.md
+docs/                  docs site sources: index.md, configuration.md, engine.md, examples.md, building.md
 zensical.toml          docs site config (Zensical, GitHub Pages)
 .github/workflows/     CI (lint/test/build), Docker (image), Documentation (Pages)
 Makefile               build / test / format / lint / docker / docs
@@ -69,10 +69,10 @@ stub HTTP server on an ephemeral port inside the test process and spawn the
 real binary — no external services needed. Unit tests that use env vars use
 `ENV_LOCK` + `unsafe set_var` (edition 2024); follow that pattern for new tests.
 
-Image: `make docker-build IMAGE=... TAG=...` (the official opencode binary from
-opencode.ai, sha256 pinned in the Dockerfile). The Docker workflow builds and
-scans every image and publishes it to GHCR from main and version tags. Behind a
-corporate mirror, override `OPENCODE_TARBALL_URL`/`OPENCODE_SHA256` build args.
+The Docker workflow builds and scans images and publishes them to GHCR from
+main and version tags. Use `ghcr.io/mixaill76/open-pr-agent:latest` for the
+published image. See the [build guide](https://mixaill76.github.io/open-pr-agent/building/)
+for custom images and mirrors.
 The image has two binaries: `pr_agent` (CLI, entrypoint) and `pr_agent_server`
 (webhook).
 

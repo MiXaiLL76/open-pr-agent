@@ -43,7 +43,7 @@ have no effect.
 
 ## Engine: `[opencode]`
 
-See [engine.md](engine.md). Keys: `binary`, `agent`, `model`,
+See [Engine](https://mixaill76.github.io/open-pr-agent/engine/). Keys: `binary`, `agent`, `model`,
 `timeout_seconds`, `ask_session_prefix`, `file_map_in_prompt`; override with
 `OPENCODE__KEY=value`.
 
@@ -57,7 +57,7 @@ See [engine.md](engine.md). Keys: `binary`, `agent`, `model`,
 
 Set all three or none. When set, open-pr-agent builds the engine config from the
 project's `.open-pr-agent/opencode.jsonc` plus this provider (see
-[engine.md](engine.md#model-selection-and-engine-config)). An existing
+[Engine](https://mixaill76.github.io/open-pr-agent/engine/#model-selection-and-engine-config)). An existing
 `OPENCODE_CONFIG` wins: open-pr-agent then never touches the engine config.
 
 ## Webhook server secrets

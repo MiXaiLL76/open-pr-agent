@@ -10,7 +10,7 @@
 
 services:
   pr-agent:
-    image: ${PR_AGENT_IMAGE} # e.g. registry.example.com/open-pr-agent@sha256:<digest>
+    image: ${PR_AGENT_IMAGE:-ghcr.io/mixaill76/open-pr-agent:latest}
     restart: unless-stopped
     # The image entrypoint runs the CLI; the service is the other binary.
     entrypoint: ["pr_agent_server"]
@@ -21,8 +21,10 @@ services:
       GITLAB__USER_TOKEN: ${PR_AGENT_GITLAB_TOKEN}
       # GitLab instance the API lives on (self-managed: your own URL).
       GITLAB__URL: https://gitlab.example.com
-      # Engine model as provider/model; must exist in the opencode config.
-      OPENCODE__MODEL: ${PR_AGENT_MODEL}
+      # OpenAI-compatible endpoint and model.
+      PR_AGENT_LLM_BASE_URL: ${PR_AGENT_LLM_BASE_URL}
+      PR_AGENT_LLM_API_KEY: ${PR_AGENT_LLM_API_KEY}
+      PR_AGENT_MODEL: ${PR_AGENT_MODEL}
       # Fail-closed shared secret GitLab signs requests with. Requests
       # without a valid X-Gitlab-Token are rejected before any work.
       GITLAB_WEBHOOK_SECRET: ${GITLAB_WEBHOOK_SECRET}

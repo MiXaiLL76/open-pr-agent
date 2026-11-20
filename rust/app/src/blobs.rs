@@ -59,7 +59,7 @@ Set one of:
                                   (GITLAB_PERSONAL_ACCESS_TOKEN also works)
 
 Tokens are read from the environment only. See the README (Quick start) and
-docs/configuration.md for details.
+https://mixaill76.github.io/open-pr-agent/configuration/ for details.
 ";
 
 /// The unparseable-URL report for /review and /improve.

@@ -30,28 +30,33 @@ duplicate the review.
 
 ## Quick start
 
-Build and push the image:
+Pull the [published container image](https://github.com/MiXaiLL76/open-pr-agent/pkgs/container/open-pr-agent):
 
 ```sh
-make docker-build IMAGE=registry.example.com/open-pr-agent TAG=latest
-make docker-push IMAGE=registry.example.com/open-pr-agent TAG=latest
+docker pull ghcr.io/mixaill76/open-pr-agent:latest
 ```
 
-Then copy
+Copy
 [`examples/github-workflow-review.yml`](https://github.com/MiXaiLL76/open-pr-agent/blob/main/examples/github-workflow-review.yml)
-into `.github/workflows/` and set `PR_AGENT_IMAGE` plus the three model
-secrets: `PR_AGENT_LLM_BASE_URL`, `PR_AGENT_LLM_API_KEY`, `PR_AGENT_MODEL`.
+into `.github/workflows/` and set the model secrets
+`PR_AGENT_LLM_BASE_URL`, `PR_AGENT_LLM_API_KEY` and `PR_AGENT_MODEL`.
+The workflow already points to the published image.
 
 ## Local run
 
+Export your GitHub token and the three model variables, then run:
+
 ```sh
-make build
-make run PR_URL=https://github.com/org/repo/pull/123
-make doctor
+docker run --rm \
+  -e PR_URL=https://github.com/org/repo/pull/123 \
+  -e GITHUB__USER_TOKEN \
+  -e PR_AGENT_LLM_BASE_URL -e PR_AGENT_LLM_API_KEY -e PR_AGENT_MODEL \
+  ghcr.io/mixaill76/open-pr-agent:latest
 ```
 
 ## Documentation
 
-- [Configuration](configuration.md) — settings and environment variables
-- [Engine](engine.md) — opencode, the reviewer agent and sessions
-- [Examples](examples.md) — ready-to-use CI definitions
+- [Configuration](https://mixaill76.github.io/open-pr-agent/configuration/) — settings and environment variables
+- [Engine](https://mixaill76.github.io/open-pr-agent/engine/) — opencode, the reviewer agent and sessions
+- [Examples](https://mixaill76.github.io/open-pr-agent/examples/) — ready-to-use CI definitions
+- [Build from source](https://mixaill76.github.io/open-pr-agent/building/) — local development and custom images
