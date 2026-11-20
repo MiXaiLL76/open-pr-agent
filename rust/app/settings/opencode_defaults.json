@@ -1,0 +1,7 @@
+{
+  "update": "disable",
+  "share": "disabled",
+  "compaction": {
+    "auto": true
+  }
+}

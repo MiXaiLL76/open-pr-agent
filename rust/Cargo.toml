@@ -4,8 +4,6 @@ members = [
     "agent-rs",
     "app",
     "diff-parsing-rs",
-    "request-timeout-rs",
-    "utils-rs",
 ]
 
 [workspace.dependencies]

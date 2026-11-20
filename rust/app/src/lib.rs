@@ -14,6 +14,10 @@ pub mod render;
 pub mod settings;
 pub mod units;
 
+// Tests that override or read environment-backed settings share this lock.
+#[cfg(test)]
+pub(crate) static TEST_ENV_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
 use std::ffi::OsString;
 use std::process::ExitCode;
 

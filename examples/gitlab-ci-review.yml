@@ -10,7 +10,7 @@
 #
 # CI variables to set (masked):
 #   PR_AGENT_GITLAB_TOKEN  project access token with api scope
-#   PR_AGENT_MODEL         engine model as provider/model
+#   PR_AGENT_MODEL         engine model name, e.g. gpt-oss
 #   PR_AGENT_IMAGE         registry reference, digest-pinned in production
 
 pr-agent-review:
@@ -25,16 +25,21 @@ pr-agent-review:
 
   variables:
     GITLAB__USER_TOKEN: $PR_AGENT_GITLAB_TOKEN
-    OPENCODE__MODEL: $PR_AGENT_MODEL
+    # LLM endpoint for the engine config pr-agent builds; all three or none.
+    PR_AGENT_LLM_BASE_URL: $PR_AGENT_LLM_BASE_URL
+    PR_AGENT_LLM_API_KEY: $PR_AGENT_LLM_API_KEY
+    PR_AGENT_MODEL: $PR_AGENT_MODEL
 
   before_script:
     - |
       test -n "$GITLAB__USER_TOKEN" || {
         echo "Set PR_AGENT_GITLAB_TOKEN (project access token, api scope) as a CI variable."; exit 1;
       }
-      test -n "$OPENCODE__MODEL" || {
-        echo "Set PR_AGENT_MODEL (provider/model) as a CI variable."; exit 1;
-      }
+      if [ -n "$PR_AGENT_LLM_BASE_URL" ] || [ -n "$PR_AGENT_LLM_API_KEY" ] || [ -n "$PR_AGENT_MODEL" ]; then
+        test -n "$PR_AGENT_LLM_BASE_URL" && test -n "$PR_AGENT_LLM_API_KEY" && test -n "$PR_AGENT_MODEL" || {
+          echo "Set all three: PR_AGENT_LLM_BASE_URL, PR_AGENT_LLM_API_KEY, PR_AGENT_MODEL (model name)."; exit 1;
+        }
+      fi
       pr_agent doctor # engine preflight: binary + model + one-shot completion ping
 
   script:

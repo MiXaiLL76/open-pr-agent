@@ -1,18 +1,26 @@
-//! GitLab REST transport for the CI pipeline: the request subset the original's
-//! `GitLabProvider` made for `/review`, `/describe`, `/improve` and `/ask` —
-//! merge requests, diffs, raw file contents, languages, notes and labels.
-//!
-//! Auth is a personal access token (`PRIVATE-TOKEN`), the deployment the CI
-//! containers run with. The webhook flow (shared secret validation) lives in
-//! the server layer.
+//! GitLab operations used by the review pipeline.
 
-use std::time::Duration;
+use std::borrow::Cow;
 
-/// A minimal GitLab API client for one project's merge request.
+use axum::http::Method;
+use gitlab::Gitlab;
+use gitlab::api::projects::{
+    merge_requests::{
+        EditMergeRequest, MergeRequest as GetMergeRequest, MergeRequestDiffs,
+        notes::{CreateMergeRequestNote, EditMergeRequestNote, MergeRequestNotes},
+    },
+    repository::{commits::CompareCommits, files::FileRaw},
+};
+use gitlab::api::users::CurrentUser;
+use gitlab::api::{
+    self, Endpoint, Pagination, Query,
+    common::{NameOrId, SortOrder},
+};
+use serde_json::Value;
+
 pub struct GitlabClient {
     pub base_url: String,
-    token: String,
-    http: reqwest::blocking::Client,
+    api: Gitlab,
 }
 
 /// The fields the pipeline consumes from a merge request.
@@ -50,78 +58,34 @@ pub struct Note {
 
 impl GitlabClient {
     pub fn new(base_url: &str, token: &str) -> Result<Self, String> {
-        // The same request-timeout policy as the GitHub client (the
-        // original's default, 60s).
-        let timeout = request_timeout_rs::port::get_http_request_timeout()
-            .map_err(|e| format!("GitlabError: {e}"))?;
-        let http = reqwest::blocking::Client::builder()
-            .timeout(Duration::from_secs_f64(timeout))
+        let base_url = base_url.trim_end_matches('/').to_string();
+        let (scheme, host) = base_url
+            .split_once("://")
+            .ok_or("GitlabError: expected an HTTP(S) base URL")?;
+        let mut builder = Gitlab::builder(host, token);
+        match scheme {
+            "https" => {}
+            "http" => {
+                builder.insecure();
+            }
+            _ => return Err("GitlabError: expected an HTTP(S) base URL".into()),
+        }
+        let api = builder.build().map_err(gitlab_error)?;
+        Ok(Self { base_url, api })
+    }
+
+    fn merge_request(&self, repo: &str, iid: u64) -> Result<Value, String> {
+        GetMergeRequest::builder()
+            .project(repo)
+            .merge_request(iid)
             .build()
-            .map_err(|e| e.to_string())?;
-        Ok(Self {
-            base_url: base_url.trim_end_matches('/').to_string(),
-            token: token.to_string(),
-            http,
-        })
-    }
-
-    fn get(&self, path: &str) -> Result<serde_json::Value, String> {
-        let url = format!("{}/api/v4/{path}", self.base_url);
-        let response = self
-            .http
-            .get(&url)
-            .header("PRIVATE-TOKEN", &self.token)
-            .send()
-            .map_err(|e| format!("GitlabError: {e}"))?;
-        self.json(response)
-    }
-
-    fn send_body(
-        &self,
-        method: reqwest::Method,
-        path: &str,
-        params: &[(&str, &str)],
-    ) -> Result<serde_json::Value, String> {
-        let url = format!("{}/api/v4/{path}", self.base_url);
-        let request = self
-            .http
-            .request(method, &url)
-            .header("PRIVATE-TOKEN", &self.token)
-            .form(params);
-        let response = request.send().map_err(|e| format!("GitlabError: {e}"))?;
-        self.json(response)
-    }
-
-    fn json(&self, response: reqwest::blocking::Response) -> Result<serde_json::Value, String> {
-        let status = response.status();
-        if status == reqwest::StatusCode::NO_CONTENT {
-            return Ok(serde_json::Value::Null);
-        }
-        let value: serde_json::Value = response
-            .json()
-            .map_err(|e| format!("GitlabError: malformed response body: {e}"))?;
-        if !status.is_success() {
-            let message = value
-                .get("message")
-                .and_then(|m| m.as_str())
-                .unwrap_or("request failed")
-                .to_string();
-            return Err(format!("GitlabError: {status} {message}"));
-        }
-        Ok(value)
-    }
-
-    /// The project id for a full path (`group/subgroup/repo`): GitLab accepts
-    /// the URL-encoded path anywhere an id fits, so this is just the encoding.
-    fn project_path(repo: &str) -> String {
-        percent_encode(repo)
+            .map_err(gitlab_error)?
+            .query(&self.api)
+            .map_err(gitlab_error)
     }
 
     pub fn get_merge_request(&self, repo: &str, iid: u64) -> Result<MergeRequest, String> {
-        let value = self.get(&format!(
-            "projects/{}/merge_requests/{iid}",
-            Self::project_path(repo)
-        ))?;
+        let value = self.merge_request(repo, iid)?;
         Ok(MergeRequest {
             iid,
             title: str_field(&value, "title"),
@@ -143,78 +107,94 @@ impl GitlabClient {
     }
 
     pub fn get_mr_diffs(&self, repo: &str, iid: u64) -> Result<Vec<MrDiff>, String> {
-        let value = self.get(&format!(
-            "projects/{}/merge_requests/{iid}/diffs",
-            Self::project_path(repo)
-        ))?;
-        Ok(value
-            .as_array()
-            .cloned()
-            .unwrap_or_default()
-            .into_iter()
-            .map(|d| MrDiff {
-                new_path: str_field(&d, "new_path"),
-                old_path: str_field(&d, "old_path"),
-                diff: str_field(&d, "diff"),
-                new_file: d.get("new_file").and_then(|v| v.as_bool()).unwrap_or(false),
-                deleted_file: d
-                    .get("deleted_file")
-                    .and_then(|v| v.as_bool())
-                    .unwrap_or(false),
-                renamed_file: d
-                    .get("renamed_file")
-                    .and_then(|v| v.as_bool())
-                    .unwrap_or(false),
-            })
-            .collect())
+        let endpoint = MergeRequestDiffs::builder()
+            .project(repo)
+            .merge_request(iid)
+            .build()
+            .map_err(gitlab_error)?;
+        let diffs: Vec<Value> = api::paged(endpoint, Pagination::All)
+            .query(&self.api)
+            .map_err(gitlab_error)?;
+        Ok(diffs.into_iter().map(MrDiff::from).collect())
+    }
+
+    pub(crate) fn compare_review_heads(
+        &self,
+        repo: &str,
+        previous: &str,
+        head: &str,
+    ) -> Result<Option<Vec<MrDiff>>, String> {
+        let project = NameOrId::from(repo);
+        let base: Value = AdditionalEndpoint {
+            method: Method::GET,
+            path: format!(
+                "projects/{project}/repository/merge_base?refs%5B%5D={previous}&refs%5B%5D={head}"
+            ),
+        }
+        .query(&self.api)
+        .map_err(gitlab_error)?;
+        if base["id"].as_str() != Some(previous) {
+            return Ok(None);
+        }
+        let comparison: Value = CompareCommits::builder()
+            .project(repo)
+            .from(previous)
+            .to(head)
+            .straight(true)
+            .build()
+            .map_err(gitlab_error)?
+            .query(&self.api)
+            .map_err(gitlab_error)?;
+        if comparison["compare_timeout"].as_bool() != Some(false) {
+            return Ok(None);
+        }
+        let Some(diffs) = comparison["diffs"].as_array() else {
+            return Ok(None);
+        };
+        if diffs.iter().any(|diff| {
+            diff["collapsed"].as_bool() == Some(true) || diff["too_large"].as_bool() == Some(true)
+        }) {
+            return Ok(None);
+        }
+        Ok(Some(diffs.iter().cloned().map(MrDiff::from).collect()))
     }
 
     /// Raw file content at a ref (`/repository/files/<path>/raw?ref=`).
     pub fn get_raw_file(&self, repo: &str, path: &str, git_ref: &str) -> Result<String, String> {
-        let response = self
-            .http
-            .get(format!(
-                "{}/api/v4/projects/{}/repository/files/{}/raw?ref={}",
-                self.base_url,
-                Self::project_path(repo),
-                percent_encode(path),
-                percent_encode(git_ref)
-            ))
-            .header("PRIVATE-TOKEN", &self.token)
-            .send()
-            .map_err(|e| format!("GitlabError: {e}"))?;
-        let status = response.status();
-        let text = response
-            .text()
-            .map_err(|e| format!("GitlabError: malformed response body: {e}"))?;
-        if status.is_success() {
-            Ok(text)
-        } else {
-            Err(format!("GitlabError: {status} {text}"))
-        }
+        let endpoint = FileRaw::builder()
+            .project(repo)
+            .file_path(path)
+            .ref_(git_ref)
+            .build()
+            .map_err(gitlab_error)?;
+        let bytes: Vec<u8> = api::raw(endpoint).query(&self.api).map_err(gitlab_error)?;
+        Ok(String::from_utf8_lossy(&bytes).into_owned())
     }
 
     /// The project language percentages, used for "PR main language".
     pub fn get_languages(&self, repo: &str) -> Result<Vec<(String, i64)>, String> {
-        let value = self.get(&format!("projects/{}/languages", Self::project_path(repo)))?;
-        Ok(value
-            .as_object()
-            .cloned()
-            .unwrap_or_default()
+        let project = NameOrId::from(repo);
+        let languages: std::collections::BTreeMap<String, f64> = AdditionalEndpoint {
+            method: Method::GET,
+            path: format!("projects/{project}/languages"),
+        }
+        .query(&self.api)
+        .map_err(gitlab_error)?;
+        Ok(languages
             .into_iter()
-            .filter_map(|(k, v)| v.as_i64().map(|n| (k, n)))
+            .map(|(name, percent)| (name, (percent * 100.0).round() as i64))
             .collect())
     }
 
     pub fn create_note(&self, repo: &str, iid: u64, body: &str) -> Result<Note, String> {
-        let value = self.send_body(
-            reqwest::Method::POST,
-            &format!(
-                "projects/{}/merge_requests/{iid}/notes",
-                Self::project_path(repo)
-            ),
-            &[("body", body)],
-        )?;
+        let value: Value = CreateMergeRequestNote::builder()
+            .project(repo)
+            .merge_request(iid)
+            .body(body)
+            .build()
+            .map_err(gitlab_error)?
+            .query(&self.api)
+            .map_err(gitlab_error)?;
         Ok(Note {
             id: value.get("id").and_then(|v| v.as_i64()).unwrap_or(0),
             body: str_field(&value, "body"),
@@ -228,61 +208,54 @@ impl GitlabClient {
         note_id: i64,
         body: &str,
     ) -> Result<(), String> {
-        self.send_body(
-            reqwest::Method::PUT,
-            &format!(
-                "projects/{}/merge_requests/{iid}/notes/{note_id}",
-                Self::project_path(repo)
-            ),
-            &[("body", body)],
-        )?;
-        Ok(())
+        let note_id = u64::try_from(note_id).map_err(gitlab_error)?;
+        let endpoint = EditMergeRequestNote::builder()
+            .project(repo)
+            .merge_request(iid)
+            .note(note_id)
+            .body(body)
+            .build()
+            .map_err(gitlab_error)?;
+        api::ignore(endpoint).query(&self.api).map_err(gitlab_error)
     }
 
-    /// The notes on a merge request, newest last.
-    #[allow(dead_code)] // comment reconciliation ports with the hosted flow
-    pub fn get_notes(&self, repo: &str, iid: u64) -> Result<Vec<Note>, String> {
-        let value = self.get(&format!(
-            "projects/{}/merge_requests/{iid}/notes?sort=asc",
-            Self::project_path(repo)
-        ))?;
-        Ok(value
-            .as_array()
-            .cloned()
-            .unwrap_or_default()
-            .into_iter()
-            .map(|n| Note {
-                id: n.get("id").and_then(|v| v.as_i64()).unwrap_or(0),
-                body: str_field(&n, "body"),
-            })
-            .collect())
+    pub fn current_username(&self) -> Result<String, String> {
+        let user: Value = CurrentUser::builder()
+            .build()
+            .map_err(gitlab_error)?
+            .query(&self.api)
+            .map_err(gitlab_error)?;
+        let username = str_field(&user, "username");
+        if username.is_empty() {
+            return Err("GitLab API did not identify the authenticated user".into());
+        }
+        Ok(username)
+    }
+
+    pub fn get_notes(&self, repo: &str, iid: u64) -> Result<Vec<serde_json::Value>, String> {
+        let endpoint = MergeRequestNotes::builder()
+            .project(repo)
+            .merge_request(iid)
+            .sort(SortOrder::Ascending)
+            .build()
+            .map_err(gitlab_error)?;
+        api::paged(endpoint, Pagination::All)
+            .query(&self.api)
+            .map_err(gitlab_error)
     }
 
     pub fn delete_note(&self, repo: &str, iid: u64, note_id: i64) -> Result<(), String> {
-        let url = format!(
-            "{}/api/v4/projects/{}/merge_requests/{iid}/notes/{note_id}",
-            self.base_url,
-            Self::project_path(repo)
-        );
-        let response = self
-            .http
-            .delete(&url)
-            .header("PRIVATE-TOKEN", &self.token)
-            .send()
-            .map_err(|e| format!("GitlabError: {e}"))?;
-        if response.status().is_success() {
-            Ok(())
-        } else {
-            Err(format!("GitlabError: {}", response.status()))
-        }
+        let project = NameOrId::from(repo);
+        let endpoint = AdditionalEndpoint {
+            method: Method::DELETE,
+            path: format!("projects/{project}/merge_requests/{iid}/notes/{note_id}"),
+        };
+        api::ignore(endpoint).query(&self.api).map_err(gitlab_error)
     }
 
     /// The labels currently on the merge request.
     pub fn get_labels(&self, repo: &str, iid: u64) -> Result<Vec<String>, String> {
-        let value = self.get(&format!(
-            "projects/{}/merge_requests/{iid}",
-            Self::project_path(repo)
-        ))?;
+        let value = self.merge_request(repo, iid)?;
         Ok(value
             .get("labels")
             .and_then(|v| v.as_array())
@@ -295,13 +268,15 @@ impl GitlabClient {
 
     /// Replace the merge request labels (the API replaces, not appends).
     pub fn publish_labels(&self, repo: &str, iid: u64, labels: &[String]) -> Result<(), String> {
-        let joined = labels.join(",");
-        self.send_body(
-            reqwest::Method::PUT,
-            &format!("projects/{}/merge_requests/{iid}", Self::project_path(repo)),
-            &[("labels", joined.as_str())],
-        )?;
-        Ok(())
+        let mut builder = EditMergeRequest::builder();
+        builder.project(repo).merge_request(iid);
+        if labels.is_empty() {
+            builder.clear_labels();
+        } else {
+            builder.labels(labels.iter().map(String::as_str));
+        }
+        let endpoint = builder.build().map_err(gitlab_error)?;
+        api::ignore(endpoint).query(&self.api).map_err(gitlab_error)
     }
 
     /// Update the merge request title/description (`/describe` publishing).
@@ -312,12 +287,47 @@ impl GitlabClient {
         title: &str,
         description: &str,
     ) -> Result<(), String> {
-        self.send_body(
-            reqwest::Method::PUT,
-            &format!("projects/{}/merge_requests/{iid}", Self::project_path(repo)),
-            &[("title", title), ("description", description)],
-        )?;
-        Ok(())
+        let endpoint = EditMergeRequest::builder()
+            .project(repo)
+            .merge_request(iid)
+            .title(title)
+            .description(description)
+            .build()
+            .map_err(gitlab_error)?;
+        api::ignore(endpoint).query(&self.api).map_err(gitlab_error)
+    }
+}
+
+// These two operations have no endpoint builder in the GitLab SDK.
+struct AdditionalEndpoint {
+    method: Method,
+    path: String,
+}
+
+impl Endpoint for AdditionalEndpoint {
+    fn method(&self) -> Method {
+        self.method.clone()
+    }
+
+    fn endpoint(&self) -> Cow<'static, str> {
+        self.path.clone().into()
+    }
+}
+
+fn gitlab_error(err: impl std::fmt::Display) -> String {
+    format!("GitlabError: {err}")
+}
+
+impl From<Value> for MrDiff {
+    fn from(diff: Value) -> Self {
+        Self {
+            new_path: str_field(&diff, "new_path"),
+            old_path: str_field(&diff, "old_path"),
+            diff: str_field(&diff, "diff"),
+            new_file: diff["new_file"].as_bool().unwrap_or_default(),
+            deleted_file: diff["deleted_file"].as_bool().unwrap_or_default(),
+            renamed_file: diff["renamed_file"].as_bool().unwrap_or_default(),
+        }
     }
 }
 
@@ -327,33 +337,4 @@ fn str_field(value: &serde_json::Value, key: &str) -> String {
         .and_then(|v| v.as_str())
         .unwrap_or_default()
         .to_string()
-}
-
-/// Percent-encode for a URL path segment (`/` becomes `%2F`).
-fn percent_encode(text: &str) -> String {
-    let mut out = String::with_capacity(text.len());
-    for byte in text.bytes() {
-        match byte {
-            b'A'..=b'Z' | b'a'..=b'z' | b'0'..=b'9' | b'-' | b'_' | b'.' | b'~' => {
-                out.push(byte as char)
-            }
-            _ => out.push_str(&format!("%{byte:02X}")),
-        }
-    }
-    out
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn path_segments_encode_the_separator() {
-        assert_eq!(
-            GitlabClient::project_path("group/subgroup/repo"),
-            "group%2Fsubgroup%2Frepo"
-        );
-        assert_eq!(percent_encode("src/app.py"), "src%2Fapp.py");
-        assert_eq!(percent_encode("plain.rs"), "plain.rs");
-    }
 }

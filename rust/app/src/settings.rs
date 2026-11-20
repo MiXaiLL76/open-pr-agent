@@ -1,17 +1,6 @@
-//! Settings: the packaged defaults from `pr_agent/settings/configuration.toml`
-//! plus Dynaconf-style environment overrides (`SECTION__KEY`, value parsed as
-//! TOML). Emits the same "Settings file not found" warnings the original's
-//! custom merge loader produced for missing secrets files, because the CLI
-//! contract pins them as the first stdout lines of every run.
-
-use std::path::Path;
+//! Packaged defaults and Dynaconf-style environment overrides.
 
 use toml::Value;
-
-/// The installation path the original's loader reported in its warnings. The
-/// recorded CLI contract pins these absolute strings, so the port keeps the
-/// recorded spelling instead of deriving a build-location-dependent path.
-pub const RECORDED_REPO_ROOT: &str = "/home/stepanovms/projects/pr-agent";
 
 /// A parsed settings tree: defaults merged with environment overrides.
 pub struct Settings {
@@ -19,10 +8,9 @@ pub struct Settings {
 }
 
 impl Settings {
-    /// Load packaged defaults, warn about missing secrets files, apply env overrides.
+    /// Load packaged defaults and apply environment overrides.
     pub fn load() -> Settings {
         let mut tree = packaged_defaults();
-        warn_missing_secrets();
         apply_env_overrides(&mut tree);
         Settings { tree }
     }
@@ -48,42 +36,8 @@ impl Settings {
 }
 
 fn packaged_defaults() -> Value {
-    let text = std::fs::read_to_string(concat!(
-        env!("CARGO_MANIFEST_DIR"),
-        "/settings/configuration.toml"
-    ))
-    .unwrap_or_default();
-    toml::from_str(&text).unwrap_or(Value::Table(Default::default()))
-}
-
-/// The custom merge loader logs one warning per missing secrets file, in this order.
-fn warn_missing_secrets() {
-    use crate::logging::{Loc, warning};
-
-    let files = [
-        (
-            format!("{RECORDED_REPO_ROOT}/pr_agent/settings/.secrets.toml"),
-            Loc {
-                module: "settings",
-                func: "load",
-            },
-        ),
-        (
-            format!("{RECORDED_REPO_ROOT}/pr_agent/settings_prod/.secrets.toml"),
-            Loc {
-                module: "settings",
-                func: "load",
-            },
-        ),
-    ];
-    for (path, loc) in files {
-        if !Path::new(&path).is_file() {
-            warning(
-                &loc,
-                &format!("Settings file not found: {path}. Skipping it."),
-            );
-        }
-    }
+    toml::from_str(include_str!("../settings/configuration.toml"))
+        .expect("packaged configuration.toml must be valid")
 }
 
 /// `SECTION__KEY=...` overrides, values parsed as TOML like Dynaconf does.

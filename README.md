@@ -1,60 +1,77 @@
 # PR-Agent
 
-AI-ревьюер для pull request'ов. На каждый PR публикует разбор: ключевые
-проблемы в коде (с inline-комментариями), оценку усилий на ревью, метки.
+[![CI](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/ci.yml)
+[![Documentation](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/docs.yml)
 
-Написан на Rust, модельный движок — [opencode](https://opencode.ai).
-Ключей LLM в самом pr-agent нет: модели и доступ настраиваются в opencode.
+AI reviewer for pull requests. For every PR it posts a review: the key issues
+(with inline comments on GitHub), review effort and labels.
 
-## Зачем
+Written in Rust. The model engine is [opencode](https://opencode.ai).
+PR-Agent stores no LLM keys itself — models and access are configured in
+opencode.
 
-- **review** — разбор PR: проблемные места, безопасность, тесты
-- **describe** — переписывает заголовок и описание PR
-- **improve** — то же, что review (находки могут содержать готовые фиксы)
-- **ask "вопрос"** — ответ на вопрос по PR прямо в комментариях
+## What it does
 
-Работает с GitHub, GitLab, локальными git-репозиториями и просто diff-файлами.
+- **review** — reviews the PR: problem spots, security, tests
+- **describe** — rewrites the PR title and description
+- **improve** — same as review (findings may include ready-made fixes)
+- **ask "question"** — answers a question about the PR in a comment
 
-## Как устроено
+Works with GitHub, GitLab, local git repositories and plain diff files.
 
-pr-agent — обвязка: забирает данные PR, готовит агенту рабочую копию,
-публикует результат. Сам анализ делает opencode-агент `pr-reviewer`
-(только чтение: править файлы и ходить в сеть он не может). Повторный
-пуш в тот же PR не плодит новые ревью — сессия идемпотентна по head SHA.
+## How it works
 
-## Быстрое внедрение на GitHub
+PR-Agent is the wrapper: it fetches the PR data, prepares a working copy for
+the agent and publishes the result. The analysis itself is done by the
+opencode agent `pr-reviewer`, which is read-only: it cannot edit files or
+access the network. Pushing again to the same PR does not create duplicate
+reviews — the session is idempotent per head SHA.
 
-Нужен self-hosted runner с Linux и Docker.
+## Quick start on GitHub
 
-**1.** Собери образ и положи в свой registry:
+You need a self-hosted Linux runner with Docker.
+
+**1.** Build the image and push it to your registry:
 
 ```sh
-docker build -f docker/Dockerfile.rust -t registry.example.com/pr-agent .
-docker push registry.example.com/pr-agent
+make docker-build IMAGE=registry.example.com/pr-agent TAG=latest
+make docker-push IMAGE=registry.example.com/pr-agent TAG=latest
 ```
 
-**2.** Настрой runner: положи конфиг opencode (модели, провайдер, ключи —
-[пример настройки](https://opencode.ai/docs/config)) в
-`/home/runner/.config/opencode`.
+The opencode engine is installed from the official release at
+`https://opencode.ai/files/bin/`; the version and sha256 are pinned in the
+Dockerfile.
 
-**3.** Скопируй
-[`examples/github-workflow-review.yml`](examples/github-workflow-review.yml)
-в `.github/workflows/pr-agent.yml` и подставь свой образ и модель:
+**2.** Copy [`examples/github-workflow-review.yml`](examples/github-workflow-review.yml)
+to `.github/workflows/pr-agent.yml` and set your image:
 
 ```yaml
 env:
   PR_AGENT_IMAGE: registry.example.com/pr-agent@sha256:<digest>
-  PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}   # например litellm/gpt-oss
 ```
 
-**4.** Добавь секрет `PR_AGENT_MODEL`. Готово — каждый открытый PR
-получает ревью.
+**3.** Add the model secrets:
 
-Комментарии-команды (`/review`, `/describe`, `/ask ...`) — рядом, в
+- `PR_AGENT_LLM_BASE_URL` — OpenAI-compatible endpoint (e.g.
+  `https://llm.example.com/v1`)
+- `PR_AGENT_LLM_API_KEY` — its API key
+- `PR_AGENT_MODEL` — model as `provider/model`, e.g.
+  `litellm/deepseek-v41-flash`
+
+PR-Agent builds the engine config from these env vars, so nothing needs to be
+mounted on the runner. If the runner is already configured (global opencode
+config or `OPENCODE_CONFIG` in the job), the engine uses it as-is and the LLM
+secrets are not needed.
+
+That's it — every opened PR gets a review. To give the reviewer extra MCP
+servers, add `.open-pr-agent/opencode.jsonc` at the project root (see the
+[template](.open-pr-agent-example.jsonc)).
+
+Comment commands (`/review`, `/describe`, `/ask ...`) are in
 [`examples/github-workflow-commands.yml`](examples/github-workflow-commands.yml).
-GitLab-варианты (CI-джоба и webhook-сервис) — в [`examples/`](examples/).
+GitLab variants (CI job and webhook service) are in [`examples/`](examples/).
 
-## Проверить локально
+## Try it locally
 
 ```sh
 docker run --rm \
@@ -64,22 +81,33 @@ docker run --rm \
   registry.example.com/pr-agent
 ```
 
-Или без контейнера (`cargo build --release` в `rust/`):
+Or without a container:
 
 ```sh
-pr_agent --pr_url https://github.com/org/repo/pull/123 review
-pr_agent doctor   # проверка движка: бинарник + пинг модели
+make build
+make run PR_URL=https://github.com/org/repo/pull/123
+make doctor   # engine check: binary + model ping
 ```
 
-## Подробнее
+All targets: `make help`.
 
-- [Настройки](docs/configuration.md) — все переменные окружения и ключи
-- [Движок](docs/engine.md) — как работает opencode, агент, сессии
+## More
 
-## Разработка
+- [Documentation site](https://mixaill76.github.io/open-pr-agent/) — rendered docs
+- [Configuration](docs/configuration.md) — all environment variables and keys
+- [Engine](docs/engine.md) — how opencode, the agent and sessions work
+- [Examples](examples/README.md) — ready-to-use CI definitions
+
+The docs site is built with Zensical (`make docs-build`) and deployed from
+`main`; set **Settings → Pages → Source** to **GitHub Actions** once.
+
+## Development
 
 ```sh
-cd rust
-cargo test          # юнит-тесты + интеграционные CLI-тесты (самодостаточные)
-cargo clippy --all-targets -- -D warnings
+make format   # format the workspace
+make lint     # fmt check + clippy
+make test     # unit + CLI integration tests (self-contained)
+make build    # release binaries
 ```
+
+CI runs the same targets, so a green local run means a green pipeline.

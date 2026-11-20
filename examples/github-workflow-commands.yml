@@ -26,18 +26,18 @@ jobs:
     timeout-minutes: 20
     env:
       PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_LLM_BASE_URL: ${{ secrets.PR_AGENT_LLM_BASE_URL }}
+      PR_AGENT_LLM_API_KEY: ${{ secrets.PR_AGENT_LLM_API_KEY }}
       PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
     steps:
       - name: Check configuration
         run: |
-          test -n "$PR_AGENT_MODEL" || {
-            echo '::error::Set PR_AGENT_MODEL (provider/model) as a GitHub Secret.'
-            exit 1
-          }
-          test -f /home/runner/.config/opencode/opencode.jsonc || {
-            echo '::error::The runner needs the opencode engine config at /home/runner/.config/opencode.'
-            exit 1
-          }
+          if [ -n "$PR_AGENT_LLM_BASE_URL" ] || [ -n "$PR_AGENT_LLM_API_KEY" ] || [ -n "$PR_AGENT_MODEL" ]; then
+            test -n "$PR_AGENT_LLM_BASE_URL" && test -n "$PR_AGENT_LLM_API_KEY" && test -n "$PR_AGENT_MODEL" || {
+              echo '::error::Set all three: PR_AGENT_LLM_BASE_URL, PR_AGENT_LLM_API_KEY, PR_AGENT_MODEL (model name).'
+              exit 1
+            }
+          fi
 
       - name: Run command from the comment
         env:
@@ -76,7 +76,9 @@ jobs:
               "docker", "run", "--rm", "--network", "host",
               "-v", "/home/runner/.config/opencode:/root/.config/opencode:ro",
               "-v", "/etc/ssl/certs:/etc/ssl/certs:ro",
-              *[item for name in ("GITHUB__USER_TOKEN", "OPENCODE__MODEL",
+              *[item for name in ("GITHUB__USER_TOKEN", "GITHUB_ACTIONS",
+                                  "PR_AGENT_LLM_BASE_URL", "PR_AGENT_LLM_API_KEY",
+                                  "PR_AGENT_MODEL",
                                   "HTTP_PROXY", "HTTPS_PROXY", "NO_PROXY",
                                   "http_proxy", "https_proxy", "no_proxy")
                 for item in ("-e", name)],

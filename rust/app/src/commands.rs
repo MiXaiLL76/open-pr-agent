@@ -59,7 +59,7 @@ report only what is new, changed, or resolved):\n",
     prompt
 }
 
-/// The YAML output contract for `/review`, unchanged from the Python prompt.
+/// The review output contract. JSON makes multiline snippets unambiguous.
 pub const REVIEW_CONTRACT: &str = "\
 Answer with a single YAML document matching this schema (no prose, no code fences):
 
@@ -76,8 +76,8 @@ review:
       existing_code: code snippet      # optional
       improved_code: suggested fix     # optional, a proposal only - never applied
       confidence: 0-10                 # optional
-  security_concerns: string            # optional
-  relevant_tests: Yes | No             # optional
+  security_concerns: string            # use \"No\" when there are none
+  relevant_tests: \"Yes\" | \"No\"         # string
   todo_sections:                       # optional
     - relevant_file: path
       line_number: int

@@ -3,6 +3,7 @@ rust/target/
 docs/node_modules/
 docs/build/
 docs/.docusaurus/
+site/
 **/.env
 pics/
 .git/

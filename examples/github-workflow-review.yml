@@ -24,28 +24,27 @@ jobs:
     timeout-minutes: 20
     env:
       PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_LLM_BASE_URL: ${{ secrets.PR_AGENT_LLM_BASE_URL }}
+      PR_AGENT_LLM_API_KEY: ${{ secrets.PR_AGENT_LLM_API_KEY }}
       PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
     steps:
       - name: Check configuration
         run: |
-          test -n "$PR_AGENT_MODEL" || {
-            echo '::error::Set PR_AGENT_MODEL (provider/model) as a GitHub Secret.'
-            exit 1
-          }
-          test -f /home/runner/.config/opencode/opencode.jsonc || {
-            echo '::error::The runner needs the opencode engine config at /home/runner/.config/opencode.'
-            exit 1
-          }
+          if [ -n "$PR_AGENT_LLM_BASE_URL" ] || [ -n "$PR_AGENT_LLM_API_KEY" ] || [ -n "$PR_AGENT_MODEL" ]; then
+            test -n "$PR_AGENT_LLM_BASE_URL" && test -n "$PR_AGENT_LLM_API_KEY" && test -n "$PR_AGENT_MODEL" || {
+              echo '::error::Set all three: PR_AGENT_LLM_BASE_URL, PR_AGENT_LLM_API_KEY, PR_AGENT_MODEL (provider/model).'
+              exit 1
+            }
+          fi
 
       # The engine preflight: binary + model + one-shot completion ping.
       # Replaces the old inline Python /models probe.
       - name: Check engine
         run: |
           docker run --rm --network host \
-            -v /home/runner/.config/opencode:/root/.config/opencode:ro \
             -v /etc/ssl/certs:/etc/ssl/certs:ro \
             -e SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-            -e OPENCODE__MODEL \
+            -e PR_AGENT_LLM_BASE_URL -e PR_AGENT_LLM_API_KEY -e PR_AGENT_MODEL \
             --entrypoint pr_agent "$PR_AGENT_IMAGE" doctor
 
       - name: Review pull request
@@ -54,9 +53,9 @@ jobs:
           GITHUB__USER_TOKEN: ${{ github.token }}
         run: |
           docker run --rm --network host \
-            -v /home/runner/.config/opencode:/root/.config/opencode:ro \
             -v /etc/ssl/certs:/etc/ssl/certs:ro \
-            -e PR_URL -e GITHUB__USER_TOKEN -e OPENCODE__MODEL \
+            -e PR_URL -e GITHUB_ACTIONS -e GITHUB__USER_TOKEN \
+            -e PR_AGENT_LLM_BASE_URL -e PR_AGENT_LLM_API_KEY -e PR_AGENT_MODEL \
             -e SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
             -e HTTP_PROXY -e HTTPS_PROXY -e NO_PROXY -e ALL_PROXY \
             -e http_proxy -e https_proxy -e no_proxy -e all_proxy \

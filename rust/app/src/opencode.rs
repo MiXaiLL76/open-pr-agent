@@ -1,9 +1,13 @@
-//! The opencode agent engine, replacing pr-agent's `algo/*` compensation machinery.
+//! The opencode agent engine: pr-agent stays the transport and publisher;
+//! the agent loop, context and `/ask` dialogue history run in `opencode run`.
+//! No diff packing, token budgeting or chunking happens here — the agent
+//! reads the repository worktree itself.
 //!
-//! Per `plan-opencode-engine.md` (option C): pr-agent stays the transport and
-//! publisher; the agent loop, context and `/ask` dialogue history are delegated
-//! to `opencode run`. No diff packing, token budgeting or chunking happens here —
-//! the agent reads the repository worktree itself.
+//! Engine configuration: the user's config wins (see `resolve_engine_env`).
+//! A project may ship `.open-pr-agent/opencode.jsonc` — MCP servers, extra
+//! agents, anything opencode understands, minus providers/models: those are
+//! injected from the PR_AGENT_LLM_* environment when the review needs its
+//! own model endpoint.
 
 // The command pipeline that drives this engine is being ported unit by unit;
 // until dispatch calls it, allow the scaffolding to exist unused.
@@ -89,7 +93,7 @@ pub struct RunUsage {
 /// The final answer of one `opencode run` invocation.
 #[derive(Debug, Clone, Default)]
 pub struct AgentReply {
-    /// The concatenated text parts of the session.
+    /// The concatenated text parts of the final assistant message.
     pub text: String,
     /// Usage from the step-finish events, when reported.
     pub usage: RunUsage,
@@ -184,6 +188,41 @@ impl OpenCodeHandler {
         Ok(())
     }
 
+    /// Keep the provider diff next to the changed files without overwriting
+    /// a file from the PR with the same name.
+    pub fn write_review_diff(&self, diff: &str) -> Result<String, OpenCodeError> {
+        use std::io::{ErrorKind, Write};
+
+        let base = self.worktree_path.as_deref().ok_or_else(|| {
+            OpenCodeError::runtime("worktree not prepared; call prepare_worktree first")
+        })?;
+        for suffix in 0.. {
+            let name = if suffix == 0 {
+                ".pr-agent-review.diff".to_string()
+            } else {
+                format!(".pr-agent-review-{suffix}.diff")
+            };
+            let mut file = match std::fs::OpenOptions::new()
+                .write(true)
+                .create_new(true)
+                .open(base.join(&name))
+            {
+                Ok(file) => file,
+                Err(error) if error.kind() == ErrorKind::AlreadyExists => continue,
+                Err(error) => {
+                    return Err(OpenCodeError::runtime(format!(
+                        "cannot create review diff: {error}"
+                    )));
+                }
+            };
+            file.write_all(diff.as_bytes()).map_err(|error| {
+                OpenCodeError::runtime(format!("cannot write review diff: {error}"))
+            })?;
+            return Ok(name);
+        }
+        unreachable!()
+    }
+
     /// Materialize a plain diff as a git worktree: init a repo and apply the
     /// patch (new files apply cleanly to an empty tree), then commit.
     pub fn prepare_worktree_from_diff(&mut self, diff_text: &str) -> Result<(), OpenCodeError> {
@@ -228,7 +267,6 @@ impl OpenCodeHandler {
         let cwd = std::env::current_dir().map_err(|e| {
             OpenCodeError::runtime(format!("cannot resolve the working directory: {e}"))
         })?;
-        install_packaged_agent(&cwd);
         self.worktree_path = Some(cwd);
         Ok(())
     }
@@ -238,9 +276,15 @@ impl OpenCodeHandler {
         let base = worktree_dir("doctor-ping");
         init_worktree(&base)?;
         let mut command = opencode_command(&self.settings.binary);
+        // The engine config the user chose (or the env-injected one).
+        let engine_config = resolve_engine_env()?;
+        if !engine_config.is_empty() {
+            command.env("OPENCODE_CONFIG", engine_config);
+        }
         command
             .current_dir(&base)
-            .args(["run", "--format", "json", "--archived"])
+            .args(["run", "--format", "json", "--archived", "--agent"])
+            .arg(&self.settings.agent)
             .arg("Reply with exactly: ok");
         if !self.settings.model.is_empty() {
             command.arg("--model").arg(&self.settings.model);
@@ -251,11 +295,7 @@ impl OpenCodeHandler {
             None => Err(OpenCodeError::runtime(
                 "the ping exceeded the timeout and was killed",
             )),
-            Some(output) if !output.status.success() => Err(OpenCodeError::runtime(format!(
-                "opencode run failed with status {}: {}",
-                output.status,
-                String::from_utf8_lossy(&output.stderr).trim()
-            ))),
+            Some(output) if !output.status.success() => Err(engine_failure(&output)),
             Some(output) => {
                 parse_agent_reply(&output.stdout)?;
                 Ok(())
@@ -287,6 +327,11 @@ impl OpenCodeHandler {
         let full_prompt = compose_prompt(prompt, file_map, self.settings.file_map_in_prompt);
 
         let mut command = opencode_command(&self.settings.binary);
+        // The engine config the user chose (or the env-injected one).
+        let engine_config = resolve_engine_env()?;
+        if !engine_config.is_empty() {
+            command.env("OPENCODE_CONFIG", engine_config);
+        }
         command
             .current_dir(worktree)
             .arg("run")
@@ -311,17 +356,303 @@ impl OpenCodeHandler {
                 "opencode run exceeded the {}s timeout and was killed",
                 self.settings.timeout_seconds
             ))),
-            Some(output) if !output.status.success() => {
-                let stderr = String::from_utf8_lossy(&output.stderr);
-                Err(OpenCodeError::runtime(format!(
-                    "opencode run failed with status {}: {}",
-                    output.status,
-                    stderr.trim()
-                )))
-            }
+            Some(output) if !output.status.success() => Err(engine_failure(&output)),
             Some(output) => parse_agent_reply(&output.stdout),
         }
     }
+}
+
+/// The model+provider env the review carries, if any.
+struct LlmEnv {
+    base_url: String,
+    api_key: String,
+    /// `provider/model`, the engine spelling.
+    model: String,
+}
+
+/// Read the LLM endpoint from the environment. All three values or none:
+/// a partial set is a deployment error reported by `engine_env` callers.
+fn llm_env() -> Option<LlmEnv> {
+    let base_url = std::env::var("PR_AGENT_LLM_BASE_URL").ok()?;
+    let api_key = std::env::var("PR_AGENT_LLM_API_KEY").ok()?;
+    let model = std::env::var("PR_AGENT_MODEL").ok()?;
+    if base_url.is_empty() || api_key.is_empty() || model.is_empty() {
+        return None;
+    }
+    Some(LlmEnv {
+        base_url,
+        api_key,
+        model,
+    })
+}
+
+const CODE_REVIEW_SKILL: &str = "code-review-skill";
+
+pub(crate) fn review_skill_enabled() -> bool {
+    std::env::var("PR_AGENT_USE_CODE_REVIEW_SKILL")
+        .is_ok_and(|value| value.trim().eq_ignore_ascii_case("true"))
+}
+
+fn review_skill_root() -> Result<Option<PathBuf>, OpenCodeError> {
+    if !review_skill_enabled() {
+        return Ok(None);
+    }
+    let root = std::env::var_os("PR_AGENT_CODE_REVIEW_SKILL_DIR")
+        .map(PathBuf::from)
+        .unwrap_or_else(|| PathBuf::from("/opt/pr-agent/skills"));
+    if !root.join(CODE_REVIEW_SKILL).join("SKILL.md").is_file() {
+        return Err(OpenCodeError::runtime(format!(
+            "code-review-skill is enabled but SKILL.md is missing under {}; use an image that includes it or set PR_AGENT_CODE_REVIEW_SKILL_DIR",
+            root.display()
+        )));
+    }
+    root.canonicalize().map(Some).map_err(|error| {
+        OpenCodeError::runtime(format!(
+            "cannot resolve code-review-skill directory: {error}"
+        ))
+    })
+}
+
+/// Resolve the environment the engine process runs with.
+///
+/// Precedence:
+/// 1. `OPENCODE_CONFIG` already set — the user drives the engine config
+///    entirely; pr-agent never touches it.
+/// 2. `PR_AGENT_LLM_BASE_URL` + `PR_AGENT_LLM_API_KEY` + `PR_AGENT_MODEL`
+///    set — the project's `.open-pr-agent/opencode.jsonc` (or an empty
+///    config) gains a provider with that endpoint and model; the merged
+///    config goes to a temp file, exported as `OPENCODE_CONFIG` for the
+///    engine run only. The user config may define MCP servers, agents and
+///    anything else — but not providers/models for this provider id.
+/// 3. No LLM env — leave model discovery to OpenCode and supply the reviewer.
+fn resolve_engine_env() -> Result<std::ffi::OsString, OpenCodeError> {
+    let skill_root = review_skill_root()?;
+    if std::env::var_os("OPENCODE_CONFIG").is_some_and(|v| !v.is_empty()) {
+        return Ok(std::env::var_os("OPENCODE_CONFIG").expect("checked above"));
+    }
+    let llm = llm_env();
+    let mut config = llm
+        .as_ref()
+        .and_then(|_| std::fs::read_to_string(".open-pr-agent/opencode.jsonc").ok())
+        .and_then(|text| parse_jsonc(&text))
+        .filter(Value::is_object)
+        .unwrap_or_else(|| serde_json::json!({}));
+    let defaults: serde_json::Map<String, Value> =
+        serde_json::from_str(include_str!("../settings/opencode_defaults.json"))
+            .expect("packaged OpenCode defaults must be valid");
+    let config_fields = config.as_object_mut().expect("config is an object");
+    for (key, value) in defaults {
+        let field = config_fields.entry(key).or_insert_with(|| value.clone());
+        if let (Some(fields), Value::Object(defaults)) = (field.as_object_mut(), value) {
+            for (key, value) in defaults {
+                fields.entry(key).or_insert(value);
+            }
+        }
+    }
+    let agents = config_fields
+        .entry("agents")
+        .or_insert_with(|| serde_json::json!({}))
+        .as_object_mut()
+        .ok_or_else(|| OpenCodeError::runtime("OpenCode agents must be an object"))?;
+    let reviewer = agents
+        .entry(DEFAULT_AGENT_NAME)
+        .or_insert_with(|| serde_json::json!({}))
+        .as_object_mut()
+        .ok_or_else(|| {
+            OpenCodeError::runtime("agents.pr-reviewer must be an OpenCode agent object")
+        })?;
+    let defaults = [
+        (
+            "description",
+            Value::String("Review changes for correctness and regressions".into()),
+        ),
+        ("mode", Value::String("primary".into())),
+        ("system", Value::String(PACKAGED_PR_REVIEWER_PROMPT.into())),
+    ];
+    for (key, value) in defaults {
+        reviewer.entry(key).or_insert(value);
+    }
+    let permissions = reviewer
+        .entry("permissions")
+        .or_insert_with(|| serde_json::json!([]))
+        .as_array_mut()
+        .ok_or_else(|| {
+            OpenCodeError::runtime(
+                "agents.pr-reviewer.permissions must be an OpenCode v2 rule array",
+            )
+        })?;
+    // OpenCode applies the last matching rule. Project grants cannot relax
+    // the baseline, and project denies can further restrict its exceptions.
+    let project_denials: Vec<_> = permissions
+        .iter()
+        .filter(|rule| {
+            rule.get("effect").and_then(Value::as_str) == Some("deny")
+                && rule
+                    .get("action")
+                    .and_then(Value::as_str)
+                    .is_some_and(|action| action == "*" || action == "shell")
+        })
+        .map(|rule| {
+            let mut rule = rule.clone();
+            rule["action"] = Value::String("shell".into());
+            rule
+        })
+        .collect();
+    permissions.extend([
+        serde_json::json!({"action": "edit", "resource": "*", "effect": "deny"}),
+        serde_json::json!({"action": "webfetch", "resource": "*", "effect": "deny"}),
+        serde_json::json!({"action": "websearch", "resource": "*", "effect": "deny"}),
+        serde_json::json!({"action": "shell", "resource": "*", "effect": "deny"}),
+        serde_json::json!({"action": "shell", "resource": "git diff", "effect": "allow"}),
+        serde_json::json!({"action": "external_directory", "resource": "*", "effect": "deny"}),
+        serde_json::json!({"action": "subagent", "resource": "*", "effect": "deny"}),
+    ]);
+    permissions.extend(project_denials);
+
+    if let Some(root) = skill_root {
+        let skill = root.join(CODE_REVIEW_SKILL);
+        permissions.extend([
+            serde_json::json!({"action": "skill", "resource": CODE_REVIEW_SKILL, "effect": "allow"}),
+            serde_json::json!({"action": "external_directory", "resource": format!("{}/*", skill.display()), "effect": "allow"}),
+        ]);
+        let sources = config
+            .as_object_mut()
+            .expect("config is an object")
+            .entry("skills")
+            .or_insert_with(|| serde_json::json!([]))
+            .as_array_mut()
+            .ok_or_else(|| OpenCodeError::runtime("OpenCode skills must be an array"))?;
+        let source = serde_json::json!(root);
+        if !sources.contains(&source) {
+            sources.push(source);
+        }
+    }
+
+    if let Some(llm) = llm {
+        // The model id: `provider/model` names the model under the injected
+        // provider (the prefix is informational — the provider id is fixed); a
+        // bare name is the model id itself.
+        let model = llm
+            .model
+            .rsplit_once('/')
+            .map(|(_, model)| model)
+            .unwrap_or(llm.model.as_str());
+
+        // Inject the provider and select the model. Existing providers with a
+        // different id stay; the same id is overwritten — the env wins for it.
+        let provider_id = "pr-agent-llm";
+        if !config
+            .get("providers")
+            .map(Value::is_object)
+            .unwrap_or(false)
+        {
+            config["providers"] = serde_json::json!({});
+        }
+        config["providers"][provider_id] = serde_json::json!({
+            "name": "PR Agent LLM",
+            "package": "@opencode/ai/providers/openai-compatible",
+            "settings": {
+                "baseURL": llm.base_url,
+                "apiKey": llm.api_key,
+            },
+            "models": {
+                model: {
+                    "name": model,
+                    "capabilities": {"tools": true, "input": ["text"], "output": ["text"]},
+                },
+            },
+        });
+        config["model"] = Value::String(format!("{provider_id}/{model}"));
+    }
+
+    let config_dir = std::env::temp_dir().join("pr-agent-worktrees");
+    std::fs::create_dir_all(&config_dir).map_err(|e| {
+        OpenCodeError::runtime(format!("cannot create engine config directory: {e}"))
+    })?;
+    let path = config_dir.join(format!("opencode-config-{}.json", std::process::id()));
+    let text = serde_json::to_string_pretty(&config)
+        .map_err(|e| OpenCodeError::runtime(format!("cannot serialize engine config: {e}")))?;
+    std::fs::write(&path, text)
+        .map_err(|e| OpenCodeError::runtime(format!("cannot write engine config: {e}")))?;
+    Ok(path.into_os_string())
+}
+
+/// Parse a JSONC document (comments, trailing commas) into a value; plain
+/// JSON parses as-is.
+fn parse_jsonc(text: &str) -> Option<Value> {
+    if let Ok(value) = serde_json::from_str::<Value>(text) {
+        return Some(value);
+    }
+    let mut cleaned = String::with_capacity(text.len());
+    let mut in_string = false;
+    let mut escaped = false;
+    let chars: Vec<char> = text.chars().collect();
+    let mut i = 0;
+    while i < chars.len() {
+        let c = chars[i];
+        if in_string {
+            cleaned.push(c);
+            if escaped {
+                escaped = false;
+            } else if c == '\\' {
+                escaped = true;
+            } else if c == '"' {
+                in_string = false;
+            }
+            i += 1;
+            continue;
+        }
+        match c {
+            '"' => {
+                in_string = true;
+                cleaned.push(c);
+            }
+            '/' if chars.get(i + 1) == Some(&'/') => {
+                while i < chars.len() && chars[i] != '\n' {
+                    i += 1;
+                }
+                continue;
+            }
+            '/' if chars.get(i + 1) == Some(&'*') => {
+                i += 2;
+                while i + 1 < chars.len() && !(chars[i] == '*' && chars[i + 1] == '/') {
+                    i += 1;
+                }
+                i += 2;
+                continue;
+            }
+            _ => cleaned.push(c),
+        }
+        i += 1;
+    }
+    // Trailing commas before a closer.
+    let cleaned = strip_trailing_commas(&cleaned);
+    serde_json::from_str(&cleaned).ok()
+}
+
+/// Remove commas directly before a closing brace or bracket.
+fn strip_trailing_commas(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut chars = text.chars().peekable();
+    while let Some(c) = chars.next() {
+        if c == ',' {
+            let mut rest = chars.peek();
+            while let Some(&w) = rest {
+                if w.is_whitespace() {
+                    chars.next();
+                    rest = chars.peek();
+                } else {
+                    if w != '}' && w != ']' {
+                        out.push(c);
+                    }
+                    break;
+                }
+            }
+        } else {
+            out.push(c);
+        }
+    }
+    out
 }
 
 /// Build the spawn for the configured binary. Sandboxes that copy fixture
@@ -372,47 +703,150 @@ fn is_executable(path: &str) -> bool {
     }
 }
 
-/// Run a command to completion, killing it after `timeout`. `None` means the
-/// timeout fired. Polling keeps this dependency-free and portable.
+#[derive(Default)]
+struct EngineProgress {
+    steps: u64,
+    input: Option<u64>,
+    output: Option<u64>,
+    reasoning: Option<u64>,
+}
+
+impl EngineProgress {
+    fn observe(&mut self, event: &Value) {
+        if !matches!(event_type(event), Some("step_finish" | "step-finish")) {
+            return;
+        }
+        self.steps += 1;
+        let tokens = event.get("part").unwrap_or(event).get("tokens");
+        for (total, kind) in [
+            (&mut self.input, "input"),
+            (&mut self.output, "output"),
+            (&mut self.reasoning, "reasoning"),
+        ] {
+            if let Some(count) = tokens
+                .and_then(|tokens| tokens.get(kind))
+                .and_then(Value::as_u64)
+            {
+                *total = Some(total.unwrap_or(0).saturating_add(count));
+            }
+        }
+    }
+
+    fn log(&self, phase: &str, elapsed: Duration) {
+        let mut counts = Vec::new();
+        for (kind, count) in [
+            ("input", self.input),
+            ("output", self.output),
+            ("reasoning", self.reasoning),
+        ] {
+            if let Some(count) = count {
+                counts.push(format!("{kind}={count}"));
+            }
+        }
+        let tokens = if counts.is_empty() {
+            "tokens not reported yet".to_string()
+        } else {
+            format!("reported tokens: {}", counts.join(", "))
+        };
+        crate::logging::info(
+            &crate::logging::Loc {
+                module: "opencode",
+                func: "run",
+            },
+            &format!(
+                "OpenCode {phase} after {}s; {} completed steps; {tokens}",
+                elapsed.as_secs(),
+                self.steps
+            ),
+        );
+    }
+}
+
+const PROGRESS_INTERVAL: Duration = Duration::from_secs(10);
+
+/// Drain both streams while OpenCode runs so a full pipe cannot stall it.
 fn run_with_timeout(
     mut command: Command,
     timeout: Duration,
 ) -> Result<Option<std::process::Output>, String> {
-    use std::io::Read;
+    use std::io::{BufRead, BufReader, Read};
+    use std::sync::{Arc, Mutex};
+    use std::time::Instant;
 
     let mut child = command
         .stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped())
         .spawn()
         .map_err(|e| e.to_string())?;
-    let deadline = std::time::Instant::now() + timeout;
-    loop {
-        match child.try_wait() {
-            Ok(Some(status)) => {
-                let mut stdout = vec![];
-                let mut stderr = vec![];
-                if let Some(mut pipe) = child.stdout.take() {
-                    let _ = pipe.read_to_end(&mut stdout);
-                }
-                if let Some(mut pipe) = child.stderr.take() {
-                    let _ = pipe.read_to_end(&mut stderr);
-                }
-                return Ok(Some(std::process::Output {
-                    status,
-                    stdout,
-                    stderr,
-                }));
+    let start = Instant::now();
+    let mut next_report = PROGRESS_INTERVAL;
+    let progress = Arc::new(Mutex::new(EngineProgress::default()));
+    let report = Arc::clone(&progress);
+    let mut stdout = BufReader::new(child.stdout.take().expect("piped stdout"));
+    let mut stderr = child.stderr.take().expect("piped stderr");
+    let stdout_reader = std::thread::spawn(move || -> std::io::Result<Vec<u8>> {
+        let mut bytes = Vec::new();
+        let mut offset = 0;
+        while stdout.read_until(b'\n', &mut bytes)? != 0 {
+            if let Ok(event) = serde_json::from_slice::<Value>(&bytes[offset..]) {
+                report.lock().expect("progress lock").observe(&event);
             }
-            Ok(None) => {
-                if std::time::Instant::now() >= deadline {
-                    let _ = child.kill();
-                    let _ = child.wait();
-                    return Ok(None);
-                }
-                std::thread::sleep(Duration::from_millis(100));
-            }
-            Err(e) => return Err(e.to_string()),
+            offset = bytes.len();
         }
+        Ok(bytes)
+    });
+    let stderr_reader = std::thread::spawn(move || -> std::io::Result<Vec<u8>> {
+        let mut bytes = Vec::new();
+        stderr.read_to_end(&mut bytes)?;
+        Ok(bytes)
+    });
+
+    loop {
+        let status = child.try_wait().map_err(|e| e.to_string())?;
+        if let Some(status) = status
+            && stdout_reader.is_finished()
+            && stderr_reader.is_finished()
+        {
+            let stdout = stdout_reader
+                .join()
+                .map_err(|_| "OpenCode stdout reader panicked")?
+                .map_err(|e| format!("cannot read OpenCode stdout: {e}"))?;
+            let stderr = stderr_reader
+                .join()
+                .map_err(|_| "OpenCode stderr reader panicked")?
+                .map_err(|e| format!("cannot read OpenCode stderr: {e}"))?;
+            progress.lock().expect("progress lock").log(
+                if status.success() {
+                    "finished"
+                } else {
+                    "exited with an error"
+                },
+                start.elapsed(),
+            );
+            return Ok(Some(std::process::Output {
+                status,
+                stdout,
+                stderr,
+            }));
+        }
+        let elapsed = start.elapsed();
+        if elapsed >= timeout {
+            let _ = child.kill();
+            let _ = child.wait();
+            progress
+                .lock()
+                .expect("progress lock")
+                .log("timed out", elapsed);
+            return Ok(None);
+        }
+        if elapsed >= next_report {
+            progress
+                .lock()
+                .expect("progress lock")
+                .log("still running", elapsed);
+            next_report += PROGRESS_INTERVAL;
+        }
+        std::thread::sleep(Duration::from_millis(100));
     }
 }
 
@@ -421,9 +855,7 @@ fn run_with_timeout(
 pub fn compose_prompt(task: &str, file_map: &[FileMapEntry], include_map: bool) -> String {
     let mut full_prompt = task.to_string();
     if include_map && !file_map.is_empty() {
-        full_prompt.push_str(
-            "\n\nChanged files (read them with your tools; the full diff is available via `git diff`):\n",
-        );
+        full_prompt.push_str("\n\nChanged files:\n");
         for entry in file_map {
             match &entry.old_path {
                 Some(old) => full_prompt.push_str(&format!(
@@ -456,27 +888,10 @@ fn run_git(
     }
 }
 
-/// A fresh worktree directory under the process temp root. A per-call
-/// counter keeps concurrent runs (parallel CLI cases, server requests) from
-/// sharing a path: one run's cleanup must not delete another's worktree.
-/// The packaged `pr-reviewer` agent: read-only (edit/webfetch denied), bash
-/// allowed for `git diff` and file reads. Installed into every worktree the
-/// engine prepares, so the policy holds without global opencode config.
-const PACKAGED_PR_REVIEWER_AGENT: &str = include_str!("../settings/agents/pr-reviewer.md");
+/// The reviewer system prompt shipped with the CLI.
+const PACKAGED_PR_REVIEWER_PROMPT: &str = include_str!("../settings/agents/pr-reviewer.md");
 
-/// Write the packaged agent into a worktree's `.opencode/agents/`, keeping
-/// any agent definition already there (a repository may ship its own).
-fn install_packaged_agent(base: &Path) {
-    let agents_dir = base.join(".opencode").join("agents");
-    let target = agents_dir.join(format!("{}.md", DEFAULT_AGENT_NAME));
-    if target.exists() {
-        return;
-    }
-    if std::fs::create_dir_all(&agents_dir).is_ok() {
-        let _ = std::fs::write(&target, PACKAGED_PR_REVIEWER_AGENT);
-    }
-}
-
+/// A fresh worktree directory under the process temp root.
 fn worktree_dir(tag: &str) -> PathBuf {
     static CALLS: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
     let call = CALLS.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
@@ -507,6 +922,7 @@ fn commit_worktree(base: &Path, message: &str) -> Result<(), OpenCodeError> {
             "user.name=pr-agent",
             "commit",
             "--quiet",
+            "--allow-empty",
             "-m",
             message,
         ],
@@ -526,12 +942,54 @@ pub fn binary_available(settings: &OpenCodeSettings) -> bool {
         .unwrap_or(false)
 }
 
+fn engine_failure(output: &std::process::Output) -> OpenCodeError {
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    let stderr = String::from_utf8_lossy(&output.stderr);
+    let event_message = stdout
+        .lines()
+        .filter_map(|line| serde_json::from_str::<Value>(line).ok())
+        .filter(|event| event.get("type").and_then(Value::as_str) == Some("error"))
+        .find_map(|event| engine_error_message(&event).map(str::to_owned));
+    let detail = event_message.as_deref().unwrap_or_else(|| stderr.trim());
+    let detail = if detail.is_empty() {
+        "no error details reported"
+    } else {
+        detail
+    };
+    let safe_detail = std::env::var("PR_AGENT_LLM_API_KEY")
+        .ok()
+        .filter(|key| !key.is_empty())
+        .map_or_else(
+            || detail.to_owned(),
+            |key| detail.replace(&key, "[redacted]"),
+        );
+    OpenCodeError::runtime(format!(
+        "opencode run failed with status {}: {safe_detail}",
+        output.status
+    ))
+}
+
+fn engine_error_message(event: &Value) -> Option<&str> {
+    event
+        .pointer("/error/message")
+        .or_else(|| event.pointer("/error/data/message"))
+        .and_then(Value::as_str)
+}
+
+fn event_type(event: &Value) -> Option<&str> {
+    event
+        .get("type")
+        .and_then(Value::as_str)
+        .or_else(|| event.pointer("/part/type").and_then(Value::as_str))
+}
+
 /// Parse the JSONL stream `opencode run --format json` prints: one event per
-/// line, the payload under `part`. `text` events concatenate into the answer,
-/// the last `step-finish` carries cost and tokens.
+/// line, the payload under `part`. Keep text from the final assistant
+/// message and collect usage from step-finish events.
 pub fn parse_agent_reply(stdout: &[u8]) -> Result<AgentReply, OpenCodeError> {
     let text = String::from_utf8_lossy(stdout);
     let mut reply = AgentReply::default();
+    let mut message_id = None;
     for line in text.lines() {
         let Ok(event) = serde_json::from_str::<Value>(line) else {
             continue; // non-JSON chatter on stdout is ignored
@@ -539,19 +997,22 @@ pub fn parse_agent_reply(stdout: &[u8]) -> Result<AgentReply, OpenCodeError> {
         // The stream spells the part type at the top level with underscores
         // ("step_finish") and inside the part with dashes ("step-finish");
         // match both, then read the payload from `part`.
-        let event_type = event
-            .get("type")
-            .and_then(Value::as_str)
-            .or_else(|| event.pointer("/part/type").and_then(Value::as_str))
-            .map(|kind| kind.replace('_', "-"));
         let part = event.get("part").unwrap_or(&event);
-        match event_type.as_deref() {
-            Some("text") | Some("text-delta") => {
-                if let Some(part) = part.get("text").and_then(Value::as_str) {
-                    reply.text.push_str(part);
+        match event_type(&event) {
+            Some("text" | "text-delta" | "text_delta") => {
+                if let Some(text) = part.get("text").and_then(Value::as_str) {
+                    if let Some(id) = part.get("messageID").and_then(Value::as_str)
+                        && message_id.as_deref() != Some(id)
+                    {
+                        if message_id.is_some() {
+                            reply.text.clear();
+                        }
+                        message_id = Some(id.to_owned());
+                    }
+                    reply.text.push_str(text);
                 }
             }
-            Some("step-finish") => {
+            Some("step-finish" | "step_finish") => {
                 // One number at the top level of the part, not a /cost/total path.
                 if let Some(cost) = part.get("cost").and_then(Value::as_f64) {
                     reply.usage.cost = Some(cost);
@@ -562,10 +1023,7 @@ pub fn parse_agent_reply(stdout: &[u8]) -> Result<AgentReply, OpenCodeError> {
                 }
             }
             Some("error") => {
-                let message = event
-                    .pointer("/error/message")
-                    .and_then(Value::as_str)
-                    .unwrap_or("unknown opencode error");
+                let message = engine_error_message(&event).unwrap_or("unknown opencode error");
                 return Err(OpenCodeError::runtime(message));
             }
             _ => {}
@@ -674,9 +1132,39 @@ fn binary_available_path(binary: &str) -> bool {
 mod tests {
     use super::*;
 
-    /// The environment is process-global; settings tests share this lock so
-    /// they never observe each other's overrides.
-    static ENV_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+    use crate::TEST_ENV_LOCK as ENV_LOCK;
+
+    #[test]
+    fn progress_accumulates_only_reported_step_tokens() {
+        let mut progress = EngineProgress::default();
+        for event in [
+            serde_json::json!({"type":"step_start","part":{"tokens":{"input":900}}}),
+            serde_json::json!({"type":"step_finish","part":{"tokens":{"input":10,"output":4}}}),
+            serde_json::json!({"part":{"type":"step-finish","tokens":{"input":20}}}),
+        ] {
+            progress.observe(&event);
+        }
+        assert_eq!(progress.steps, 2);
+        assert_eq!(progress.input, Some(30));
+        assert_eq!(progress.output, Some(4));
+        assert_eq!(progress.reasoning, None);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn drains_large_stdout_and_stderr_before_opencode_exits() {
+        let mut command = Command::new("sh");
+        command.args([
+            "-c",
+            "head -c 262144 /dev/zero; head -c 262144 /dev/zero >&2",
+        ]);
+        let result = run_with_timeout(command, Duration::from_secs(5))
+            .unwrap()
+            .unwrap();
+        assert!(result.status.success());
+        assert_eq!(result.stdout.len(), 262144);
+        assert_eq!(result.stderr.len(), 262144);
+    }
 
     #[test]
     fn parse_jsonl_reply() {
@@ -692,6 +1180,18 @@ mod tests {
         assert_eq!(reply.usage.cost, Some(0.42));
         assert_eq!(reply.usage.input_tokens, Some(100));
         assert_eq!(reply.usage.output_tokens, Some(50));
+    }
+
+    #[test]
+    fn reply_excludes_text_from_intermediate_assistant_messages() {
+        let stream = concat!(
+            "{\"type\":\"text\",\"part\":{\"messageID\":\"msg_1\",\"text\":\"I will read the diff.\\n\"}}\n",
+            "{\"type\":\"tool_use\",\"part\":{\"messageID\":\"msg_1\",\"tool\":\"read\"}}\n",
+            "{\"type\":\"text\",\"part\":{\"messageID\":\"msg_2\",\"text\":\"review:\\n\"}}\n",
+            "{\"type\":\"text\",\"part\":{\"messageID\":\"msg_2\",\"text\":\"  relevant_tests: No\"}}\n",
+        );
+        let reply = parse_agent_reply(stream.as_bytes()).unwrap();
+        assert_eq!(reply.text, "review:\n  relevant_tests: No");
     }
 
     #[test]
@@ -749,5 +1249,190 @@ mod tests {
         }
         assert_eq!(settings.timeout_seconds, 60);
         assert_eq!(settings.agent, "pr-describer");
+    }
+
+    #[test]
+    fn jsonc_parses_comments_and_trailing_commas() {
+        let text = r#"{
+  // an MCP server the project wants in reviews
+  "mcp": {
+    "fetch": {"command": "uvx", "args": ["mcp-server-fetch"]}, // trailing comment
+  },
+  "agents": {"pr-reviewer": {"model": "other/x"}}, /* block
+     comment */
+}"#;
+        let value = parse_jsonc(text).expect("jsonc parses");
+        assert!(value.pointer("/mcp/fetch/command").and_then(Value::as_str) == Some("uvx"));
+        assert!(value.pointer("/agents/pr-reviewer/model").is_some());
+    }
+
+    #[test]
+    fn jsonc_plain_json_still_works() {
+        let value = parse_jsonc(r#"{"a": 1}"#).expect("plain json parses");
+        assert_eq!(value.get("a").and_then(Value::as_i64), Some(1));
+    }
+
+    #[test]
+    fn user_opencode_config_is_never_overwritten() {
+        let _guard = ENV_LOCK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        // SAFETY: single-threaded test under ENV_LOCK, no other thread reads
+        // the environment.
+        unsafe {
+            std::env::set_var("OPENCODE_CONFIG", "/user/chosen/config.json");
+            std::env::set_var("PR_AGENT_LLM_BASE_URL", "http://x");
+            std::env::set_var("PR_AGENT_LLM_API_KEY", "k");
+            std::env::set_var("PR_AGENT_MODEL", "p/m");
+            let config = resolve_engine_env().expect("resolves");
+            assert_eq!(config, "/user/chosen/config.json");
+            std::env::remove_var("OPENCODE_CONFIG");
+            std::env::remove_var("PR_AGENT_LLM_BASE_URL");
+            std::env::remove_var("PR_AGENT_LLM_API_KEY");
+            std::env::remove_var("PR_AGENT_MODEL");
+        }
+    }
+
+    #[test]
+    fn llm_env_injects_the_provider_and_model() {
+        let _guard = ENV_LOCK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        let dir = std::env::temp_dir().join("pr-agent-tests/engine-config/.open-pr-agent");
+        std::fs::create_dir_all(&dir).unwrap();
+        // A project engine config: MCP the review may use, no providers.
+        std::fs::write(
+            dir.join("opencode.jsonc"),
+            r#"{
+                "mcp": {"fetch": {"type": "local", "command": ["uvx"]}},
+                "agents": {"pr-reviewer": {"permissions": [
+                    {"action": "edit", "resource": "*", "effect": "allow"},
+                    {"action": "webfetch", "resource": "*", "effect": "allow"},
+                    {"action": "shell", "resource": "*", "effect": "deny"}
+                ]}}
+            }"#,
+        )
+        .unwrap();
+        let dir = dir.parent().unwrap();
+        // SAFETY: single-threaded test under ENV_LOCK, no other thread reads
+        // the environment.
+        unsafe {
+            std::env::remove_var("OPENCODE_CONFIG");
+            std::env::set_var("PR_AGENT_LLM_BASE_URL", "http://llm.example");
+            std::env::set_var("PR_AGENT_LLM_API_KEY", "sk-test");
+            std::env::set_var("PR_AGENT_MODEL", "pr-agent-llm/my-model");
+        }
+
+        let cwd = std::env::current_dir().unwrap();
+        std::env::set_current_dir(dir).unwrap();
+        let config_path = resolve_engine_env().expect("resolves");
+        std::env::set_current_dir(cwd).unwrap();
+        let text = std::fs::read_to_string(config_path.to_string_lossy().as_ref()).unwrap();
+        let value: Value = serde_json::from_str(&text).unwrap();
+        // The project's MCP config survived the injection.
+        assert_eq!(value["mcp"]["fetch"]["command"][0], "uvx");
+        let rules = value["agents"]["pr-reviewer"]["permissions"]
+            .as_array()
+            .unwrap();
+        for action in ["edit", "webfetch", "shell"] {
+            let effect = rules
+                .iter()
+                .rev()
+                .find(|rule| rule["action"] == action)
+                .and_then(|rule| rule["effect"].as_str());
+            assert_eq!(effect, Some("deny"), "{action}");
+        }
+        // The provider endpoint and model selection arrived from env.
+        assert_eq!(
+            value
+                .pointer("/providers/pr-agent-llm/settings/baseURL")
+                .and_then(Value::as_str),
+            Some("http://llm.example")
+        );
+        assert_eq!(
+            value
+                .pointer("/providers/pr-agent-llm/settings/apiKey")
+                .and_then(Value::as_str),
+            Some("sk-test")
+        );
+        assert_eq!(
+            value.get("model").and_then(Value::as_str),
+            Some("pr-agent-llm/my-model")
+        );
+
+        // SAFETY: same lock, cleanup.
+        unsafe {
+            std::env::remove_var("PR_AGENT_LLM_BASE_URL");
+            std::env::remove_var("PR_AGENT_LLM_API_KEY");
+            std::env::remove_var("PR_AGENT_MODEL");
+        }
+        let _ = std::fs::remove_file(config_path.to_string_lossy().as_ref());
+    }
+
+    #[test]
+    fn bare_model_name_works_without_the_provider_prefix() {
+        let _guard = ENV_LOCK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        let dir = std::env::temp_dir().join("pr-agent-tests/engine-config-bare");
+        std::fs::create_dir_all(&dir).unwrap();
+        // SAFETY: single-threaded test under ENV_LOCK.
+        unsafe {
+            std::env::remove_var("OPENCODE_CONFIG");
+            std::env::set_var("PR_AGENT_LLM_BASE_URL", "http://llm.example");
+            std::env::set_var("PR_AGENT_LLM_API_KEY", "sk-test");
+            std::env::set_var("PR_AGENT_MODEL", "gpt-oss");
+        }
+        let cwd = std::env::current_dir().unwrap();
+        std::env::set_current_dir(&dir).unwrap();
+        let config_path = resolve_engine_env().expect("bare model name resolves");
+        std::env::set_current_dir(cwd).unwrap();
+        let text = std::fs::read_to_string(config_path.to_string_lossy().as_ref()).unwrap();
+        let value: Value = serde_json::from_str(&text).unwrap();
+        // The bare name became the model under the injected provider.
+        assert_eq!(
+            value.get("model").and_then(Value::as_str),
+            Some("pr-agent-llm/gpt-oss")
+        );
+        assert!(
+            value
+                .pointer("/providers/pr-agent-llm/models/gpt-oss")
+                .is_some()
+        );
+        // SAFETY: cleanup under the same lock.
+        unsafe {
+            std::env::remove_var("PR_AGENT_LLM_BASE_URL");
+            std::env::remove_var("PR_AGENT_LLM_API_KEY");
+            std::env::remove_var("PR_AGENT_MODEL");
+        }
+        let _ = std::fs::remove_file(config_path.to_string_lossy().as_ref());
+    }
+
+    #[test]
+    fn no_llm_env_supplies_reviewer_without_selecting_a_model() {
+        let _guard = ENV_LOCK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        // SAFETY: single-threaded test under ENV_LOCK.
+        unsafe {
+            std::env::remove_var("OPENCODE_CONFIG");
+            std::env::remove_var("PR_AGENT_LLM_BASE_URL");
+            std::env::remove_var("PR_AGENT_LLM_API_KEY");
+            std::env::remove_var("PR_AGENT_MODEL");
+        }
+        let path = std::path::PathBuf::from(resolve_engine_env().unwrap());
+        let config: Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+        assert_eq!(
+            config
+                .pointer("/agents/pr-reviewer/mode")
+                .and_then(Value::as_str),
+            Some("primary")
+        );
+        assert_eq!(config["update"], "disable");
+        assert_eq!(config["share"], "disabled");
+        assert_eq!(config["compaction"]["auto"], true);
+        assert!(config.get("providers").is_none());
+        assert!(config.get("model").is_none());
+        std::fs::remove_file(path).unwrap();
     }
 }
