@@ -32,4 +32,5 @@ diff-parsing-rs = { path = "../diff-parsing-rs" }
 octocrab = { version = "0.54", features = ["reqwest"] }
 reqwest = { version = "0.13", default-features = false, features = ["rustls", "system-proxy"] }
 gitlab = "0.1905"
+tempfile = "3"
 

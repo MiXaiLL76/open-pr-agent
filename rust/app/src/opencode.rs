@@ -13,6 +13,7 @@
 // until dispatch calls it, allow the scaffolding to exist unused.
 #![allow(dead_code)]
 
+use std::io::Write;
 use std::path::{Path, PathBuf};
 use std::process::Command;
 use std::time::Duration;
@@ -275,15 +276,18 @@ impl OpenCodeHandler {
     pub fn ping(&self) -> Result<(), OpenCodeError> {
         let base = worktree_dir("doctor-ping");
         init_worktree(&base)?;
-        let mut command = opencode_command(&self.settings.binary);
-        // The engine config the user chose (or the env-injected one).
-        let engine_config = resolve_engine_env()?;
-        if !engine_config.is_empty() {
-            command.env("OPENCODE_CONFIG", engine_config);
-        }
+        let (mut command, _engine_config, _config_home) =
+            configured_opencode_command(&self.settings.binary)?;
         command
             .current_dir(&base)
-            .args(["run", "--format", "json", "--archived", "--agent"])
+            .args([
+                "run",
+                "--standalone",
+                "--format",
+                "json",
+                "--archived",
+                "--agent",
+            ])
             .arg(&self.settings.agent)
             .arg("Reply with exactly: ok");
         if !self.settings.model.is_empty() {
@@ -326,15 +330,12 @@ impl OpenCodeHandler {
 
         let full_prompt = compose_prompt(prompt, file_map, self.settings.file_map_in_prompt);
 
-        let mut command = opencode_command(&self.settings.binary);
-        // The engine config the user chose (or the env-injected one).
-        let engine_config = resolve_engine_env()?;
-        if !engine_config.is_empty() {
-            command.env("OPENCODE_CONFIG", engine_config);
-        }
+        let (mut command, _engine_config, _config_home) =
+            configured_opencode_command(&self.settings.binary)?;
         command
             .current_dir(worktree)
             .arg("run")
+            .arg("--standalone")
             .arg("--agent")
             .arg(&self.settings.agent)
             .arg("--format")
@@ -413,30 +414,62 @@ fn review_skill_root() -> Result<Option<PathBuf>, OpenCodeError> {
     })
 }
 
-/// Resolve the environment the engine process runs with.
-///
-/// Precedence:
-/// 1. `OPENCODE_CONFIG` already set — the user drives the engine config
-///    entirely; pr-agent never touches it.
-/// 2. `PR_AGENT_LLM_BASE_URL` + `PR_AGENT_LLM_API_KEY` + `PR_AGENT_MODEL`
-///    set — the project's `.open-pr-agent/opencode.jsonc` (or an empty
-///    config) gains a provider with that endpoint and model; the merged
-///    config goes to a temp file, exported as `OPENCODE_CONFIG` for the
-///    engine run only. The user config may define MCP servers, agents and
-///    anything else — but not providers/models for this provider id.
-/// 3. No LLM env — leave model discovery to OpenCode and supply the reviewer.
-fn resolve_engine_env() -> Result<std::ffi::OsString, OpenCodeError> {
+enum EngineConfig {
+    Explicit(PathBuf),
+    Generated(tempfile::NamedTempFile),
+}
+
+impl EngineConfig {
+    fn path(&self) -> &Path {
+        match self {
+            Self::Explicit(path) => path,
+            Self::Generated(file) => file.path(),
+        }
+    }
+}
+
+fn project_engine_config() -> Result<Value, OpenCodeError> {
+    const PATH: &str = ".open-pr-agent/opencode.jsonc";
+    if !std::env::var("PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG")
+        .is_ok_and(|value| value.trim().eq_ignore_ascii_case("true"))
+    {
+        return Ok(serde_json::json!({}));
+    }
+    let annotation = if std::env::var("GITHUB_ACTIONS").as_deref() == Ok("true") {
+        "::warning::"
+    } else {
+        "WARNING: "
+    };
+    eprintln!(
+        "{annotation}Project OpenCode config is enabled. Only use operator-trusted config because it can load plugins and start MCP processes."
+    );
+    let text = match std::fs::read_to_string(PATH) {
+        Ok(text) => text,
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
+            return Ok(serde_json::json!({}));
+        }
+        Err(error) => {
+            return Err(OpenCodeError::runtime(format!(
+                "cannot read {PATH}: {error}"
+            )));
+        }
+    };
+    parse_jsonc(&text).filter(Value::is_object).ok_or_else(|| {
+        OpenCodeError::runtime(format!("{PATH} must contain an OpenCode JSONC object"))
+    })
+}
+
+/// Build the engine config from explicit operator settings or packaged defaults.
+fn resolve_engine_env() -> Result<EngineConfig, OpenCodeError> {
     let skill_root = review_skill_root()?;
-    if std::env::var_os("OPENCODE_CONFIG").is_some_and(|v| !v.is_empty()) {
-        return Ok(std::env::var_os("OPENCODE_CONFIG").expect("checked above"));
+    if let Some(path) = std::env::var_os("OPENCODE_CONFIG").filter(|path| !path.is_empty()) {
+        let path = std::path::absolute(path).map_err(|error| {
+            OpenCodeError::runtime(format!("cannot resolve OPENCODE_CONFIG: {error}"))
+        })?;
+        return Ok(EngineConfig::Explicit(path));
     }
     let llm = llm_env();
-    let mut config = llm
-        .as_ref()
-        .and_then(|_| std::fs::read_to_string(".open-pr-agent/opencode.jsonc").ok())
-        .and_then(|text| parse_jsonc(&text))
-        .filter(Value::is_object)
-        .unwrap_or_else(|| serde_json::json!({}));
+    let mut config = project_engine_config()?;
     let defaults: serde_json::Map<String, Value> =
         serde_json::from_str(include_str!("../settings/opencode_defaults.json"))
             .expect("packaged OpenCode defaults must be valid");
@@ -508,6 +541,21 @@ fn resolve_engine_env() -> Result<std::ffi::OsString, OpenCodeError> {
         serde_json::json!({"action": "subagent", "resource": "*", "effect": "deny"}),
     ]);
     permissions.extend(project_denials);
+    let user_config_dirs = [
+        std::env::var_os("HOME")
+            .filter(|path| !path.is_empty())
+            .map(|home| PathBuf::from(home).join(".config/opencode")),
+        std::env::var_os("XDG_CONFIG_HOME")
+            .filter(|path| !path.is_empty())
+            .map(|root| PathBuf::from(root).join("opencode")),
+    ];
+    for directory in user_config_dirs.into_iter().flatten() {
+        let resource = directory.display();
+        permissions.extend([
+            serde_json::json!({"action": "read", "resource": resource.to_string(), "effect": "deny"}),
+            serde_json::json!({"action": "read", "resource": format!("{resource}/*"), "effect": "deny"}),
+        ]);
+    }
 
     if let Some(root) = skill_root {
         let skill = root.join(CODE_REVIEW_SKILL);
@@ -565,16 +613,69 @@ fn resolve_engine_env() -> Result<std::ffi::OsString, OpenCodeError> {
         config["model"] = Value::String(format!("{provider_id}/{model}"));
     }
 
-    let config_dir = std::env::temp_dir().join("pr-agent-worktrees");
-    std::fs::create_dir_all(&config_dir).map_err(|e| {
-        OpenCodeError::runtime(format!("cannot create engine config directory: {e}"))
+    let mut file = tempfile::Builder::new()
+        .prefix("pr-agent-opencode-")
+        .suffix(".json")
+        .tempfile()
+        .map_err(|error| OpenCodeError::runtime(format!("cannot create engine config: {error}")))?;
+    let text = serde_json::to_string_pretty(&config).map_err(|error| {
+        OpenCodeError::runtime(format!("cannot serialize engine config: {error}"))
     })?;
-    let path = config_dir.join(format!("opencode-config-{}.json", std::process::id()));
-    let text = serde_json::to_string_pretty(&config)
-        .map_err(|e| OpenCodeError::runtime(format!("cannot serialize engine config: {e}")))?;
-    std::fs::write(&path, text)
-        .map_err(|e| OpenCodeError::runtime(format!("cannot write engine config: {e}")))?;
-    Ok(path.into_os_string())
+    file.write_all(text.as_bytes())
+        .map_err(|error| OpenCodeError::runtime(format!("cannot write engine config: {error}")))?;
+    Ok(EngineConfig::Generated(file))
+}
+
+fn configured_opencode_command(
+    binary: &str,
+) -> Result<(Command, EngineConfig, tempfile::TempDir), OpenCodeError> {
+    let config = resolve_engine_env()?;
+    let config_home = tempfile::Builder::new()
+        .prefix("pr-agent-opencode-config-home-")
+        .tempdir()
+        .map_err(|error| {
+            OpenCodeError::runtime(format!(
+                "cannot create isolated OpenCode config home: {error}"
+            ))
+        })?;
+    let mut command = opencode_command(binary);
+    command.env_clear();
+    for key in [
+        "PATH",
+        "HOME",
+        "USERPROFILE",
+        "SYSTEMROOT",
+        "WINDIR",
+        "TMPDIR",
+        "TMP",
+        "TEMP",
+        "LANG",
+        "LC_ALL",
+        "LC_CTYPE",
+        "XDG_DATA_HOME",
+        "XDG_CACHE_HOME",
+        "XDG_STATE_HOME",
+        "XDG_RUNTIME_DIR",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "NO_PROXY",
+        "ALL_PROXY",
+        "http_proxy",
+        "https_proxy",
+        "no_proxy",
+        "all_proxy",
+        "SSL_CERT_FILE",
+        "SSL_CERT_DIR",
+        "NODE_EXTRA_CA_CERTS",
+    ] {
+        if let Some(value) = std::env::var_os(key) {
+            command.env(key, value);
+        }
+    }
+    command.env("OPENCODE_CONFIG", config.path());
+    command.env("OPENCODE_DISABLE_PROJECT_CONFIG", "1");
+    command.env("XDG_CONFIG_HOME", config_home.path());
+    Ok((command, config, config_home))
 }
 
 /// Parse a JSONC document (comments, trailing commas) into a value; plain
@@ -1285,7 +1386,7 @@ mod tests {
             std::env::set_var("PR_AGENT_LLM_API_KEY", "k");
             std::env::set_var("PR_AGENT_MODEL", "p/m");
             let config = resolve_engine_env().expect("resolves");
-            assert_eq!(config, "/user/chosen/config.json");
+            assert_eq!(config.path(), Path::new("/user/chosen/config.json"));
             std::env::remove_var("OPENCODE_CONFIG");
             std::env::remove_var("PR_AGENT_LLM_BASE_URL");
             std::env::remove_var("PR_AGENT_LLM_API_KEY");
@@ -1318,6 +1419,7 @@ mod tests {
         // the environment.
         unsafe {
             std::env::remove_var("OPENCODE_CONFIG");
+            std::env::remove_var("PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG");
             std::env::set_var("PR_AGENT_LLM_BASE_URL", "http://llm.example");
             std::env::set_var("PR_AGENT_LLM_API_KEY", "sk-test");
             std::env::set_var("PR_AGENT_MODEL", "pr-agent-llm/my-model");
@@ -1325,9 +1427,21 @@ mod tests {
 
         let cwd = std::env::current_dir().unwrap();
         std::env::set_current_dir(dir).unwrap();
+        let defaults = resolve_engine_env().expect("defaults resolve");
+        let defaults: Value =
+            serde_json::from_slice(&std::fs::read(defaults.path()).unwrap()).unwrap();
+        assert!(defaults.get("mcp").is_none());
+        // SAFETY: the environment lock is held for this test.
+        unsafe {
+            std::env::set_var("PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG", "true");
+        }
         let config_path = resolve_engine_env().expect("resolves");
+        // SAFETY: the environment lock is held for this test.
+        unsafe {
+            std::env::remove_var("PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG");
+        }
         std::env::set_current_dir(cwd).unwrap();
-        let text = std::fs::read_to_string(config_path.to_string_lossy().as_ref()).unwrap();
+        let text = std::fs::read_to_string(config_path.path()).unwrap();
         let value: Value = serde_json::from_str(&text).unwrap();
         // The project's MCP config survived the injection.
         assert_eq!(value["mcp"]["fetch"]["command"][0], "uvx");
@@ -1366,7 +1480,6 @@ mod tests {
             std::env::remove_var("PR_AGENT_LLM_API_KEY");
             std::env::remove_var("PR_AGENT_MODEL");
         }
-        let _ = std::fs::remove_file(config_path.to_string_lossy().as_ref());
     }
 
     #[test]
@@ -1387,7 +1500,7 @@ mod tests {
         std::env::set_current_dir(&dir).unwrap();
         let config_path = resolve_engine_env().expect("bare model name resolves");
         std::env::set_current_dir(cwd).unwrap();
-        let text = std::fs::read_to_string(config_path.to_string_lossy().as_ref()).unwrap();
+        let text = std::fs::read_to_string(config_path.path()).unwrap();
         let value: Value = serde_json::from_str(&text).unwrap();
         // The bare name became the model under the injected provider.
         assert_eq!(
@@ -1405,7 +1518,6 @@ mod tests {
             std::env::remove_var("PR_AGENT_LLM_API_KEY");
             std::env::remove_var("PR_AGENT_MODEL");
         }
-        let _ = std::fs::remove_file(config_path.to_string_lossy().as_ref());
     }
 
     #[test]
@@ -1420,7 +1532,8 @@ mod tests {
             std::env::remove_var("PR_AGENT_LLM_API_KEY");
             std::env::remove_var("PR_AGENT_MODEL");
         }
-        let path = std::path::PathBuf::from(resolve_engine_env().unwrap());
+        let engine_config = resolve_engine_env().unwrap();
+        let path = engine_config.path().to_owned();
         let config: Value = serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
         assert_eq!(
             config
@@ -1433,6 +1546,15 @@ mod tests {
         assert_eq!(config["compaction"]["auto"], true);
         assert!(config.get("providers").is_none());
         assert!(config.get("model").is_none());
-        std::fs::remove_file(path).unwrap();
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            assert_eq!(
+                std::fs::metadata(&path).unwrap().permissions().mode() & 0o777,
+                0o600
+            );
+        }
+        drop(engine_config);
+        assert!(!path.exists());
     }
 }

@@ -94,13 +94,21 @@ Three ways, in order of precedence:
 1. **`OPENCODE_CONFIG` is set** — the user fully drives the engine config;
    pr-agent never touches it. Define the reviewer there or select an existing
    agent with `OPENCODE__AGENT`.
-2. **LLM env is set** — `PR_AGENT_LLM_BASE_URL` + `PR_AGENT_LLM_API_KEY` +
-   `PR_AGENT_MODEL` (the model name). pr-agent takes the project's
-   `.open-pr-agent/opencode.jsonc` as the base (see below), injects the
-   `pr-agent-llm` provider with that endpoint and model, writes the merged
-   config to a temp file and points the engine at it for this run only.
-3. **Nothing is set** — the engine uses its own model discovery (global
-   `~/.config/opencode`, project `.opencode/`) with the packaged reviewer.
+2. **LLM env is set** — `PR_AGENT_LLM_BASE_URL`, `PR_AGENT_LLM_API_KEY` and
+   `PR_AGENT_MODEL` configure the injected `pr-agent-llm` provider. The engine
+   receives a private temporary config file that is removed after the run.
+3. **Nothing is set** — OpenCode gets the packaged reviewer and can use
+   existing provider authentication stored in its data directory. For a
+   custom provider or model selection, set the LLM variables or supply an
+   explicit operator-owned `OPENCODE_CONFIG`.
+
+The engine starts in standalone mode with an environment allowlist for paths,
+locale, proxy and TLS settings. API tokens and arbitrary CI variables stay in
+the wrapper environment. OpenCode gets an isolated `XDG_CONFIG_HOME` and
+project discovery is disabled. The bundled reviewer denies reading the
+user's OpenCode config directory. Data directories still support sessions.
+These controls do not provide operating-system isolation between processes
+running as the same user.
 
 `OPENCODE__MODEL=provider/model` still selects the model explicitly when the
 config already defines it; `OPENCODE__AGENT` swaps the agent definition
@@ -108,12 +116,12 @@ config already defines it; `OPENCODE__AGENT` swaps the agent definition
 
 ### `.open-pr-agent/opencode.jsonc`
 
-A project may ship engine configuration **for reviews**: MCP servers the
-reviewer may use, agent overrides, env for MCP processes — anything opencode
-understands, except providers/models for the `pr-agent-llm` id (that id is
-injected from the env and wins). Without the `PR_AGENT_LLM_*` env this file is
-ignored. A commented template lives at `.open-pr-agent-example.jsonc` in the
-repo root.
+Set `PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG=true` to load
+`.open-pr-agent/opencode.jsonc` from the wrapper's working directory. This
+emits a CI warning. Only enable it with operator-trusted configuration
+because OpenCode config can start MCP processes or load plugins. The
+`pr-agent-llm` provider is still injected from the LLM variables when
+configured. A template lives at `.open-pr-agent-example.jsonc`.
 
 ## Doctor
 

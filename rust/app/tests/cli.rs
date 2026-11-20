@@ -326,6 +326,8 @@ fn run(args: &[&str], envs: &[(&str, &str)], cwd: Option<&std::path::Path>) -> R
         "OPENCODE__TIMEOUT_SECONDS",
         "PR_AGENT_USE_CODE_REVIEW_SKILL",
         "PR_AGENT_CODE_REVIEW_SKILL_DIR",
+        "PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG",
+        "OPENCODE_CONFIG",
     ] {
         cmd.env_remove(var);
     }
@@ -1023,4 +1025,88 @@ fn doctor_checks_binary_and_model() {
     assert_eq!(out.code, 0, "stdout:\n{}", out.stdout);
     assert!(out.stdout.contains("model completion succeeded"));
     assert!(out.stdout.contains("2 of 2 checks passed"));
+}
+
+#[test]
+fn doctor_isolates_engine_environment_and_warns_on_project_config_opt_in() {
+    let project = tempfile::tempdir().unwrap();
+    let config = project.path().join(".open-pr-agent");
+    std::fs::create_dir(&config).unwrap();
+    std::fs::write(
+        config.join("opencode.jsonc"),
+        r#"{"username":"project-config-sentinel"}"#,
+    )
+    .unwrap();
+
+    let engine = engine_stub("doctor-env-isolation");
+    std::fs::write(&engine, r#"#!/bin/sh
+set -eu
+test -z "${GITHUB__USER_TOKEN+x}${GITLAB__USER_TOKEN+x}${PR_AGENT_LLM_API_KEY+x}${PRIVATE_CI_SECRET+x}"
+test "$HTTPS_PROXY" = "http://proxy.invalid:8080"
+test "$SSL_CERT_FILE" = "/operator/ca.pem"
+test "$OPENCODE_DISABLE_PROJECT_CONFIG" = 1
+test "$XDG_CONFIG_HOME" != "/operator/xdg"
+test -d "$XDG_CONFIG_HOME"
+case "$*" in
+  *--standalone*) ;;
+  *) exit 1 ;;
+esac
+grep -Fq '/operator/xdg/opencode/*' "$OPENCODE_CONFIG"
+if grep -q project-config-sentinel "$OPENCODE_CONFIG"; then
+    echo loaded > project-config-state
+else
+    echo ignored > project-config-state
+fi
+printf '%s\n' '{"type":"text","part":{"type":"text","text":"ok"}}'
+printf '%s\n' "$OPENCODE_CONFIG" > engine-config-path
+printf '%s\n' "$XDG_CONFIG_HOME" > engine-config-home
+"#).unwrap();
+    let mut script = std::fs::read_to_string(&engine).unwrap();
+    for filename in [
+        "engine-config-path",
+        "engine-config-home",
+        "project-config-state",
+    ] {
+        script = script.replace(
+            &format!("> {filename}"),
+            &format!("> '{}'", project.path().join(filename).display()),
+        );
+    }
+    std::fs::write(&engine, script).unwrap();
+
+    for (opt_in, expect_warning) in [("false", false), ("true", true)] {
+        let out = run(
+            &["doctor"],
+            &[
+                ("OPENCODE__BINARY", engine.to_str().unwrap()),
+                ("GITHUB_ACTIONS", "true"),
+                ("GITHUB__USER_TOKEN", "github-secret"),
+                ("GITLAB__USER_TOKEN", "gitlab-secret"),
+                ("PR_AGENT_LLM_API_KEY", "model-secret"),
+                ("PR_AGENT_LLM_BASE_URL", "http://llm.invalid"),
+                ("PR_AGENT_MODEL", "test-model"),
+                ("PRIVATE_CI_SECRET", "private-secret"),
+                ("HTTPS_PROXY", "http://proxy.invalid:8080"),
+                ("SSL_CERT_FILE", "/operator/ca.pem"),
+                ("XDG_CONFIG_HOME", "/operator/xdg"),
+                ("PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG", opt_in),
+            ],
+            Some(project.path()),
+        );
+        assert_eq!(out.code, 0, "{}{}", out.stdout, out.stderr);
+        assert_eq!(
+            out.stderr
+                .contains("::warning::Project OpenCode config is enabled"),
+            expect_warning
+        );
+        let state = std::fs::read_to_string(project.path().join("project-config-state")).unwrap();
+        assert_eq!(
+            state.trim(),
+            if expect_warning { "loaded" } else { "ignored" }
+        );
+        for filename in ["engine-config-path", "engine-config-home"] {
+            let path = std::fs::read_to_string(project.path().join(filename)).unwrap();
+            assert!(!std::path::Path::new(path.trim()).exists());
+        }
+    }
 }

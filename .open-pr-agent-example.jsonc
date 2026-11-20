@@ -1,15 +1,8 @@
 {
-  // Engine config for pr-agent reviews of this project. It is merged into the
-  // generated opencode config when PR_AGENT_LLM_BASE_URL / PR_AGENT_LLM_API_KEY /
-  // PR_AGENT_MODEL are set. Anything opencode understands may live here:
-  // MCP servers, agent overrides, env for MCP processes...
-  //
-  // Do NOT define providers/models for the pr-agent-llm provider id — pr-agent
-  // injects those from the environment and overwrites this id. Other provider
-  // ids are left as-is but are not used by reviews.
-  //
-  // Without the PR_AGENT_LLM_* env, this file is ignored and the engine uses
-  // its own discovery (global ~/.config/opencode, project .opencode/).
+  // Copy to .open-pr-agent/opencode.jsonc and set
+  // PR_AGENT_ALLOW_PROJECT_OPENCODE_CONFIG=true to load this file.
+  // Only use operator-trusted config: it may start MCP processes or plugins.
+  // The pr-agent-llm provider is injected from PR_AGENT_LLM_* when configured.
   "$schema": "https://opencode.ai/config.json",
 
   "mcp": {
