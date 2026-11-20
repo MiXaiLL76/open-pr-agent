@@ -1,11 +1,11 @@
-# AGENTS.md — pr-agent (Rust)
+# AGENTS.md — open-pr-agent (Rust)
 
 Guide for agents working in this repository.
 
 ## What this is
 
 An AI reviewer for pull requests. Pure Rust, **no Python**. Architecture:
-pr-agent is the wrapper (GitHub/GitLab transport, publishing, state), while the
+open-pr-agent is the wrapper (GitHub/GitLab transport, publishing, state), while the
 whole agent loop (reading files, reasoning, answering) runs in
 `opencode run` — the only engine. There are no direct LLM calls in the code,
 and none should be added.
@@ -40,7 +40,7 @@ Makefile               build / test / format / lint / docker / docs
 
 1. **opencode is the only engine.** No HTTP clients to LLMs, no keys in the
    code. The model comes from: `OPENCODE_CONFIG` (the user's full config) >
-   `PR_AGENT_LLM_BASE_URL`/`API_KEY`/`MODEL` (pr-agent injects the
+   `PR_AGENT_LLM_BASE_URL`/`API_KEY`/`MODEL` (open-pr-agent injects the
    `pr-agent-llm` provider into the config) > opencode discovery.
 2. **Fail-closed agent**: `pr-reviewer` is read-only (`edit`/`webfetch` denied),
    never runs with `--auto`, and has a wall-clock timeout with kill. The agent

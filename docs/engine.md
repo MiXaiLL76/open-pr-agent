@@ -1,7 +1,7 @@
 # The opencode engine
 
-Every model call in pr-agent goes through one engine: `opencode run --format
-json`. There is no direct LLM client and no API key inside pr-agent — models,
+Every model call in open-pr-agent goes through one engine: `opencode run --format
+json`. There is no direct LLM client and no API key inside open-pr-agent — models,
 providers and auth live in the opencode configuration.
 
 ## How a run is spawned
@@ -17,11 +17,11 @@ The command runs inside the prepared worktree (cwd). It never gets `--auto`
 (fail-closed: the agent cannot approve its own tool use), and every run has a
 wall-clock timeout (`timeout_seconds`, default 900) that kills the process.
 
-pr-agent reads the JSONL event stream, keeps the text of the final assistant
+open-pr-agent reads the JSONL event stream, keeps the text of the final assistant
 message and reports usage from `step-finish` events. An error event fails the
 run. The output format is defined by the task prompt.
 
-While opencode runs, pr-agent logs progress every 10 seconds. Token counts sum
+While opencode runs, open-pr-agent logs progress every 10 seconds. Token counts sum
 the completed steps; until usage arrives, the log shows elapsed time and step
 count.
 
@@ -92,7 +92,7 @@ Session ids must start with `ses_` (opencode validates the prefix).
 Three ways, in order of precedence:
 
 1. **`OPENCODE_CONFIG` is set** — the user fully drives the engine config;
-   pr-agent never touches it. Define the reviewer there or select an existing
+   open-pr-agent never touches it. Define the reviewer there or select an existing
    agent with `OPENCODE__AGENT`.
 2. **LLM env is set** — `PR_AGENT_LLM_BASE_URL`, `PR_AGENT_LLM_API_KEY` and
    `PR_AGENT_MODEL` configure the injected `pr-agent-llm` provider. The engine

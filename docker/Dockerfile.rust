@@ -1,7 +1,7 @@
-# The PR-Agent container: the Rust binaries, git, and the opencode engine.
+# The open-pr-agent container: the Rust binaries, git, and the opencode engine.
 #
 # Build from the repository root:
-#   docker build -f docker/Dockerfile.rust -t pr-agent .
+#   docker build -f docker/Dockerfile.rust -t open-pr-agent .
 #
 # The engine is opencode v2 (`opencode run`), driven by the `pr_agent`
 # binary; the read-only `pr-reviewer` agent is packaged into every worktree
@@ -12,7 +12,7 @@
 # override the URL (and checksum) with build args:
 #   docker build -f docker/Dockerfile.rust \
 #     --build-arg OPENCODE_TARBALL_URL=https://mirror.example.com/opencode-linux-x64.tar.gz \
-#     --build-arg OPENCODE_SHA256=<sha256> -t pr-agent .
+#     --build-arg OPENCODE_SHA256=<sha256> -t open-pr-agent .
 
 # ---- build: the Rust workspace -------------------------------------------------
 FROM rust:1.90-bookworm AS build

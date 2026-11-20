@@ -1,5 +1,5 @@
 [project]
-site_name = "PR-Agent"
+site_name = "open-pr-agent"
 site_description = "AI reviewer for pull requests, powered by the opencode engine"
 site_url = "https://mixaill76.github.io/open-pr-agent/"
 repo_url = "https://github.com/MiXaiLL76/open-pr-agent"

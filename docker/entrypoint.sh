@@ -5,7 +5,7 @@
 #
 # Behavior:
 #   PR_URL      explicit pull/merge request URL (overrides detection)
-#   COMMAND     the pr-agent command to run (default: review)
+#   COMMAND     the open-pr-agent command to run (default: review)
 #   extra args  appended after the command (e.g. ask <question>)
 set -eu
 
@@ -21,7 +21,7 @@ if [ -z "$PR_URL" ] && [ -n "${GITHUB_REPOSITORY:-}" ]; then
 fi
 
 if [ -z "$PR_URL" ]; then
-    echo "pr-agent: no PR_URL set and no pull_request event context found" >&2
+    echo "open-pr-agent: no PR_URL set and no pull_request event context found" >&2
     exit 1
 fi
 

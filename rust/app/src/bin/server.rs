@@ -3,7 +3,7 @@
 //!
 //! One process serves both hosts on separate paths; the CLI pipeline is
 //! reused verbatim (`pr_agent::pipeline_try_run` on a synthetic argv), so a
-//! webhook review behaves exactly like `pr-agent --pr_url ... review`.
+//! webhook review behaves exactly like `pr_agent --pr_url ... review`.
 //!
 //! Auth is fail-closed: when a shared secret is configured, a request
 //! without a valid signature is rejected before any work starts. Token

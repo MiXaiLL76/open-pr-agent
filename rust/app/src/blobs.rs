@@ -4,22 +4,22 @@
 
 /// The one-line usage the argparse failures prefix.
 pub const USAGE: &str = "\
-usage:     Usage: pr-agent --pr_url=<URL on supported git hosting service> <command> [<args>].
+usage:     Usage: pr_agent --pr_url=<URL on supported git hosting service> <command> [<args>].
     For example:
-    - pr-agent --pr_url=... review
-    - pr-agent --pr_url=... describe
-    - pr-agent --pr_url=... improve
-    - pr-agent --pr_url=... ask \"write me a poem about this PR\"
+    - pr_agent --pr_url=... review
+    - pr_agent --pr_url=... describe
+    - pr_agent --pr_url=... improve
+    - pr_agent --pr_url=... ask \"write me a poem about this PR\"
 ";
 
 /// The full usage help (`--pr_url` empty, or `-h`): commands and examples.
 pub const USAGE_FULL: &str = "\
-usage:     Usage: pr-agent --pr_url=<URL on supported git hosting service> <command> [<args>].
+usage:     Usage: pr_agent --pr_url=<URL on supported git hosting service> <command> [<args>].
     For example:
-    - pr-agent --pr_url=... review
-    - pr-agent --pr_url=... describe
-    - pr-agent --pr_url=... improve
-    - pr-agent --pr_url=... ask \"write me a poem about this PR\"
+    - pr_agent --pr_url=... review
+    - pr_agent --pr_url=... describe
+    - pr_agent --pr_url=... improve
+    - pr_agent --pr_url=... ask \"write me a poem about this PR\"
 
     Supported commands:
     - review / review_pr - Generate a PR review with feedback on possible issues, security concerns, tests and review effort.
@@ -70,7 +70,7 @@ The review command needs a pull/merge request URL it recognizes:
   https://github.com/<org>/<repo>/pull/<number>
   https://gitlab.com/<group>/<repo>/-/merge_requests/<number>
 
-For a plain diff file use: pr-agent --diff-file <path> review
+For a plain diff file use: pr_agent --diff-file <path> review
 ";
 
 /// The unparseable-URL report for /describe.

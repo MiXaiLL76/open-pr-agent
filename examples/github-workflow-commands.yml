@@ -1,4 +1,4 @@
-name: PR Agent commands
+name: open-pr-agent commands
 
 on:
   issue_comment:
@@ -25,7 +25,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 20
     env:
-      PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_IMAGE: ghcr.io/org/open-pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
       PR_AGENT_LLM_BASE_URL: ${{ secrets.PR_AGENT_LLM_BASE_URL }}
       PR_AGENT_LLM_API_KEY: ${{ secrets.PR_AGENT_LLM_API_KEY }}
       PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}

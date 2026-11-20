@@ -55,10 +55,10 @@ See [engine.md](engine.md). Keys: `binary`, `agent`, `model`,
 | `PR_AGENT_LLM_API_KEY` | its API key |
 | `PR_AGENT_MODEL` | model as `provider/model` (e.g. `litellm/deepseek-v41-flash`) |
 
-Set all three or none. When set, pr-agent builds the engine config from the
+Set all three or none. When set, open-pr-agent builds the engine config from the
 project's `.open-pr-agent/opencode.jsonc` plus this provider (see
 [engine.md](engine.md#model-selection-and-engine-config)). An existing
-`OPENCODE_CONFIG` wins: pr-agent then never touches the engine config.
+`OPENCODE_CONFIG` wins: open-pr-agent then never touches the engine config.
 
 ## Webhook server secrets
 

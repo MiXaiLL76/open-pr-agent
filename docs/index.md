@@ -1,9 +1,9 @@
-# PR-Agent
+# open-pr-agent
 
 **AI reviewer for pull requests**, powered by the
 [opencode](https://opencode.ai) engine.
 
-PR-Agent fetches the PR, prepares a working copy for the agent and publishes
+open-pr-agent fetches the PR, prepares a working copy for the agent and publishes
 the result. The analysis runs in the read-only `pr-reviewer` opencode agent, so
 there are no LLM keys or direct model calls in the project itself.
 
@@ -20,7 +20,7 @@ Works with GitHub, GitLab, local git repositories and plain diff files.
 
 ## How it works
 
-1. **Fetch** — pr-agent reads the PR, its diff and the changed files.
+1. **Fetch** — open-pr-agent reads the PR, its diff and the changed files.
 2. **Prepare** — a scratch worktree is created for the agent.
 3. **Review** — `opencode run` executes the `pr-reviewer` agent (read-only).
 4. **Publish** — the summary, inline findings and labels are posted back.
@@ -33,8 +33,8 @@ duplicate the review.
 Build and push the image:
 
 ```sh
-make docker-build IMAGE=registry.example.com/pr-agent TAG=latest
-make docker-push IMAGE=registry.example.com/pr-agent TAG=latest
+make docker-build IMAGE=registry.example.com/open-pr-agent TAG=latest
+make docker-push IMAGE=registry.example.com/open-pr-agent TAG=latest
 ```
 
 Then copy

@@ -36,7 +36,7 @@ pub fn unsupported_arguments(argv: &[OsString]) -> ExitCode {
         .map(|a| a.to_string_lossy().into_owned())
         .collect();
     eprintln!(
-        "{}pr-agent: error: unrecognized arguments: {}",
+        "{}pr_agent: error: unrecognized arguments: {}",
         blobs::USAGE,
         words.join(" ")
     );

@@ -1,4 +1,4 @@
-# PR-Agent — developer entry points.
+# open-pr-agent — developer entry points.
 #
 # Run `make help` for the target list. CI calls the same targets, so a green
 # local run means a green pipeline.

@@ -142,7 +142,7 @@ pub async fn run_describe(
 }
 
 /// `/ask`: the question goes to the stable session, so the dialogue history
-/// lives in opencode; pr-agent never carries or re-injects it (plan §3).
+/// lives in opencode; open-pr-agent never carries or re-injects it (plan §3).
 pub async fn run_ask(
     handler: &OpenCodeHandler,
     pr: &PullRequest,

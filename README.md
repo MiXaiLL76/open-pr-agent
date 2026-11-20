@@ -1,4 +1,4 @@
-# PR-Agent
+# open-pr-agent
 
 [![CI](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/ci.yml)
 [![Documentation](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/MiXaiLL76/open-pr-agent/actions/workflows/docs.yml)
@@ -7,7 +7,7 @@ AI reviewer for pull requests. For every PR it posts a review: the key issues
 (with inline comments on GitHub), review effort and labels.
 
 Written in Rust. The model engine is [opencode](https://opencode.ai).
-PR-Agent stores no LLM keys itself — models and access are configured in
+open-pr-agent stores no LLM keys itself — models and access are configured in
 opencode.
 
 ## What it does
@@ -21,7 +21,7 @@ Works with GitHub, GitLab, local git repositories and plain diff files.
 
 ## How it works
 
-PR-Agent is the wrapper: it fetches the PR data, prepares a working copy for
+open-pr-agent is the wrapper: it fetches the PR data, prepares a working copy for
 the agent and publishes the result. The analysis itself is done by the
 opencode agent `pr-reviewer`, which is read-only: it cannot edit files or
 access the network. Pushing again to the same PR does not create duplicate
@@ -34,8 +34,8 @@ You need a self-hosted Linux runner with Docker.
 **1.** Build the image and push it to your registry:
 
 ```sh
-make docker-build IMAGE=registry.example.com/pr-agent TAG=latest
-make docker-push IMAGE=registry.example.com/pr-agent TAG=latest
+make docker-build IMAGE=registry.example.com/open-pr-agent TAG=latest
+make docker-push IMAGE=registry.example.com/open-pr-agent TAG=latest
 ```
 
 The opencode engine is installed from the official release at
@@ -47,7 +47,7 @@ to `.github/workflows/pr-agent.yml` and set your image:
 
 ```yaml
 env:
-  PR_AGENT_IMAGE: registry.example.com/pr-agent@sha256:<digest>
+  PR_AGENT_IMAGE: registry.example.com/open-pr-agent@sha256:<digest>
 ```
 
 **3.** Add the model secrets:
@@ -58,7 +58,7 @@ env:
 - `PR_AGENT_MODEL` — model as `provider/model`, e.g.
   `litellm/deepseek-v41-flash`
 
-PR-Agent builds the engine config from these env vars, so nothing needs to be
+open-pr-agent builds the engine config from these env vars, so nothing needs to be
 mounted on the runner. If the runner is already configured (global opencode
 config or `OPENCODE_CONFIG` in the job), the engine uses it as-is and the LLM
 secrets are not needed.
@@ -78,7 +78,7 @@ docker run --rm \
   -v ~/.config/opencode:/root/.config/opencode:ro \
   -e PR_URL=https://github.com/org/repo/pull/123 \
   -e GITHUB__USER_TOKEN=ghp_... \
-  registry.example.com/pr-agent
+  registry.example.com/open-pr-agent
 ```
 
 Or without a container:

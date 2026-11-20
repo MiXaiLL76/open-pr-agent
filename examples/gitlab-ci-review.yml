@@ -1,4 +1,4 @@
-# GitLab CI: auto-review merge requests with pr-agent (Rust build).
+# GitLab CI: auto-review merge requests with open-pr-agent.
 #
 # Copy into .gitlab-ci.yml (or `include:` it) and set the CI variables below.
 # Requires a self-hosted Linux runner with the docker executor, the opencode
@@ -25,7 +25,7 @@ pr-agent-review:
 
   variables:
     GITLAB__USER_TOKEN: $PR_AGENT_GITLAB_TOKEN
-    # LLM endpoint for the engine config pr-agent builds; all three or none.
+    # LLM endpoint for the engine config open-pr-agent builds; all three or none.
     PR_AGENT_LLM_BASE_URL: $PR_AGENT_LLM_BASE_URL
     PR_AGENT_LLM_API_KEY: $PR_AGENT_LLM_API_KEY
     PR_AGENT_MODEL: $PR_AGENT_MODEL
@@ -48,7 +48,7 @@ pr-agent-review:
       set -o pipefail
       pr_agent --pr_url "$PR_URL" review 2>&1 | tee pr-agent.log
       if grep -Eq 'Failed to (review|process)' pr-agent.log; then
-        echo "pr-agent could not complete the review; see the log above."; exit 1;
+        echo "open-pr-agent could not complete the review; see the log above."; exit 1;
       fi
 
   artifacts:

@@ -1,4 +1,4 @@
-name: PR Agent
+name: open-pr-agent
 
 on:
   pull_request:
@@ -23,7 +23,7 @@ jobs:
     runs-on: [self-hosted, Linux, X64]
     timeout-minutes: 20
     env:
-      PR_AGENT_IMAGE: ghcr.io/org/pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
+      PR_AGENT_IMAGE: ghcr.io/org/open-pr-agent@sha256:0000000000000000000000000000000000000000000000000000000000000000 # pin the digest
       PR_AGENT_LLM_BASE_URL: ${{ secrets.PR_AGENT_LLM_BASE_URL }}
       PR_AGENT_LLM_API_KEY: ${{ secrets.PR_AGENT_LLM_API_KEY }}
       PR_AGENT_MODEL: ${{ secrets.PR_AGENT_MODEL }}
@@ -61,6 +61,6 @@ jobs:
             -e http_proxy -e https_proxy -e no_proxy -e all_proxy \
             "$PR_AGENT_IMAGE" 2>&1 | tee "$RUNNER_TEMP/pr-agent.log"
           if grep -Eq 'Failed to (review|process)' "$RUNNER_TEMP/pr-agent.log"; then
-            echo '::error::PR-Agent could not complete the review; see the log above.'
+            echo '::error::open-pr-agent could not complete the review; see the log above.'
             exit 1
           fi

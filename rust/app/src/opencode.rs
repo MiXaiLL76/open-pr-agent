@@ -1,4 +1,4 @@
-//! The opencode agent engine: pr-agent stays the transport and publisher;
+//! The opencode agent engine: open-pr-agent stays the transport and publisher;
 //! the agent loop, context and `/ask` dialogue history run in `opencode run`.
 //! No diff packing, token budgeting or chunking happens here — the agent
 //! reads the repository worktree itself.
@@ -597,7 +597,7 @@ fn resolve_engine_env() -> Result<EngineConfig, OpenCodeError> {
             config["providers"] = serde_json::json!({});
         }
         config["providers"][provider_id] = serde_json::json!({
-            "name": "PR Agent LLM",
+            "name": "open-pr-agent LLM",
             "package": "@opencode/ai/providers/openai-compatible",
             "settings": {
                 "baseURL": llm.base_url,
@@ -1020,7 +1020,7 @@ fn commit_worktree(base: &Path, message: &str) -> Result<(), OpenCodeError> {
             "-c",
             "user.email=pr-agent@localhost",
             "-c",
-            "user.name=pr-agent",
+            "user.name=open-pr-agent",
             "commit",
             "--quiet",
             "--allow-empty",

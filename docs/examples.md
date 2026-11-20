@@ -16,12 +16,12 @@ self-hosted Linux runner with Docker. The image is built from this repository
 Pick one mode:
 
 1. **CI secrets** — set all three: `PR_AGENT_LLM_BASE_URL`,
-   `PR_AGENT_LLM_API_KEY`, `PR_AGENT_MODEL` (model name). pr-agent builds the
+   `PR_AGENT_LLM_API_KEY`, `PR_AGENT_MODEL` (model name). open-pr-agent builds the
    engine config from them plus the project's `.open-pr-agent/opencode.jsonc`
    (if present), so nothing needs to be mounted on the runner.
 2. **Pre-configured runner** — the engine's own discovery (global
    `~/.config/opencode` or `OPENCODE_CONFIG` set in the job). No LLM secrets
-   are needed; pr-agent never touches the engine config.
+   are needed; open-pr-agent never touches the engine config.
 
 A project can give the reviewer extra MCP servers via
 `.open-pr-agent/opencode.jsonc` (template: `.open-pr-agent-example.jsonc`).
@@ -30,7 +30,7 @@ A project can give the reviewer extra MCP servers via
 
 | Secret | Meaning |
 |---|---|
-| `PR_AGENT_IMAGE` | Image reference, e.g. `ghcr.io/org/pr-agent@sha256:<digest>` |
+| `PR_AGENT_IMAGE` | Image reference, e.g. `ghcr.io/org/open-pr-agent@sha256:<digest>` |
 | `PR_AGENT_LLM_BASE_URL` | OpenAI-compatible endpoint (mode 1) |
 | `PR_AGENT_LLM_API_KEY` | Its API key (mode 1) |
 | `PR_AGENT_MODEL` | Model name, e.g. `gpt-oss` (mode 1) |

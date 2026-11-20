@@ -1,11 +1,11 @@
-name: 'The PR Agent (Rust)'
+name: 'open-pr-agent'
 description: 'Summarize, review and answer questions for pull requests, driven by the opencode engine'
 branding:
   icon: 'award'
   color: 'green'
 inputs:
   command:
-    description: 'The pr-agent command to run (review, describe, improve, ask).'
+    description: 'The open-pr-agent command to run (review, describe, improve, ask).'
     required: false
     default: 'review'
   extra_args:
