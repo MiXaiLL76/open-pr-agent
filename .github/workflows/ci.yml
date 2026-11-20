@@ -27,6 +27,9 @@ jobs:
       - name: Trust the workspace
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
+      - name: Install lint components
+        run: rustup component add rustfmt clippy
+
       - name: Cache cargo
         uses: Swatinem/rust-cache@v2
         with:
